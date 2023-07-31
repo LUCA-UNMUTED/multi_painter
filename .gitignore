@@ -70,3 +70,9 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+multi_painter/Library/
+multi_painter/obj/
+multi_painter/Logs/
+multi_painter/Temp/
+multi_painter/UserSettings/
+multi_painter/.vsconfig
