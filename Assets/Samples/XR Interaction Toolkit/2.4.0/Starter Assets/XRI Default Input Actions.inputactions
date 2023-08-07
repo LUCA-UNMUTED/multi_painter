@@ -2256,6 +2256,87 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "DrawCommands",
+            "id": "ccee9673-cc47-451a-b14a-c4f8df2f79c6",
+            "actions": [
+                {
+                    "name": "LeftController",
+                    "type": "Button",
+                    "id": "492d9157-d7eb-4dd0-8f6e-acf1036ee3da",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightController",
+                    "type": "Button",
+                    "id": "bbab7c87-721a-4b51-adc8-c0562fcbd6ff",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a9a59bd0-5774-4f6c-8fc8-fc7e4df4190b",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftController",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2321498d-c981-4481-b931-acb29fe4e949",
+                    "path": "<PXR_Controller>{LeftHand}/triggerPressed",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "LeftController",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "421c57ac-d20f-46ab-bca3-e92ad4d4be0a",
+                    "path": "<PXR_PTController>{LeftHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "LeftController",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dc4fc72c-03b0-421c-a6d8-39a52963921c",
+                    "path": "<PXR_Controller>{RightHand}/triggerPressed",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "RightController",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "da2b909a-7544-48c0-adbb-c12fc65fc5f4",
+                    "path": "<PXR_PTController>{RightHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "RightController",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
