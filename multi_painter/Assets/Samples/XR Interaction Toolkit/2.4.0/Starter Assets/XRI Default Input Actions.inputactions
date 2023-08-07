@@ -2226,6 +2226,17 @@
                     "name": "",
                     "id": "f678237e-9642-4d24-b1c4-91b80c3abe06",
                     "path": "<PXR_Controller>/triggerPressed",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "Toggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "68aa5ae4-01ee-4d4d-a110-2f673e43f702",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
