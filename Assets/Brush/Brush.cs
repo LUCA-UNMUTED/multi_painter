@@ -12,7 +12,7 @@ public class Brush : MonoBehaviour
 
     // Prefab to instantiate when we draw a new brush stroke
     [SerializeField] private GameObject _brushStrokePrefab = null;
-    [SerializeField] private GameObject brushStrokeGameObject;
+    private GameObject brushStrokeGameObject;
 
     // Which hand should this brush instance track?
     public enum Hand { LeftHand, RightHand };
@@ -43,6 +43,7 @@ public class Brush : MonoBehaviour
 
         toggleRefLeft.action.started += ToggleLeft;
         toggleRefRight.action.started += ToggleRight;
+        activeHand = leftHandObject;
 
     }
 
@@ -69,8 +70,7 @@ public class Brush : MonoBehaviour
     }
     private void Update()
     {
-        if (!_realtime.connected)
-            return;
+
 
 
         _activeHandPosition = activeHand.transform.position;
@@ -95,8 +95,14 @@ public class Brush : MonoBehaviour
         // If the trigger is pressed and we haven't created a new brush stroke to draw, create one!
         if (triggerPressed && _activeBrushStroke == null)
         {
+            if (_realtime == null || !_realtime.connected)
+                return;
+
             //Instantiate a copy of the Brush Stroke prefab, set it to be owned by us.
-            brushStrokeGameObject = Realtime.Instantiate(_brushStrokePrefab.name, ownedByClient: true, useInstance: _realtime);
+            Realtime.InstantiateOptions _options = new();
+            _options.ownedByClient = true;
+            _options.useInstance = _realtime;
+            brushStrokeGameObject = Realtime.Instantiate(_brushStrokePrefab.name, _options);
 
             //Grab the BrushStroke component from it
             _activeBrushStroke = brushStrokeGameObject.GetComponent<BrushStroke>();
