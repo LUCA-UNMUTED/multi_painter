@@ -27,10 +27,6 @@ public class Brush : MonoBehaviour
     public GameObject leftHandObject;
     public GameObject rightHandObject;
     private GameObject activeHand;
-    //public Transform handRotation;
-    //public Transform handPosition;
-
-
 
     //// Used to keep track of the current brush tip position and the actively drawing brush stroke
     private Vector3 _activeHandPosition;
@@ -40,19 +36,15 @@ public class Brush : MonoBehaviour
 
     private void Awake()
     {
-
         toggleRefLeft.action.started += ToggleLeft;
         toggleRefRight.action.started += ToggleRight;
-        activeHand = leftHandObject;
-
+        activeHand = _hand == Hand.LeftHand ? leftHandObject: rightHandObject; 
     }
 
     private void OnDestroy()
     {
-
         toggleRefLeft.action.started -= ToggleLeft;
         toggleRefRight.action.started -= ToggleRight;
-
     }
 
 
@@ -70,28 +62,9 @@ public class Brush : MonoBehaviour
     }
     private void Update()
     {
-
-
-
         _activeHandPosition = activeHand.transform.position;
         _activeHandRotation = activeHand.transform.rotation;
 
-        // Start by figuring out which hand we're tracking
-        // XRNode node = _hand == Hand.LeftHand ? XRNode.LeftHand : XRNode.RightHand;
-        //string trigger = _hand == Hand.LeftHand ? "Left Trigger" : "Right Trigger";
-
-        // Get the position & rotation of the hand
-        //bool handIsTracking = UpdatePose(node, ref _handPosition, ref _handRotation);
-
-        // Figure out if the trigger is pressed or not
-        //bool triggerPressed = Input.GetAxisRaw(trigger) > 0.1f;
-
-        // If we lose tracking, stop drawing
-        // if (!handIsTracking)
-        //{
-        // triggerPressed = false;
-        //   Debug.Log("trackingNotFound");
-        // }
         // If the trigger is pressed and we haven't created a new brush stroke to draw, create one!
         if (triggerPressed && _activeBrushStroke == null)
         {
@@ -113,42 +86,20 @@ public class Brush : MonoBehaviour
 
         // If the trigger is pressed, and we have a brush stroke, move the brush stroke to the new brush tip position
         if (triggerPressed)
+        {
             _activeBrushStroke.MoveBrushTipToPoint(_activeHandPosition, _activeHandRotation);
+            // set the correct controller to actively drawing
+            activeHand.GetComponent<ActiveDrawing>().isDrawing = true;
+        }
 
         // If the trigger is no longer pressed, and we still have an active brush stroke, mark it as finished and clear it.
         if (!triggerPressed && _activeBrushStroke != null)
         {
             _activeBrushStroke.EndBrushStrokeWithBrushTipPoint(_activeHandPosition, _activeHandRotation);
             _activeBrushStroke = null;
+
+            // unset the correct controller to actively drawing
+            activeHand.GetComponent<ActiveDrawing>().isDrawing = false;
         }
     }
-
-    //// Utility
-
-    // Given an XRNode, get the current position & rotation. If it's not tracking, don't modify the position & rotation.
-    //private static bool UpdatePose(XRNode node, ref Vector3 position, ref Quaternion rotation)
-    //{
-    //    List<XRNodeState> nodeStates = new List<XRNodeState>();
-    //    InputTracking.GetNodeStates(nodeStates);
-
-    //    foreach (XRNodeState nodeState in nodeStates)
-    //    {
-    //        if (nodeState.nodeType == node)
-    //        {
-    //            Vector3 nodePosition;
-    //            Quaternion nodeRotation;
-    //            bool gotPosition = nodeState.TryGetPosition(out nodePosition);
-    //            bool gotRotation = nodeState.TryGetRotation(out nodeRotation);
-
-    //            if (gotPosition)
-    //                position = nodePosition;
-    //            if (gotRotation)
-    //                rotation = nodeRotation;
-
-    //            return gotPosition;
-    //        }
-    //    }
-
-    //    return false;
-    //}
 }

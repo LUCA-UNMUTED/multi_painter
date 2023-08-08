@@ -77,3 +77,4 @@ multi_painter/Temp/
 multi_painter/UserSettings/
 multi_painter/.vsconfig
 .vscode/settings.json
+pxr_driver_sdk.log
