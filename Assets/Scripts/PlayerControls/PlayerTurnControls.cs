@@ -9,7 +9,7 @@ public class PlayerTurnControls : MonoBehaviour
     public GameObject Patient;
 
     public PlayerData PlayerData;
-    public PlayerCapabilities turnSwitch;
+    public PlayerCapabilities playerCapabilities;
     private void Awake()
     {
        switchTurn.action.started += SwitchTurn;
@@ -25,8 +25,8 @@ public class PlayerTurnControls : MonoBehaviour
     {
 
         PlayerData = this.GetComponent<PlayerData>();
-        turnSwitch = FindAnyObjectByType<PlayerCapabilities>();
-        turnSwitch.ClassifyPlayers();
+        playerCapabilities = FindAnyObjectByType<PlayerCapabilities>();
+        playerCapabilities.ClassifyPlayers();
 
 
         //Instructor = GameObject.FindWithTag("Instructor");
@@ -52,7 +52,7 @@ public class PlayerTurnControls : MonoBehaviour
 
         if (PlayerData.canSwitch == true || PlayerData.forceSwitch == true)
         {
-            turnSwitch.SwitchPlayer();
+            playerCapabilities.SwitchPlayer();
         }
     }
 

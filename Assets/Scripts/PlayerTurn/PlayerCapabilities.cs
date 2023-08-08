@@ -100,18 +100,18 @@ public class PlayerCapabilities : MonoBehaviour
         if (Players.Length > 0)
         {
             Instructor = Players[0];
-            PlayerData instructorData = Instructor.GetComponent<PlayerData>();
+            InstructorData = Instructor.GetComponent<PlayerData>();
             //Instructor.tag = "Instructor";
-            instructorData.playerRole = PlayerRole.Instructor;
-            instructorData.canSwitch = true; // starting value
-            instructorData.forceSwitch = false; // starting value
+            InstructorData.playerRole = PlayerRole.Instructor;
+            InstructorData.canSwitch = true; // starting value
+            InstructorData.forceSwitch = false; // starting value
 
             if (Players.Length > 1)
             {
                 Patient = Players[1];
                 //Patient.tag = "Patient";
-                PlayerData patientData = Patient.GetComponent<PlayerData>();
-                patientData.playerRole = PlayerRole.Patient;
+                PatientData = Patient.GetComponent<PlayerData>();
+                PatientData.playerRole = PlayerRole.Patient;
             }
 
             //Find all players with tag player
