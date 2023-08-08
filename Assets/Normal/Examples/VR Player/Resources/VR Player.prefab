@@ -394,7 +394,7 @@ MonoBehaviour:
   Instructor: {fileID: 0}
   Patient: {fileID: 0}
   PlayerData: {fileID: 0}
-  turnSwitch: {fileID: 0}
+  playerCapabilities: {fileID: 0}
 --- !u!114 &1894991395295535517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,6 +409,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canSwitch: 0
   forceSwitch: 0
+  playerRole: 0
 --- !u!1 &1573471737031190
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,29 +28,11 @@ public class PlayerTurnControls : MonoBehaviour
         playerCapabilities = FindAnyObjectByType<PlayerCapabilities>();
         playerCapabilities.ClassifyPlayers();
 
-
-        //Instructor = GameObject.FindWithTag("Instructor");
-        //Patient = GameObject.FindWithTag("Patient");
-
-
-        //turnSwitch.Instructor = GameObject.FindWithTag("Instructor");
-        //if (Patient != null)
-        //    turnSwitch.Patient = GameObject.FindWithTag("Patient");
-
-
-
-        //turnSwitch.InstructorData = Instructor.GetComponent<PlayerTurnData>();
-
-        //if (Patient != null)
-        //    turnSwitch.PatientData = Patient.GetComponent<PlayerTurnData>();
-
-        //turnSwitch.InstructorData.canSwitch = true;
     }
 
     public void SwitchTurn(InputAction.CallbackContext context)
     {
-
-        if (PlayerData.canSwitch == true || PlayerData.forceSwitch == true)
+        if (PlayerData.canSwitch == true) // || PlayerData.forceSwitch == true)
         {
             playerCapabilities.SwitchPlayer();
         }
