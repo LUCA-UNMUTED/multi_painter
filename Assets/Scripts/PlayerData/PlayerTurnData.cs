@@ -6,5 +6,6 @@ public class PlayerTurnData : MonoBehaviour
 {
     public bool canSwitch;
 
+    public bool forceSwitch = false;
    
 }
