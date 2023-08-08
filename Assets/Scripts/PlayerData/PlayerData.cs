@@ -10,5 +10,7 @@ public class PlayerData : MonoBehaviour
 
     public bool forceSwitch = false;
 
+    public bool activePlayer;
+
     public PlayerRole playerRole = PlayerRole.Instructor;
 }

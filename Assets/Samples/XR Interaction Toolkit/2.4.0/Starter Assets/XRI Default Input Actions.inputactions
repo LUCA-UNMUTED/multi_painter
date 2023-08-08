@@ -2357,7 +2357,7 @@
                     "name": "",
                     "id": "f8549bd3-2d95-415a-9645-a5d2e8d964d9",
                     "path": "<Keyboard>/a",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "LeftController",

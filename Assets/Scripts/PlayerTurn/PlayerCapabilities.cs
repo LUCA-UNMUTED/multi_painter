@@ -10,20 +10,20 @@ public class PlayerCapabilities : MonoBehaviour
 
     public PlayerRole playerTurn;
 
-    public GameObject Instructor;
-    public GameObject Patient;
+    private GameObject Instructor;
+    private GameObject Patient;
 
-    public PlayerData InstructorData;
-    public PlayerData PatientData;
+    private PlayerData InstructorData;
+    private PlayerData PatientData;
 
-    public GameObject brushInstructor;
-    public GameObject brushPatient;
+    private GameObject brushInstructor;
+    private GameObject brushPatient;
 
 
-    public GameObject[] Players;
+    private GameObject[] Players;
 
-    public GameObject InstructorTurnUI;
-    public GameObject PatientTurnUI;
+    [SerializeField] private PlayerUI playerUI;
+
 
     private void Start()
     {
@@ -51,36 +51,35 @@ public class PlayerCapabilities : MonoBehaviour
     }
     public void SwitchPlayer()
     {
+        var activePlayer = InstructorData.activePlayer ? Instructor : Patient;
+
         switch (playerTurn)
         {
             case PlayerRole.Instructor:
 
                 playerTurn = PlayerRole.Patient;
-                //SwitchBrush();
-                InstructorData.canSwitch = false;
-                InstructorData.forceSwitch = true;
+                ////SwitchBrush();
+                //InstructorData.canSwitch = false;
+                //InstructorData.forceSwitch = true;
 
                 if (PatientData != null)
                 {
-                    PatientData.canSwitch = true;
+                    //    PatientData.canSwitch = true;
+                    PatientData.activePlayer = true;
                 }
-                InstructorTurnUI.gameObject.SetActive(false);
-                PatientTurnUI.gameObject.SetActive(true);
+                InstructorData.activePlayer = false;
                 Debug.Log("Turn Patient");
                 break;
             case PlayerRole.Patient:
 
                 playerTurn = PlayerRole.Instructor;
-
-                InstructorData.canSwitch = true;
-                InstructorData.forceSwitch = false;
+                InstructorData.activePlayer = true;
+                PatientData.activePlayer = false;
+                //InstructorData.canSwitch = true;
+                //InstructorData.forceSwitch = false;
 
                 if (PatientData != null)
                     PatientData.canSwitch = false;
-
-                InstructorTurnUI.gameObject.SetActive(true);
-                PatientTurnUI.gameObject.SetActive(false);
-
                 Debug.Log("Turn Instructor");
 
                 //SwitchBrush();
@@ -90,6 +89,8 @@ public class PlayerCapabilities : MonoBehaviour
                 Debug.LogError("wrong player shizzle");
                 break;
         }
+        playerUI.RefreshPlayerUI();
+
     }
 
 
@@ -100,18 +101,21 @@ public class PlayerCapabilities : MonoBehaviour
         if (Players.Length > 0)
         {
             Instructor = Players[0];
+            Instructor.name = "Instructor";
             InstructorData = Instructor.GetComponent<PlayerData>();
             //Instructor.tag = "Instructor";
             InstructorData.playerRole = PlayerRole.Instructor;
-            InstructorData.canSwitch = true; // starting value
-            InstructorData.forceSwitch = false; // starting value
-
+            //InstructorData.canSwitch = true; // starting value
+            //InstructorData.forceSwitch = false; // starting value
+            InstructorData.activePlayer = true;
             if (Players.Length > 1)
             {
                 Patient = Players[1];
+                Patient.name = "Patient";
                 //Patient.tag = "Patient";
                 PatientData = Patient.GetComponent<PlayerData>();
                 PatientData.playerRole = PlayerRole.Patient;
+                PatientData.activePlayer = false;
             }
 
             //Find all players with tag player

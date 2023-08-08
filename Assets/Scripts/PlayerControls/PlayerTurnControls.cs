@@ -5,11 +5,13 @@ using UnityEngine.InputSystem;
 public class PlayerTurnControls : MonoBehaviour
 {
     public InputActionReference switchTurn = null;
-    public GameObject Instructor;
-    public GameObject Patient;
+    //public GameObject Instructor;
+    //public GameObject Patient;
 
-    public PlayerData PlayerData;
+    public PlayerData playerData;
     public PlayerCapabilities playerCapabilities;
+
+    [SerializeField] private bool testSwitch = false;
     private void Awake()
     {
        switchTurn.action.started += SwitchTurn;
@@ -24,7 +26,7 @@ public class PlayerTurnControls : MonoBehaviour
     private void Start()
     {
 
-        PlayerData = this.GetComponent<PlayerData>();
+        playerData = this.GetComponent<PlayerData>();
         playerCapabilities = FindAnyObjectByType<PlayerCapabilities>();
         playerCapabilities.ClassifyPlayers();
 
@@ -32,11 +34,32 @@ public class PlayerTurnControls : MonoBehaviour
 
     public void SwitchTurn(InputAction.CallbackContext context)
     {
-        if (PlayerData.canSwitch == true) // || PlayerData.forceSwitch == true)
+        if (playerData.activePlayer == true) // || PlayerData.forceSwitch == true)
         {
+            Debug.Log("switching via " + playerData.playerRole);
+
             playerCapabilities.SwitchPlayer();
         }
     }
 
+    public void SwitchTurn()
+    {
+        if (playerData.activePlayer == true) // || PlayerData.forceSwitch == true)
+        {
+            Debug.Log("switching via " + playerData.playerRole);
+
+            playerCapabilities.SwitchPlayer();
+        }
+    }
     //TODO make copy of switchturn, but based on physical buttons: one for regular (can switch, visible on both sides - force switch, visible only for instructor)
+
+
+    private void Update()
+    {
+        if (testSwitch)
+        {
+            testSwitch = false;
+            SwitchTurn();
+        }
+    }
 }
