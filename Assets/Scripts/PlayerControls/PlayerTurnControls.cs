@@ -7,8 +7,8 @@ public class PlayerTurnControls : MonoBehaviour
 
 
     public InputActionReference switchTurn = null;
-    public GameObject Player1;
-    public GameObject Player2;
+    public GameObject Instructor;
+    public GameObject Patient;
 
     public PlayerTurnData PlayerData;
 
@@ -40,20 +40,20 @@ public class PlayerTurnControls : MonoBehaviour
         turnSwitch.LookForPlayers();
 
 
-        Player1 = GameObject.FindWithTag("Player1");
-        Player2 = GameObject.FindWithTag("Player2");
+        Instructor = GameObject.FindWithTag("Instructor");
+        Patient = GameObject.FindWithTag("Patient");
 
 
-        turnSwitch.Instructor = GameObject.FindWithTag("Player1");
-        if (Player2 != null)
-            turnSwitch.Patient = GameObject.FindWithTag("Player2");
+        turnSwitch.Instructor = GameObject.FindWithTag("Instructor");
+        if (Patient != null)
+            turnSwitch.Patient = GameObject.FindWithTag("Patient");
 
 
 
-        turnSwitch.InstructorData = Player1.GetComponent<PlayerTurnData>();
+        turnSwitch.InstructorData = Instructor.GetComponent<PlayerTurnData>();
 
-        if (Player2 != null)
-            turnSwitch.PatientData = Player2.GetComponent<PlayerTurnData>();
+        if (Patient != null)
+            turnSwitch.PatientData = Patient.GetComponent<PlayerTurnData>();
 
         turnSwitch.InstructorData.canSwitch = true;
     }
