@@ -4,17 +4,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+
 public class PlayerCapabilities : MonoBehaviour
 {
-    public enum PlayerTurn { Instructor, Patient };
 
-    public PlayerTurn playerTurn;
+    public PlayerRole playerTurn;
 
     public GameObject Instructor;
     public GameObject Patient;
 
-    public PlayerTurnData InstructorData;
-    public PlayerTurnData PatientData;
+    public PlayerData InstructorData;
+    public PlayerData PatientData;
 
     public GameObject brushInstructor;
     public GameObject brushPatient;
@@ -36,13 +36,13 @@ public class PlayerCapabilities : MonoBehaviour
     public void SwitchBrush()
     {
         //PLACEHOLDER
-        if (playerTurn == PlayerTurn.Instructor)
+        if (playerTurn == PlayerRole.Instructor)
         {
             brushInstructor.SetActive(true);
             brushPatient.SetActive(false);
 
         }
-        else if (playerTurn == PlayerTurn.Patient)
+        else if (playerTurn == PlayerRole.Patient)
         {
             brushInstructor.SetActive(false);
             brushPatient.SetActive(true);
@@ -53,9 +53,9 @@ public class PlayerCapabilities : MonoBehaviour
     {
         switch (playerTurn)
         {
-            case PlayerTurn.Instructor:
+            case PlayerRole.Instructor:
 
-                playerTurn = PlayerTurn.Patient;
+                playerTurn = PlayerRole.Patient;
                 //SwitchBrush();
                 InstructorData.canSwitch = false;
                 InstructorData.forceSwitch = true;
@@ -68,9 +68,9 @@ public class PlayerCapabilities : MonoBehaviour
                 PatientTurnUI.gameObject.SetActive(true);
                 Debug.Log("Turn Patient");
                 break;
-            case PlayerTurn.Patient:
+            case PlayerRole.Patient:
 
-                playerTurn = PlayerTurn.Instructor;
+                playerTurn = PlayerRole.Instructor;
 
                 InstructorData.canSwitch = true;
                 InstructorData.forceSwitch = false;
@@ -97,24 +97,29 @@ public class PlayerCapabilities : MonoBehaviour
     {
         Players = GameObject.FindGameObjectsWithTag("_Player");
 
-        if (Players.Length > 0 && Players.Length <= 1)
+        if (Players.Length > 0)
         {
             Instructor = Players[0];
-            Instructor.tag = "Instructor";
-            Instructor.GetComponent<PlayerTurnData>().canSwitch = true; // starting value
-            Instructor.GetComponent<PlayerTurnData>().forceSwitch = false; // starting value
-        }
-        else if (Players.Length > 1 && Players.Length <= 2)
-        {
-            Patient = Players[1];
-            Patient.tag = "Patient";
-        }
+            PlayerData instructorData = Instructor.GetComponent<PlayerData>();
+            //Instructor.tag = "Instructor";
+            instructorData.playerRole = PlayerRole.Instructor;
+            instructorData.canSwitch = true; // starting value
+            instructorData.forceSwitch = false; // starting value
 
-        //Find all players with tag player
-        //hierarchy goes from top to bottom
-        //first find == player that entered first == player1
-        //second find == player that entered second == player2
+            if (Players.Length > 1)
+            {
+                Patient = Players[1];
+                //Patient.tag = "Patient";
+                PlayerData patientData = Patient.GetComponent<PlayerData>();
+                patientData.playerRole = PlayerRole.Patient;
+            }
 
-        //change tags off players
+            //Find all players with tag player
+            //hierarchy goes from top to bottom
+            //first find == player that entered first == player1
+            //second find == player that entered second == player2
+
+            //change tags off players
+        }
     }
 }

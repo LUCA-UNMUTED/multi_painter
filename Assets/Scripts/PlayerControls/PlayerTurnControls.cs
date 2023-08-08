@@ -8,7 +8,7 @@ public class PlayerTurnControls : MonoBehaviour
     public GameObject Instructor;
     public GameObject Patient;
 
-    public PlayerTurnData PlayerData;
+    public PlayerData PlayerData;
     public PlayerCapabilities turnSwitch;
     private void Awake()
     {
@@ -24,7 +24,7 @@ public class PlayerTurnControls : MonoBehaviour
     private void Start()
     {
 
-        PlayerData = this.GetComponent<PlayerTurnData>();
+        PlayerData = this.GetComponent<PlayerData>();
         turnSwitch = FindAnyObjectByType<PlayerCapabilities>();
         turnSwitch.ClassifyPlayers();
 

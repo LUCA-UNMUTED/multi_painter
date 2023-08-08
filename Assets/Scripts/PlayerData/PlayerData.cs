@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerTurnData : MonoBehaviour
+public enum PlayerRole { Instructor, Patient };
+
+public class PlayerData : MonoBehaviour
 {
     public bool canSwitch;
 
     public bool forceSwitch = false;
-   
+
+    public PlayerRole playerRole = PlayerRole.Instructor;
 }

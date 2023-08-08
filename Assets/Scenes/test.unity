@@ -684,7 +684,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1572161834460568, guid: fca9d4afb3743274e8f7da14019d7e0b, type: 3}
       propertyPath: m_Name
-      value: Realtime + VR Player
+      value: Realtime VR player Manager
       objectReference: {fileID: 0}
     - target: {fileID: 1572161834460568, guid: fca9d4afb3743274e8f7da14019d7e0b, type: 3}
       propertyPath: m_IsActive
