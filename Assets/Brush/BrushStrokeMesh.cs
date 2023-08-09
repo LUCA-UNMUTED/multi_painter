@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BrushStrokeMesh : MonoBehaviour {
     [SerializeField]
-    private float _brushStrokeWidth = 0.05f;
-
+    public float _brushStrokeWidth = 0.05f;
+    
     private Mesh _mesh;
 
     private List<Vector3> _vertices;
