@@ -2263,39 +2263,21 @@
             "actions": [
                 {
                     "name": "LeftControllerDraw",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "492d9157-d7eb-4dd0-8f6e-acf1036ee3da",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "RightControllerDraw",
-                    "type": "Button",
-                    "id": "bbab7c87-721a-4b51-adc8-c0562fcbd6ff",
-                    "expectedControlType": "Button",
+                    "type": "Value",
+                    "id": "256489b1-14df-41b9-ae5a-77fadccbf092",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ChangeLineThicknessPlus",
-                    "type": "Button",
-                    "id": "6c63de24-e311-4de9-b1fe-4f278703b27c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ChangeLineThicknessMin",
-                    "type": "Button",
-                    "id": "2ed4edb0-d155-47e3-8ec8-82ac95bfb450",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -2303,17 +2285,6 @@
                     "name": "",
                     "id": "a9a59bd0-5774-4f6c-8fc8-fc7e4df4190b",
                     "path": "<Keyboard>/space",
-                    "interactions": "Hold",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LeftControllerDraw",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2321498d-c981-4481-b931-acb29fe4e949",
-                    "path": "<PXR_Controller>{LeftHand}/triggerPressed",
                     "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "Generic XR Controller",
@@ -2323,9 +2294,9 @@
                 },
                 {
                     "name": "",
-                    "id": "421c57ac-d20f-46ab-bca3-e92ad4d4be0a",
-                    "path": "<PXR_PTController>{LeftHand}/triggerPressed",
-                    "interactions": "",
+                    "id": "d3077ad9-6a6b-44b1-bc2b-6da7c5b4f823",
+                    "path": "<PXR_Controller>{LeftHand}/trigger",
+                    "interactions": "Press(pressPoint=0.1,behavior=2)",
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "LeftControllerDraw",
@@ -2334,8 +2305,30 @@
                 },
                 {
                     "name": "",
-                    "id": "dc4fc72c-03b0-421c-a6d8-39a52963921c",
-                    "path": "<PXR_Controller>{RightHand}/triggerPressed",
+                    "id": "63e668cf-0312-491e-ac68-ec5548c7fc20",
+                    "path": "<XRInputV1::PicoVR::PICOLivePreviewControllerRight>/trigger",
+                    "interactions": "Press(pressPoint=0.1,behavior=2)",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "LeftControllerDraw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "93654100-90c7-4c28-9025-fb01dae8ec70",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Hold(duration=0.4,pressPoint=0.1)",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "RightControllerDraw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "27d209cb-efc9-4a53-811b-faf99025616c",
+                    "path": "<PXR_Controller>{RightHand}/trigger",
                     "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "Generic XR Controller",
@@ -2345,56 +2338,12 @@
                 },
                 {
                     "name": "",
-                    "id": "da2b909a-7544-48c0-adbb-c12fc65fc5f4",
-                    "path": "<PXR_PTController>{RightHand}/triggerPressed",
-                    "interactions": "",
+                    "id": "0845070c-bdb2-46c5-b55d-f808065e500b",
+                    "path": "<XRInputV1::PicoVR::PICOLivePreviewControllerRight>{RightHand}/trigger",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "RightControllerDraw",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6c24c48f-423d-45dc-b831-38a7d1af12b9",
-                    "path": "<Keyboard>/b",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ChangeLineThicknessPlus",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2ef4e6d2-753d-47b3-8e5a-a284eaf69c08",
-                    "path": "<PXR_Controller>{LeftHand}/secondaryButton",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ChangeLineThicknessPlus",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a3dc281c-6b58-4d73-8135-2486aea39f74",
-                    "path": "<Keyboard>/c",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ChangeLineThicknessMin",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e86cf8af-4d8c-4113-8e29-60d89c9a6bc8",
-                    "path": "<PXR_Controller>{LeftHand}/primaryButton",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ChangeLineThicknessMin",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -2429,19 +2378,8 @@
                 {
                     "name": "",
                     "id": "2a6484a6-ac99-4cb6-80d8-37064d128a8a",
-                    "path": "<PXR_Controller>{LeftHand}/primaryButton",
+                    "path": "<PXR_Controller>{RightHand}/primaryButton",
                     "interactions": "Press",
-                    "processors": "",
-                    "groups": "Generic XR Controller",
-                    "action": "LeftController",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e260ed52-0f12-4acb-9d98-20285c31f164",
-                    "path": "<PXR_PTController>{LeftHand}/primaryButton",
-                    "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "LeftController",

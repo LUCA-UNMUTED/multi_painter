@@ -19,7 +19,7 @@ public class Brush : MonoBehaviour
     [SerializeField] private Hand _hand = Hand.RightHand;
 
     public bool triggerPressed;
-
+    public LineThickness lineThickness;
     public InputActionReference toggleRefLeft = null;
     public InputActionReference toggleRefRight = null;
 
@@ -43,6 +43,8 @@ public class Brush : MonoBehaviour
 
         toggleRefLeft.action.started += ToggleLeft;
         toggleRefRight.action.started += ToggleRight;
+        toggleRefLeft.action.canceled += ToggleLeft;
+        toggleRefRight.action.canceled += ToggleRight;
         activeHand = leftHandObject;
 
     }
@@ -52,20 +54,29 @@ public class Brush : MonoBehaviour
 
         toggleRefLeft.action.started -= ToggleLeft;
         toggleRefRight.action.started -= ToggleRight;
-
+        toggleRefLeft.action.canceled -= ToggleLeft;
+        toggleRefRight.action.canceled -= ToggleRight;
     }
 
 
     public void ToggleLeft(InputAction.CallbackContext context)
     {
+
+        Debug.Log("drawing left");
+
         triggerPressed = !triggerPressed;
         activeHand = leftHandObject;
-        Debug.Log("drawing left");
+        lineThickness.brushStrokeMesh = _brushStrokePrefab.GetComponentInChildren<BrushStrokeMesh>();
+
+
+
     }
     public void ToggleRight(InputAction.CallbackContext context)
     {
         triggerPressed = !triggerPressed;
         activeHand = rightHandObject;
+        lineThickness.brushStrokeMesh = _brushStrokePrefab.GetComponentInChildren<BrushStrokeMesh>();
+
         Debug.Log("drawing right");
     }
     private void Update()

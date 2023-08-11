@@ -19,15 +19,20 @@ public class PlayerCapabilities : MonoBehaviour
     private GameObject brushInstructor;
     private GameObject brushPatient;
 
-
+    public TurnClock turnClock;
     private GameObject[] Players;
+
+    public Material InstructorColor;
+    public Material PatientColor;
+    public PlayerRole playerTurnColor;
+    public GameObject BrushPrefab;
 
     [SerializeField] private PlayerUI playerUI;
 
 
     private void Start()
     {
-
+        turnClock.SwitchToInstructorClock();
         //LookForPlayers();
 
     }
@@ -49,6 +54,7 @@ public class PlayerCapabilities : MonoBehaviour
         }
 
     }
+
     public void SwitchPlayer()
     {
         var activePlayer = InstructorData.activePlayer ? Instructor : Patient;
@@ -58,6 +64,9 @@ public class PlayerCapabilities : MonoBehaviour
             case PlayerRole.Instructor:
 
                 playerTurn = PlayerRole.Patient;
+                turnClock.SwitchToPatientClock();
+                BrushPrefab.GetComponentInChildren<MeshRenderer>().material = InstructorColor;
+
                 ////SwitchBrush();
                 //InstructorData.canSwitch = false;
                 //InstructorData.forceSwitch = true;
@@ -71,10 +80,11 @@ public class PlayerCapabilities : MonoBehaviour
                 Debug.Log("Turn Patient");
                 break;
             case PlayerRole.Patient:
-
                 playerTurn = PlayerRole.Instructor;
                 InstructorData.activePlayer = true;
                 PatientData.activePlayer = false;
+                turnClock.SwitchToInstructorClock();
+                BrushPrefab.GetComponentInChildren<MeshRenderer>().material = PatientColor;
                 //InstructorData.canSwitch = true;
                 //InstructorData.forceSwitch = false;
 
@@ -108,6 +118,9 @@ public class PlayerCapabilities : MonoBehaviour
             //InstructorData.canSwitch = true; // starting value
             //InstructorData.forceSwitch = false; // starting value
             InstructorData.activePlayer = true;
+
+            //FOR DEBUG MOET BIJ PATIENT_______________________________________________________________________________________________________________________________________________________
+            turnClock.startTimeCount = true;
             if (Players.Length > 1)
             {
                 Patient = Players[1];

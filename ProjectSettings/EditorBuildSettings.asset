@@ -6,15 +6,23 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
+    path: Assets/Scenes/MasterScene 2.unity
+    guid: 1b299cc50dd002e4dbfcf0eb5ed2aa82
+  - enabled: 0
     path: Assets/Scenes/MasterScene.unity
     guid: 18a6d1ce40eed0e408e852ba2470d2be
+  - enabled: 0
+    path: Assets/Scenes/MasterScene 1.unity
+    guid: d66aed053d9973b498d7a84b2aad64cb
   - enabled: 1
-    path: Assets/Scenes/test.unity
-    guid: b9ca3fe27c54ce1478212251362813b4
+    path: Assets/Scenes/MasterScene 3.unity
+    guid: a418147730cbdcf4f90a31bcd75e1e35
   m_configObjects:
     Unity.XR.PICO.LivePreview.Settings: {fileID: 11400000, guid: 1dc25a08bd7df694583448b7d9bdcb43,
       type: 2}
     Unity.XR.PXR.Settings: {fileID: 11400000, guid: 7976281a801979e459caacb9ad57bfa1,
+      type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: 02205ce97f4ceb94fa5ba2909236a97a,
       type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 5bb98fb873264904f99a90ad9ab690b2,
       type: 2}
