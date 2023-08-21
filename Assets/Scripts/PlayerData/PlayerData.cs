@@ -13,4 +13,6 @@ public class PlayerData : MonoBehaviour
     public bool activePlayer;
 
     public PlayerRole playerRole = PlayerRole.Instructor;
+
+    
 }

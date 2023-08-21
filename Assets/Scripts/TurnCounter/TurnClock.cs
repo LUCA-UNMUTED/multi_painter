@@ -64,7 +64,7 @@ public class TurnClock : MonoBehaviour
 
             timeCount += Time.deltaTime;
             timeCountString = timeCount.ToString();
-            timeCountUI.SetText("Time:" + timeCountString);
+//            timeCountUI.SetText("Time:" + timeCountString);
 
         }
         //Time RUNNING bools kunnen veranderd worden naar de playerRoles 
@@ -74,7 +74,7 @@ public class TurnClock : MonoBehaviour
 
             timeEndInstructor += Time.deltaTime;
             instructorString = timeEndInstructor.ToString();
-            instructorTimeUI.SetText("Time:" + instructorString);
+         //   instructorTimeUI.SetText("Time:" + instructorString);
 
         }
 
@@ -85,7 +85,7 @@ public class TurnClock : MonoBehaviour
             timeEndPatient += Time.deltaTime;
             timeEndPatient.ToString(patientString);
             patientString = timeEndPatient.ToString();
-            patientTimeUI.SetText("Time:" + patientString);
+          //  patientTimeUI.SetText("Time:" + patientString);
 
 
         }

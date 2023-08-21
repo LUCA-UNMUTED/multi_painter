@@ -7,14 +7,14 @@ public class PlayerTurnControls : MonoBehaviour
     public InputActionReference switchTurn = null;
     //public GameObject Instructor;
     //public GameObject Patient;
-
+    public GameObject playerCapabilitiesObject;
     public PlayerData playerData;
     public PlayerCapabilities playerCapabilities;
 
     [SerializeField] private bool testSwitch = false;
     private void Awake()
     {
-       switchTurn.action.started += SwitchTurn;
+        switchTurn.action.started += SwitchTurn;
     }
 
     private void OnDestroy()
@@ -27,8 +27,15 @@ public class PlayerTurnControls : MonoBehaviour
     {
 
         playerData = this.GetComponent<PlayerData>();
-        playerCapabilities = FindAnyObjectByType<PlayerCapabilities>();
+        Invoke("Find", 2f);
+
+    }
+
+    void Find()
+    {
+        playerCapabilities = GameObject.FindWithTag("playerCapabilities").GetComponent<PlayerCapabilities>();
         playerCapabilities.ClassifyPlayers();
+
 
     }
 

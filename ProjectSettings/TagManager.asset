@@ -3,14 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - _Player
-  - Instructor
-  - Patient
-  - InstructorTimer
-  - PatientTimer
-  - BrushStroke
-  - Timer
+  tags: []
   layers:
   - Default
   - TransparentFX

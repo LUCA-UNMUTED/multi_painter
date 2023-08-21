@@ -27,7 +27,7 @@ public class PlayerCapabilities : MonoBehaviour
     public PlayerRole playerTurnColor;
     public GameObject BrushPrefab;
 
-    [SerializeField] private PlayerUI playerUI;
+   // [SerializeField] private PlayerUI playerUI;
 
 
     private void Start()
@@ -99,7 +99,7 @@ public class PlayerCapabilities : MonoBehaviour
                 Debug.LogError("wrong player shizzle");
                 break;
         }
-        playerUI.RefreshPlayerUI();
+       // playerUI.RefreshPlayerUI();
 
     }
 

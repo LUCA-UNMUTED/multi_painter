@@ -1,63 +1,79 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
-using Normal.Realtime;
 using UnityEngine.InputSystem;
-
 
 public class Brush : MonoBehaviour
 {
-    // Reference to Realtime to use to instantiate brush strokes
-    [SerializeField] private Realtime _realtime = null;
-
     // Prefab to instantiate when we draw a new brush stroke
     [SerializeField] private GameObject _brushStrokePrefab = null;
-    private GameObject brushStrokeGameObject;
 
     // Which hand should this brush instance track?
-    public enum Hand { LeftHand, RightHand };
+    private enum Hand { LeftHand, RightHand };
     [SerializeField] private Hand _hand = Hand.RightHand;
-
     public bool triggerPressed;
+
     public LineThickness lineThickness;
+
+
     public InputActionReference toggleRefLeft = null;
     public InputActionReference toggleRefRight = null;
+    public InputAction brushAction;
+public XRIDefaultInputActions   playerInput;
+
 
 
     public GameObject leftHandObject;
     public GameObject rightHandObject;
-    private GameObject activeHand;
-    //public Transform handRotation;
-    //public Transform handPosition;
-
-
-
-    //// Used to keep track of the current brush tip position and the actively drawing brush stroke
+    public GameObject activeHand;
+    // Used to keep track of the current brush tip position and the actively drawing brush stroke
     private Vector3 _activeHandPosition;
     private Quaternion _activeHandRotation;
     private BrushStroke _activeBrushStroke;
-
-
     private void Awake()
     {
 
+        playerInput = new();
+        Invoke("FindDep", 1f);
+
+    }
+    private void OnEnable()
+    {
+
+
+        brushAction = playerInput.DrawCommands.LeftControllerDraw;
+        brushAction.Enable();
+        brushAction.performed += ToggleLeft;
+
+
+
+        //brush = GameObject.FindGameObjectWithTag("Brush");
         toggleRefLeft.action.started += ToggleLeft;
         toggleRefRight.action.started += ToggleRight;
         toggleRefLeft.action.canceled += ToggleLeft;
         toggleRefRight.action.canceled += ToggleRight;
+        leftHandObject = GameObject.FindWithTag("leftHand");
+        rightHandObject = GameObject.FindWithTag("rightHand");
         activeHand = leftHandObject;
 
     }
-
-    private void OnDestroy()
+    private void OnDisable()
     {
+        brushAction.performed -= ToggleLeft;
 
         toggleRefLeft.action.started -= ToggleLeft;
         toggleRefRight.action.started -= ToggleRight;
         toggleRefLeft.action.canceled -= ToggleLeft;
         toggleRefRight.action.canceled -= ToggleRight;
-    }
 
+    }
+    private void FindDep()
+    {
+        leftHandObject = GameObject.FindWithTag("leftHand");
+        rightHandObject = GameObject.FindWithTag("rightHand");
+        activeHand = leftHandObject;
+
+    }
 
     public void ToggleLeft(InputAction.CallbackContext context)
     {
@@ -82,44 +98,30 @@ public class Brush : MonoBehaviour
     private void Update()
     {
 
+        if (activeHand != null)
+        {
 
 
-        _activeHandPosition = activeHand.transform.position;
-        _activeHandRotation = activeHand.transform.rotation;
+            _activeHandPosition = activeHand.transform.position;
+            _activeHandRotation = activeHand.transform.rotation;
 
-        // Start by figuring out which hand we're tracking
-        // XRNode node = _hand == Hand.LeftHand ? XRNode.LeftHand : XRNode.RightHand;
-        //string trigger = _hand == Hand.LeftHand ? "Left Trigger" : "Right Trigger";
 
-        // Get the position & rotation of the hand
-        //bool handIsTracking = UpdatePose(node, ref _handPosition, ref _handRotation);
+        }
 
-        // Figure out if the trigger is pressed or not
-        //bool triggerPressed = Input.GetAxisRaw(trigger) > 0.1f;
 
-        // If we lose tracking, stop drawing
-        // if (!handIsTracking)
-        //{
-        // triggerPressed = false;
-        //   Debug.Log("trackingNotFound");
-        // }
         // If the trigger is pressed and we haven't created a new brush stroke to draw, create one!
         if (triggerPressed && _activeBrushStroke == null)
         {
-            if (_realtime == null || !_realtime.connected)
-                return;
+            // Instantiate a copy of the Brush Stroke prefab.
+            GameObject brushStrokeGameObject = Instantiate(_brushStrokePrefab);
 
-            //Instantiate a copy of the Brush Stroke prefab, set it to be owned by us.
-            Realtime.InstantiateOptions _options = new();
-            _options.ownedByClient = true;
-            _options.useInstance = _realtime;
-            brushStrokeGameObject = Realtime.Instantiate(_brushStrokePrefab.name, _options);
-
-            //Grab the BrushStroke component from it
+            // Grab the BrushStroke component from it
             _activeBrushStroke = brushStrokeGameObject.GetComponent<BrushStroke>();
 
             // Tell the BrushStroke to begin drawing at the current brush position
             _activeBrushStroke.BeginBrushStrokeWithBrushTipPoint(_activeHandPosition, _activeHandRotation);
+
+            Debug.Log("Drawing a line");
         }
 
         // If the trigger is pressed, and we have a brush stroke, move the brush stroke to the new brush tip position
@@ -137,29 +139,29 @@ public class Brush : MonoBehaviour
     //// Utility
 
     // Given an XRNode, get the current position & rotation. If it's not tracking, don't modify the position & rotation.
-    //private static bool UpdatePose(XRNode node, ref Vector3 position, ref Quaternion rotation)
-    //{
-    //    List<XRNodeState> nodeStates = new List<XRNodeState>();
-    //    InputTracking.GetNodeStates(nodeStates);
+    private static bool UpdatePose(XRNode node, ref Vector3 position, ref Quaternion rotation)
+    {
+        List<XRNodeState> nodeStates = new List<XRNodeState>();
+        InputTracking.GetNodeStates(nodeStates);
 
-    //    foreach (XRNodeState nodeState in nodeStates)
-    //    {
-    //        if (nodeState.nodeType == node)
-    //        {
-    //            Vector3 nodePosition;
-    //            Quaternion nodeRotation;
-    //            bool gotPosition = nodeState.TryGetPosition(out nodePosition);
-    //            bool gotRotation = nodeState.TryGetRotation(out nodeRotation);
+        foreach (XRNodeState nodeState in nodeStates)
+        {
+            if (nodeState.nodeType == node)
+            {
+                Vector3 nodePosition;
+                Quaternion nodeRotation;
+                bool gotPosition = nodeState.TryGetPosition(out nodePosition);
+                bool gotRotation = nodeState.TryGetRotation(out nodeRotation);
 
-    //            if (gotPosition)
-    //                position = nodePosition;
-    //            if (gotRotation)
-    //                rotation = nodeRotation;
+                if (gotPosition)
+                    position = nodePosition;
+                if (gotRotation)
+                    rotation = nodeRotation;
 
-    //            return gotPosition;
-    //        }
-    //    }
+                return gotPosition;
+            }
+        }
 
-    //    return false;
-    //}
+        return false;
+    }
 }
