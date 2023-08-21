@@ -14,7 +14,7 @@ public enum PlayerRole : byte
 public class PlayerSettings : NetworkBehaviour
 {
     [SerializeField] private MeshRenderer bodyMeshRenderer;
-    [SerializeField] private MeshRenderer eyesMeshRenderer;
+    [SerializeField] private List<MeshRenderer> eyesMeshRenderer;
     [SerializeField] private TextMeshProUGUI playerName;
     private NetworkVariable<FixedString128Bytes> networkPlayerName = new("Player: 0", NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
@@ -68,6 +68,9 @@ public class PlayerSettings : NetworkBehaviour
 
     public void SetEyes(Color color)
     {
-        eyesMeshRenderer.material.SetColor("_BaseColor", color);
+        foreach (MeshRenderer eye in eyesMeshRenderer)
+        {
+            eye.material.SetColor("_BaseColor", color);
+        }
     }
 }
