@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 103130892643085071}
   - component: {fileID: 103130892643085066}
-  - component: {fileID: 103130892643085067}
-  - component: {fileID: 103130892643085068}
   - component: {fileID: 103130892643085069}
   m_Layer: 0
   m_Name: Header
@@ -81,22 +79,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &103130892643085067
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 103130892643085104}
-  m_Mesh: {fileID: 0}
---- !u!222 &103130892643085068
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 103130892643085104}
-  m_CullTransparentMesh: 0
 --- !u!114 &103130892643085069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,7 +121,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -153,7 +135,7 @@ MonoBehaviour:
   m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
-  m_textAlignment: 257
+  m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -199,8 +181,6 @@ GameObject:
   m_Component:
   - component: {fileID: 103130892821629955}
   - component: {fileID: 103130892821629956}
-  - component: {fileID: 103130892821629957}
-  - component: {fileID: 103130892821629958}
   - component: {fileID: 103130892821629959}
   - component: {fileID: 103130892821629960}
   - component: {fileID: 103130892821629954}
@@ -274,22 +254,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &103130892821629957
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 103130892821629961}
-  m_Mesh: {fileID: 0}
---- !u!222 &103130892821629958
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 103130892821629961}
-  m_CullTransparentMesh: 0
 --- !u!114 &103130892821629959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,7 +296,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -346,7 +310,7 @@ MonoBehaviour:
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
-  m_textAlignment: 257
+  m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0

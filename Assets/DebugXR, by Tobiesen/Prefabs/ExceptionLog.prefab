@@ -98,8 +98,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4524056547111823691}
   - component: {fileID: 4524056547111823694}
-  - component: {fileID: 4524056547111823695}
-  - component: {fileID: 4524056547111823688}
   - component: {fileID: 4524056547111823689}
   m_Layer: 0
   m_Name: Header
@@ -169,22 +167,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &4524056547111823695
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4524056547111823732}
-  m_Mesh: {fileID: 0}
---- !u!222 &4524056547111823688
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4524056547111823732}
-  m_CullTransparentMesh: 0
 --- !u!114 &4524056547111823689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,7 +209,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -241,7 +223,7 @@ MonoBehaviour:
   m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
-  m_textAlignment: 257
+  m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -287,8 +269,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4524056547998682695}
   - component: {fileID: 4524056547998682688}
-  - component: {fileID: 4524056547998682689}
-  - component: {fileID: 4524056547998682690}
   - component: {fileID: 4524056547998682691}
   - component: {fileID: 4524056547998682700}
   - component: {fileID: 4524056547998682694}
@@ -362,22 +342,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &4524056547998682689
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4524056547998682701}
-  m_Mesh: {fileID: 0}
---- !u!222 &4524056547998682690
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4524056547998682701}
-  m_CullTransparentMesh: 0
 --- !u!114 &4524056547998682691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -420,7 +384,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -434,7 +398,7 @@ MonoBehaviour:
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
-  m_textAlignment: 257
+  m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0

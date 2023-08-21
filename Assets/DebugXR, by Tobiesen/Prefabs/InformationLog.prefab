@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4799643296730111413}
   - component: {fileID: 4799643296730111410}
-  - component: {fileID: 4799643296730111411}
-  - component: {fileID: 4799643296730111408}
   - component: {fileID: 4799643296730111409}
   - component: {fileID: 4799643296730111422}
   - component: {fileID: 4799643296730111412}
@@ -85,22 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &4799643296730111411
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4799643296730111423}
-  m_Mesh: {fileID: 0}
---- !u!222 &4799643296730111408
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4799643296730111423}
-  m_CullTransparentMesh: 0
 --- !u!114 &4799643296730111409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,7 +112,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4294946560
   m_fontColor: {r: 0, g: 0.6862745, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -143,13 +125,13 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -157,7 +139,7 @@ MonoBehaviour:
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
-  m_textAlignment: 257
+  m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -315,8 +297,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4799643296952646329}
   - component: {fileID: 4799643296952646332}
-  - component: {fileID: 4799643296952646333}
-  - component: {fileID: 4799643296952646330}
   - component: {fileID: 4799643296952646331}
   m_Layer: 0
   m_Name: Header
@@ -341,7 +321,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -13, y: 3.37}
+  m_AnchoredPosition: {x: -13, y: 5.3}
   m_SizeDelta: {x: 15.71, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &4799643296952646332
@@ -386,22 +366,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &4799643296952646333
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4799643296952646278}
-  m_Mesh: {fileID: 0}
---- !u!222 &4799643296952646330
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4799643296952646278}
-  m_CullTransparentMesh: 0
 --- !u!114 &4799643296952646331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,7 +408,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -458,7 +422,7 @@ MonoBehaviour:
   m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
-  m_textAlignment: 257
+  m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -527,7 +491,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -24.55, y: 4.04}
+  m_AnchoredPosition: {x: -24.55, y: 5.9700007}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &4799643297632660822
