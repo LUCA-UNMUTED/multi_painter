@@ -608,6 +608,8 @@ MonoBehaviour:
   - {r: 0.30046728, g: 0.6226415, b: 0.1967782, a: 0}
   isAllowedToDraw:
     m_InternalValue: 0
+  isHostPlayer:
+    m_InternalValue: 1
 --- !u!114 &6272576768372990389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -654,7 +656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a9ab6dad6bfe4448e3977edab27317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _brushStrokePrefab: {fileID: 1196413553089462, guid: 749d541d662db9f4fa312e0e4fb6cef1, type: 3}
+  _brushStrokePrefab: {fileID: 1196413553089462, guid: 6b542e7f0bce59243addc5d42324a971, type: 3}
   _brushIsEnabled: 0
   spawnedBrushStrokes: []
 --- !u!1 &7365936179035624421
