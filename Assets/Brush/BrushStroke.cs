@@ -1,40 +1,100 @@
 ﻿using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class BrushStroke : MonoBehaviour {
+public class BrushStroke : NetworkBehaviour
+{
+
     [SerializeField]
-    private BrushStrokeMesh _mesh = null;
+    private BrushStrokeMesh _mesh;
+
+
 
     // Ribbon State
-    struct RibbonPoint {
-        public Vector3    position;
+    struct RibbonPoint
+    {
+        public Vector3 position;
         public Quaternion rotation;
     }
     private List<RibbonPoint> _ribbonPoints = new List<RibbonPoint>();
 
-    private Vector3    _brushTipPosition;
+    private Vector3 _brushTipPosition;
     private Quaternion _brushTipRotation;
-    private bool       _brushStrokeFinalized;
+    private bool _brushStrokeFinalized;
 
     // Smoothing
-    private Vector3    _ribbonEndPosition;
+    private Vector3 _ribbonEndPosition;
     private Quaternion _ribbonEndRotation = Quaternion.identity;
 
     // Mesh
-    private Vector3    _previousRibbonPointPosition;
+    private Vector3 _previousRibbonPointPosition;
     private Quaternion _previousRibbonPointRotation = Quaternion.identity;
 
-    // Unity Events
-    private void Update() {
-        // Animate the end of the ribbon towards the brush tip
-        AnimateLastRibbonPointTowardsBrushTipPosition();
+    [SerializeField] private Vector3 _parentPos;
+    [SerializeField] private Quaternion _parentRot;
 
-        // Add a ribbon segment if the end of the ribbon has moved far enough
-        AddRibbonPointIfNeeded();
+    public NetworkVariable<bool> active = new(false);
+
+    [SerializeField] private bool debugActive;
+
+
+    [SerializeField] private bool started = false;
+    [SerializeField] private bool stopped = false;
+    [SerializeField] private Vector3 positionOffset = new(0f, 0f, 0f);
+
+    [SerializeField] private PlayerSettings owningPlayer;
+    private void Awake()
+    {
+        //CreateMeshServerRpc();
+        _mesh = GetComponent<BrushStrokeMesh>();
+    }
+
+    // Unity Events
+    private void Update()
+    {
+        _parentPos = PlayerMovement.Players[OwnerClientId].transform.position;
+        _parentRot = PlayerMovement.Players[OwnerClientId].transform.rotation;
+
+        debugActive = active.Value;
+
+        if (active.Value)
+        {
+            //Debug.Log("position of drawer " + _parentPos);
+            if (!started)
+            {
+                // Tell the BrushStroke to begin drawing at the current brush position
+
+                BeginBrushStrokeWithBrushTipPoint(_parentPos + positionOffset, _parentRot);
+            }
+            // If the trigger is pressed, and we have a brush stroke, move the brush stroke to the new brush tip position
+
+            MoveBrushTipToPoint(_parentPos + positionOffset, _parentRot);
+            // Animate the end of the ribbon towards the brush tip
+            AnimateLastRibbonPointTowardsBrushTipPosition();
+
+            // Add a ribbon segment if the end of the ribbon has moved far enough
+            AddRibbonPointIfNeeded();
+        }
+        else
+        {
+            if (!stopped && started)
+            {
+                EndBrushStrokeWithBrushTipPoint(_parentPos + positionOffset, _parentRot);
+                stopped = true;
+            }
+        }
     }
 
     // Interface
-    public void BeginBrushStrokeWithBrushTipPoint(Vector3 position, Quaternion rotation) {
+    public void BeginBrushStrokeWithBrushTipPoint(Vector3 position, Quaternion rotation)
+    {
+
+        // adapt the material to our instantiating player
+        Material currentMat = GetComponent<MeshRenderer>().material;
+        owningPlayer = PlayerMovement.Players[OwnerClientId].GetComponent<PlayerSettings>();
+        Color playerColor = owningPlayer.PlayerColor;
+        currentMat.SetColor("_BaseColor", playerColor);
+
         // Update the model
         _brushTipPosition = position;
         _brushTipRotation = rotation;
@@ -43,14 +103,20 @@ public class BrushStroke : MonoBehaviour {
         _ribbonEndPosition = position;
         _ribbonEndRotation = rotation;
         _mesh.UpdateLastRibbonPoint(_ribbonEndPosition, _ribbonEndRotation);
+
+        // notify the brushstroke that we're initialized
+        started = true;
     }
 
-    public void MoveBrushTipToPoint(Vector3 position, Quaternion rotation) {
+    public void MoveBrushTipToPoint(Vector3 position, Quaternion rotation)
+    {
         _brushTipPosition = position;
         _brushTipRotation = rotation;
     }
 
-    public void EndBrushStrokeWithBrushTipPoint(Vector3 position, Quaternion rotation) {
+
+    public void EndBrushStrokeWithBrushTipPoint(Vector3 position, Quaternion rotation)
+    {
         // Add a final ribbon point and mark the stroke as finalized
         AddRibbonPoint(position, rotation);
         _brushStrokeFinalized = true;
@@ -58,13 +124,15 @@ public class BrushStroke : MonoBehaviour {
 
 
     // Ribbon drawing
-    private void AddRibbonPointIfNeeded() {
+    private void AddRibbonPointIfNeeded()
+    {
         // If the brush stroke is finalized, stop trying to add points to it.
         if (_brushStrokeFinalized)
             return;
 
         if (Vector3.Distance(_ribbonEndPosition, _previousRibbonPointPosition) >= 0.01f ||
-            Quaternion.Angle(_ribbonEndRotation, _previousRibbonPointRotation) >= 10.0f) {
+            Quaternion.Angle(_ribbonEndRotation, _previousRibbonPointRotation) >= 10.0f)
+        {
 
             // Add ribbon point model to ribbon points array. This will fire the RibbonPointAdded event to update the mesh.
             AddRibbonPoint(_ribbonEndPosition, _ribbonEndRotation);
@@ -75,7 +143,8 @@ public class BrushStroke : MonoBehaviour {
         }
     }
 
-    private void AddRibbonPoint(Vector3 position, Quaternion rotation) {
+    private void AddRibbonPoint(Vector3 position, Quaternion rotation)
+    {
         // Create the ribbon point
         RibbonPoint ribbonPoint = new RibbonPoint();
         ribbonPoint.position = position;
@@ -87,24 +156,28 @@ public class BrushStroke : MonoBehaviour {
     }
 
     // Brush tip + smoothing
-    private void AnimateLastRibbonPointTowardsBrushTipPosition() {
+
+    private void AnimateLastRibbonPointTowardsBrushTipPosition()
+    {
         // If the brush stroke is finalized, skip the brush tip mesh, and stop animating the brush tip.
-        if (_brushStrokeFinalized) {
+        if (_brushStrokeFinalized)
+        {
             _mesh.skipLastRibbonPoint = true;
             return;
         }
 
-        Vector3    brushTipPosition = _brushTipPosition;
+        Vector3 brushTipPosition = _brushTipPosition;
         Quaternion brushTipRotation = _brushTipRotation;
 
         // If the end of the ribbon has reached the brush tip position, we can bail early.
         if (Vector3.Distance(_ribbonEndPosition, brushTipPosition) <= 0.0001f &&
-            Quaternion.Angle(_ribbonEndRotation, brushTipRotation) <= 0.01f) {
+            Quaternion.Angle(_ribbonEndRotation, brushTipRotation) <= 0.01f)
+        {
             return;
         }
 
         // Move the end of the ribbon towards the brush tip position
-        _ribbonEndPosition =     Vector3.Lerp(_ribbonEndPosition, brushTipPosition, 25.0f * Time.deltaTime);
+        _ribbonEndPosition = Vector3.Lerp(_ribbonEndPosition, brushTipPosition, 25.0f * Time.deltaTime);
         _ribbonEndRotation = Quaternion.Slerp(_ribbonEndRotation, brushTipRotation, 25.0f * Time.deltaTime);
 
         // Update the end of the ribbon mesh

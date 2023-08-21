@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.tobii.xr.sdk": {
-      "version": "file:C:/Users/Glenn/Downloads/TobiiXRSDK_3.0.1.179",
+      "version": "file:../VR_Libs/TobiiXRSDK_3.0.1.179",
       "depth": 0,
       "source": "local",
       "dependencies": {
@@ -213,7 +213,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.pico.livepreview": {
-      "version": "file:C:/Users/Glenn/Downloads/PICO Unity Live Preview Plugin (Experiment)",
+      "version": "file:../VR_Libs/PICO Unity Live Preview Plugin (Experiment)",
       "depth": 0,
       "source": "local",
       "dependencies": {
@@ -471,7 +471,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.picoxr": {
-      "version": "file:C:/Users/Glenn/Downloads/PICO Unity Integration SDK 230",
+      "version": "file:../VR_Libs/PICO Unity Integration SDK 230",
       "depth": 0,
       "source": "local",
       "dependencies": {
