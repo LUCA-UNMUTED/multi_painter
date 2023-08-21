@@ -19,7 +19,7 @@ namespace Unity.XR.PXR
     public class PXR_ScreenFade : MonoBehaviour
     {
         [Tooltip("The gradient of time.")]
-        public float gradientTime = 5.0f;
+        public float gradientTime = 1.0f;
         [Tooltip("Basic color.")]
         public Color fadeColor = new Color(0.0f, 0.0f, 0.0f, 1.0f);
         [Tooltip("The default value is 4000.")]

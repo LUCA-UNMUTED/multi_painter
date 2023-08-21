@@ -8,7 +8,16 @@ public class NetworkPlayer : NetworkBehaviour
     [SerializeField]
     private Vector2 placementArea = new Vector2(-10.0f, 10.0f);
 
-    public override void OnNetworkSpawn() => DisableClientInput();
+    public override void OnNetworkSpawn()
+    {
+        // if this is us, being owner & client, we want to position the player object
+        DisableClientInput();
+        if (IsClient && IsOwner)
+        {
+            transform.position = new Vector3(Random.Range(placementArea.x, placementArea.y),
+                transform.position.y, Random.Range(placementArea.x, placementArea.y));
+        }
+    }
 
     private void DisableClientInput()
     {
@@ -21,7 +30,7 @@ public class NetworkPlayer : NetworkBehaviour
             var clientHead = GetComponentInChildren<TrackedPoseDriver>();
             var clientCamera = GetComponentInChildren<Camera>();
 
-            clientCamera.enabled = false; 
+            clientCamera.enabled = false;
             clientMoveProvider.enableInputActions = false;
             clientTurnProvider.enableTurnAround = false;
             clientTurnProvider.enableTurnLeftRight = false;
@@ -37,12 +46,7 @@ public class NetworkPlayer : NetworkBehaviour
 
     private void Start()
     {
-        // if this is us, being owner & client, we want to position the player object
-        if (IsClient && IsOwner)
-        {
-            transform.position = new Vector3(Random.Range(placementArea.x, placementArea.y),
-                transform.position.y, Random.Range(placementArea.x, placementArea.y));
-        }
+
     }
 
     public void TestDebug()

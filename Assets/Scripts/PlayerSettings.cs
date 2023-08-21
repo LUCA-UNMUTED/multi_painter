@@ -24,6 +24,7 @@ public class PlayerSettings : NetworkBehaviour
     public NetworkVariable<bool> isAllowedToDraw = new(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     public NetworkVariable<PlayerRole> isHostPlayer = new(PlayerRole.Patient, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
+    public bool playerSettingsSet = false;
     public override void OnNetworkSpawn()
     {
         PlayerColor = colors[(int)OwnerClientId % colors.Count];
@@ -47,6 +48,7 @@ public class PlayerSettings : NetworkBehaviour
                 isAllowedToDraw.Value = false;
                 isHostPlayer.Value = PlayerRole.Patient;
             }
+            playerSettingsSet = true;
         }
     }
 
