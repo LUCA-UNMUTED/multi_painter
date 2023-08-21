@@ -9,8 +9,7 @@ public struct MeshToSend : INetworkSerializeByMemcpy
 }
 public class BrushStrokeMesh : NetworkBehaviour
 {
-    [SerializeField]
-    private float _brushStrokeWidth = 0.05f;
+    public float _brushStrokeWidth = 0.05f;
 
     [SerializeField] private Mesh _mesh;
 

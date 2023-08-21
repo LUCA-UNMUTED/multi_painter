@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PlayerRole { Instructor, Patient };
+//public enum PlayerRole { Instructor, Patient };
 
 public class PlayerData : MonoBehaviour
 {

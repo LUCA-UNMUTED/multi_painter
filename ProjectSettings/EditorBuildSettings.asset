@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/XRMultiplayerSetup.unity
     guid: 4fd924b2e0f548e4bbda6532cbd6eeb5
+  - enabled: 1
+    path: Assets/Scenes/GetStarted.unity
+    guid: 325cccec42ad12749a68fc7c3d224ca7
   m_configObjects: {}
