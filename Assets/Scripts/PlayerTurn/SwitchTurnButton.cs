@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
-
+using UnityEngine.Events;
 
 public class SwitchTurnButton : NetworkBehaviour
 {
@@ -10,6 +10,8 @@ public class SwitchTurnButton : NetworkBehaviour
     [SerializeField] private Color active;
     [SerializeField] private Color neutral;
     private MeshRenderer _mesh;
+
+    [SerializeField] private UnityEvent touchEvent;
 
     // Start is called before the first frame update
     void Start()
@@ -21,19 +23,14 @@ public class SwitchTurnButton : NetworkBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("trigger! " + other);
-        bool isActivePlayer = other.gameObject.GetComponentInParent<PlayerSettings>().isAllowedToDraw.Value;
-        PlayerRole isHostPlayer = other.gameObject.GetComponentInParent<PlayerSettings>().isHostPlayer.Value;
+        if (other.CompareTag("GameController"))
+        {
+            bool isActivePlayer = other.gameObject.GetComponentInParent<PlayerSettings>().isAllowedToDraw.Value;
+            PlayerRole isHostPlayer = other.gameObject.GetComponentInParent<PlayerSettings>().isHostPlayer.Value;
 
-        AlterActiveServerRpc(isActivePlayer, isHostPlayer);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("collision! " + collision);
-        bool isActivePlayer = collision.gameObject.GetComponentInParent<PlayerSettings>().isAllowedToDraw.Value;
-        PlayerRole isHostPlayer = collision.gameObject.GetComponentInParent<PlayerSettings>().isHostPlayer.Value;
-
-        AlterActiveServerRpc(isActivePlayer, isHostPlayer);
+            AlterActiveServerRpc(isActivePlayer, isHostPlayer);
+            if (touchEvent != null) touchEvent.Invoke();
+        }
     }
 
     [ServerRpc(RequireOwnership = false)]
