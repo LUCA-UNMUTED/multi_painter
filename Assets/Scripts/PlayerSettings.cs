@@ -28,9 +28,14 @@ public class PlayerSettings : NetworkBehaviour
 
     public static Dictionary<ulong, PlayerSettings> Players = new Dictionary<ulong, PlayerSettings>();//todo is this necessary
 
+    public GameObject LeftHand;
+    public GameObject RightHand;
+
+    public GameObject activeHand;
+
     public override void OnNetworkSpawn()
     {
-
+        
         PlayerColor = colors[(int)OwnerClientId % colors.Count];
          Players[OwnerClientId] = this;
         bodyMeshRenderer.material.color = PlayerColor;

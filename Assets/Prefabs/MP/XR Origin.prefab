@@ -544,6 +544,9 @@ MonoBehaviour:
   isHostPlayer:
     m_InternalValue: 1
   playerSettingsSet: 0
+  LeftHand: {fileID: 1857868807005118633}
+  RightHand: {fileID: 2527164686536858593}
+  activeHand: {fileID: 0}
 --- !u!114 &-333028516050936203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -556,9 +559,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a9ab6dad6bfe4448e3977edab27317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brushActionLeft:
+    m_Name: Brush Action Left
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 02a44ced-218e-4445-824a-8ff7371e8e6b
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  brushActionRight:
+    m_Name: Brush Action Right
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 26e71dd4-00c7-4211-8cd1-a2fd70ab4d94
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   _brushStrokePrefab: {fileID: 1196413553089462, guid: 6b542e7f0bce59243addc5d42324a971, type: 3}
   _brushIsEnabled: 0
   spawnedBrushStrokes: []
+  playerSettings: {fileID: 0}
+  brushStroke: {fileID: 0}
 --- !u!1 &1719098344026879850
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,7 +647,8 @@ Transform:
   m_LocalPosition: {x: 0, y: -1.12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6850825964419307332}
   m_Father: {fileID: 2627550257845973196}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8018584370987572649
@@ -2049,6 +2073,37 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &7556990974790843926
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6850825964419307332}
+  m_Layer: 0
+  m_Name: pen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6850825964419307332
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7556990974790843926}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1840962817354327484}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8062284658693280735
 GameObject:
   m_ObjectHideFlags: 0
@@ -2096,8 +2151,8 @@ Camera:
   m_GameObject: {fileID: 8062284658693280735}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

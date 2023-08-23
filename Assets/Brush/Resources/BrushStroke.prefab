@@ -126,7 +126,8 @@ MonoBehaviour:
   debugActive: 0
   started: 0
   stopped: 0
-  positionOffset: {x: 0, y: 1, z: 0}
+  positionOffset: {x: 0, y: 0, z: 0}
+  owningPlayer: {fileID: 0}
 --- !u!114 &6481650871772363079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,5 +140,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95a97ac0f8566e846b7089b6fc649052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _brushStrokeWidth: 0.2
+  _brushStrokeWidth: 3
   _mesh: {fileID: 0}

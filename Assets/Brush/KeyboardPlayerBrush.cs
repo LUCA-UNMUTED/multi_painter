@@ -7,8 +7,9 @@ using UnityEngine.InputSystem;
 public class KeyboardPlayerBrush : NetworkBehaviour
 {
     [Header("input")]
-    [SerializeField] private PlayerControls playerInput;
-    private InputAction brushAction;
+    public PlayerControls playerInput;
+    public InputAction brushActionLeft;
+    public InputAction brushActionRight;
 
     [Header("Brush")]
     // Prefab to instantiate when we draw a new brush stroke
@@ -18,31 +19,51 @@ public class KeyboardPlayerBrush : NetworkBehaviour
 
     [SerializeField] private List<GameObject> spawnedBrushStrokes = new();
 
-
-
+    public PlayerSettings playerSettings;
+    public BrushStroke brushStroke;
     private void Awake()
     {
+        playerSettings = this.GetComponent<PlayerSettings>();
         playerInput = new();
         _brushIsEnabled = false;
     }
 
     private void OnEnable()
     {
-        brushAction = playerInput.Player.Brush;
-        brushAction.Enable();
-        brushAction.performed += Brush;
+        brushActionLeft = playerInput.Player.BrushLeftHand;
+        brushActionRight = playerInput.Player.BrushRightHand;
+
+        brushActionLeft.Enable();
+        brushActionRight.Enable();
+
+        brushActionLeft.performed += StartBrushLeft;
+        brushActionLeft.canceled += StopBrushLeft;
+        brushActionRight.performed += StartBrushRight;
+        brushActionRight.canceled += StopBrushRight;
+
+
+
+
     }
 
     private void OnDisable()
     {
-        brushAction.performed -= Brush;
-        brushAction.Disable();
+
+        brushActionLeft.performed -= StartBrushLeft;
+        brushActionLeft.canceled -= StopBrushLeft;
+        brushActionRight.performed -= StartBrushRight;
+        brushActionRight.canceled -= StopBrushRight;
+
+        brushActionRight.Disable();
     }
 
 
-    private void Brush(InputAction.CallbackContext context)
+    private void StartBrushRight(InputAction.CallbackContext context)
     {
-        Debug.Log("Brush");
+
+        
+        playerSettings.activeHand = playerSettings.RightHand;
+        Debug.Log("StartBrush");
         if (!IsOwner) return;
         if (GetComponent<PlayerSettings>().isAllowedToDraw.Value)
         {
@@ -56,6 +77,49 @@ public class KeyboardPlayerBrush : NetworkBehaviour
             Debug.Log("Nope, not allowed to draw boy");
         }
     }
+
+    private void StopBrushRight(InputAction.CallbackContext context)
+    {
+        if (GetComponent<PlayerSettings>().isAllowedToDraw.Value)
+        {
+           _brushIsEnabled = !_brushIsEnabled;
+             //switch brush mode
+            EndBrushServerRpc();
+        }
+
+    }
+
+    private void StartBrushLeft(InputAction.CallbackContext context)
+    {
+
+        playerSettings.activeHand = playerSettings.LeftHand;
+
+        Debug.Log("StartBrush");
+        if (!IsOwner) return;
+        if (GetComponent<PlayerSettings>().isAllowedToDraw.Value)
+        {
+            //switch brush mode
+            _brushIsEnabled = !_brushIsEnabled;
+            if (_brushIsEnabled) StartBrushServerRPC();
+            else EndBrushServerRpc();
+        }
+        else
+        {
+            Debug.Log("Nope, not allowed to draw boy");
+        }
+    }
+
+    private void StopBrushLeft(InputAction.CallbackContext context)
+    {
+        if (GetComponent<PlayerSettings>().isAllowedToDraw.Value)
+        {
+             _brushIsEnabled = !_brushIsEnabled;
+            //switch brush mode
+            EndBrushServerRpc();
+        }
+
+    }
+
 
     [ServerRpc]
     private void StartBrushServerRPC(ServerRpcParams serverRpcParams = default)

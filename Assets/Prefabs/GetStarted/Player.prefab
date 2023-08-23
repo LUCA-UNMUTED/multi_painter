@@ -597,7 +597,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bodyMeshRenderer: {fileID: 4913498368618733021}
-  eyesMeshRenderer: {fileID: 6526418157402178935}
+  eyesMeshRenderer:
+  - {fileID: 6526418157402178935}
   playerName: {fileID: 6411565940903904112}
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
   colors:
@@ -610,6 +611,10 @@ MonoBehaviour:
     m_InternalValue: 0
   isHostPlayer:
     m_InternalValue: 1
+  playerSettingsSet: 0
+  LeftHand: {fileID: 8473612861533135165}
+  RightHand: {fileID: 8473612861533135165}
+  activeHand: {fileID: 0}
 --- !u!114 &6272576768372990389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -656,9 +661,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a9ab6dad6bfe4448e3977edab27317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brushActionLeft:
+    m_Name: Brush Action Left
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 5dc82261-adaf-43ee-b2e0-d277e359212a
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  brushActionRight:
+    m_Name: Brush Action Right
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 8b5f8bd0-6e0a-4c73-b340-c2ae120697e5
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   _brushStrokePrefab: {fileID: 1196413553089462, guid: 6b542e7f0bce59243addc5d42324a971, type: 3}
   _brushIsEnabled: 0
   spawnedBrushStrokes: []
+  playerSettings: {fileID: 0}
+  brushStroke: {fileID: 0}
 --- !u!1 &7365936179035624421
 GameObject:
   m_ObjectHideFlags: 0

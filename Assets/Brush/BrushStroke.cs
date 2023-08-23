@@ -52,8 +52,11 @@ public class BrushStroke : NetworkBehaviour
     // Unity Events
     private void Update()
     {
-        _parentPos = PlayerSettings.Players[OwnerClientId].transform.position;
-        _parentRot = PlayerSettings.Players[OwnerClientId].transform.rotation;
+        _parentPos = PlayerSettings.Players[OwnerClientId].activeHand.transform.position;
+        _parentRot = PlayerSettings.Players[OwnerClientId].activeHand.transform.rotation;
+
+
+
 
         debugActive = active.Value;
 

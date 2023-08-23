@@ -64,13 +64,22 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Brush"",
+                    ""name"": ""BrushLeftHand"",
                     ""type"": ""Button"",
                     ""id"": ""12744fd2-4158-4508-823f-1497eefd655d"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""BrushRightHand"",
+                    ""type"": ""Button"",
+                    ""id"": ""187220b3-1bee-467a-aeac-ad269aca2a1b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -307,12 +316,67 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""33138d57-726b-4958-9bae-1698aa1104bb"",
+                    ""id"": ""b3af8f18-b271-4984-a230-ea8c37b435b9"",
+                    ""path"": ""<PXR_Controller>{LeftHand}/triggerPressed"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BrushLeftHand"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0c776a5d-053e-4163-8e3b-8505e373686a"",
+                    ""path"": ""<PXR_PTController>{LeftHand}/triggerPressed"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BrushLeftHand"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8765b8bb-5234-4fe8-a1f1-ef784f3f5233"",
                     ""path"": ""<Keyboard>/b"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Brush"",
+                    ""action"": ""BrushLeftHand"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2a3f1bdb-d521-4444-aab0-6f07e04e4eb6"",
+                    ""path"": ""<PXR_Controller>{RightHand}/triggerPressed"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BrushRightHand"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0d8b6639-ea24-482a-9ee2-ce444e65da79"",
+                    ""path"": ""<PXR_PTController>{RightHand}/triggerPressed"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BrushRightHand"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dda69dc9-ab69-49d3-b434-2b1f7edc3389"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BrushRightHand"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -904,7 +968,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Space = m_Player.FindAction("Space", throwIfNotFound: true);
-        m_Player_Brush = m_Player.FindAction("Brush", throwIfNotFound: true);
+        m_Player_BrushLeftHand = m_Player.FindAction("BrushLeftHand", throwIfNotFound: true);
+        m_Player_BrushRightHand = m_Player.FindAction("BrushRightHand", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -982,7 +1047,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Space;
-    private readonly InputAction m_Player_Brush;
+    private readonly InputAction m_Player_BrushLeftHand;
+    private readonly InputAction m_Player_BrushRightHand;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -991,7 +1057,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Space => m_Wrapper.m_Player_Space;
-        public InputAction @Brush => m_Wrapper.m_Player_Brush;
+        public InputAction @BrushLeftHand => m_Wrapper.m_Player_BrushLeftHand;
+        public InputAction @BrushRightHand => m_Wrapper.m_Player_BrushRightHand;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1013,9 +1080,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Space.started += instance.OnSpace;
             @Space.performed += instance.OnSpace;
             @Space.canceled += instance.OnSpace;
-            @Brush.started += instance.OnBrush;
-            @Brush.performed += instance.OnBrush;
-            @Brush.canceled += instance.OnBrush;
+            @BrushLeftHand.started += instance.OnBrushLeftHand;
+            @BrushLeftHand.performed += instance.OnBrushLeftHand;
+            @BrushLeftHand.canceled += instance.OnBrushLeftHand;
+            @BrushRightHand.started += instance.OnBrushRightHand;
+            @BrushRightHand.performed += instance.OnBrushRightHand;
+            @BrushRightHand.canceled += instance.OnBrushRightHand;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1032,9 +1102,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Space.started -= instance.OnSpace;
             @Space.performed -= instance.OnSpace;
             @Space.canceled -= instance.OnSpace;
-            @Brush.started -= instance.OnBrush;
-            @Brush.performed -= instance.OnBrush;
-            @Brush.canceled -= instance.OnBrush;
+            @BrushLeftHand.started -= instance.OnBrushLeftHand;
+            @BrushLeftHand.performed -= instance.OnBrushLeftHand;
+            @BrushLeftHand.canceled -= instance.OnBrushLeftHand;
+            @BrushRightHand.started -= instance.OnBrushRightHand;
+            @BrushRightHand.performed -= instance.OnBrushRightHand;
+            @BrushRightHand.canceled -= instance.OnBrushRightHand;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1221,7 +1294,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnSpace(InputAction.CallbackContext context);
-        void OnBrush(InputAction.CallbackContext context);
+        void OnBrushLeftHand(InputAction.CallbackContext context);
+        void OnBrushRightHand(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
