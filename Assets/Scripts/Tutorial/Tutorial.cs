@@ -15,7 +15,7 @@ public class Tutorial : MonoBehaviour
     [SerializeField] private bool _waitingForTouch = false;
 
     [Header("button to switch state")]
-    [SerializeField] private SwitchPlayerButton switchPlayerButton;
+    [SerializeField] private GameObject switchPlayerButton;
 
     [Header("positions")]
     [SerializeField] private Vector3 _relMoveToLocation;
@@ -51,26 +51,23 @@ public class Tutorial : MonoBehaviour
                 {
                     //Debug.Log("enabling switch");
                     _waitingForTouch = false;
-                    switchPlayerButton.EnableSwitch();
+                    Hashtable ht = iTween.Hash("y", 0.2f );
+                    iTween.MoveTo(switchPlayerButton, ht);
                 }
             }
         }
-        if (switchPlayerButton.isTouched)
-        {
-            switchPlayerButton.isTouched = false;
-            Debug.Log("finished the tutorial");
-            FinishTutorial();
-        }
     }
+
 
 
 
     public void StartTutorial()
     {
         Debug.Log("Starting tutorial");
-        Hashtable ht = iTween.Hash("position", _relMoveToLocation, "islocal", true, "time", 1.0f, "easetype", "easeInOutExpo", "oncomplete", "EnableNextTouchPoint");
-        // I prefer using moveto instead of moveby, to avoid double jumping if called twice.
-        iTween.MoveTo(gameObject, ht);
+        //Hashtable ht = iTween.Hash("position", _relMoveToLocation, "islocal", true, "time", 1.0f, "easetype", "easeInOutExpo", "oncomplete", "EnableNextTouchPoint");
+        //// I prefer using moveto instead of moveby, to avoid double jumping if called twice.
+        //iTween.MoveTo(gameObject, ht);
+        EnableNextTouchPoint();
     }
 
     private void FinishTutorial()
@@ -98,9 +95,16 @@ public class Tutorial : MonoBehaviour
     private void EnableNextTouchPoint()
     {
         //Debug.Log("enabling next touchpoint " + _touchPointIndex);
-        _touchPoints[_touchPointIndex].GetComponent<TouchPoint>().EnableTouchPoint();
+        _touchPoints[_touchPointIndex].GetComponent<TouchPoint>().EnableTouchPoint(_relMoveToLocation);
         _waitingForTouch = true;
     }
 
+    /// <summary>
+    /// SwitchTurnButtonPushed is a function that needs to be called by the activeHostButton event when colliding
+    /// </summary>
+    public void SwitchTurnButtonPushed()
+    {
+        FinishTutorial();
+    }
 
 }
