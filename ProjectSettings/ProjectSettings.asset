@@ -134,9 +134,7 @@ PlayerSettings:
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
   bundleVersion: 1.0
-  preloadedAssets:
-  - {fileID: 939661706287316560, guid: f47b59316fb5d0e4b966f31f3c0dfec3, type: 2}
-  - {fileID: 11400000, guid: 7e54f81a092213b40a51e53b5c3be631, type: 2}
+  preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -673,7 +671,7 @@ PlayerSettings:
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: VRSETUP
-  metroPackageVersion: 
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -681,7 +679,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: VRSETUP
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: VRSETUP
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0
