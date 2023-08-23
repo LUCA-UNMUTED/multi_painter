@@ -4,14 +4,11 @@ using Unity.Netcode;
 using UnityEngine;
 
 
-public class ActivateButton : NetworkBehaviour
+public class SwitchTurnButton : NetworkBehaviour
 {
 
     [SerializeField] private Color active;
     [SerializeField] private Color neutral;
-
-
-    private NetworkVariable<bool> isActive = new(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     private MeshRenderer _mesh;
 
     // Start is called before the first frame update
@@ -19,13 +16,22 @@ public class ActivateButton : NetworkBehaviour
     {
         _mesh = GetComponent<MeshRenderer>();
         _mesh.material.SetColor("_BaseColor", neutral);
+    }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("trigger! " + other);
+        bool isActivePlayer = other.gameObject.GetComponentInParent<PlayerSettings>().isAllowedToDraw.Value;
+        PlayerRole isHostPlayer = other.gameObject.GetComponentInParent<PlayerSettings>().isHostPlayer.Value;
+
+        AlterActiveServerRpc(isActivePlayer, isHostPlayer);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        bool isActivePlayer = collision.gameObject.GetComponent<PlayerSettings>().isAllowedToDraw.Value;
-        PlayerRole isHostPlayer = collision.gameObject.GetComponent<PlayerSettings>().isHostPlayer.Value;
+        Debug.Log("collision! " + collision);
+        bool isActivePlayer = collision.gameObject.GetComponentInParent<PlayerSettings>().isAllowedToDraw.Value;
+        PlayerRole isHostPlayer = collision.gameObject.GetComponentInParent<PlayerSettings>().isHostPlayer.Value;
 
         AlterActiveServerRpc(isActivePlayer, isHostPlayer);
     }
@@ -40,7 +46,7 @@ public class ActivateButton : NetworkBehaviour
         if (isActivePlayer || (isHostPlayer==PlayerRole.Instructor))
         {
             //isActive.Value = !isActive.Value;
-            foreach (PlayerMovement _player in PlayerMovement.Players.Values)
+            foreach (PlayerSettings _player in PlayerSettings.Players.Values)
             {
                 _player.GetComponent<PlayerSettings>().isAllowedToDraw.Value = !_player.GetComponent<PlayerSettings>().isAllowedToDraw.Value;
                 //update the color for the NEW active player
