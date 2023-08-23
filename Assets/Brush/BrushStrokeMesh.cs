@@ -1,19 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
 
-public struct MeshToSend : INetworkSerializeByMemcpy
-{
-    public Mesh mesh;
-}
-public class BrushStrokeMesh : NetworkBehaviour
+
+public class BrushStrokeMesh : MonoBehaviour
 {
     public float _brushStrokeWidth = 0.05f;
 
     [SerializeField] private Mesh _mesh;
 
-    private NetworkVariable<MeshToSend> meshToSend = new(); //todo perhaps we can implement it this way?
 
     private List<Vector3> _vertices;
     private List<Vector3> _normals;
@@ -21,10 +16,8 @@ public class BrushStrokeMesh : NetworkBehaviour
     private bool _skipLastRibbonPoint;
     public bool skipLastRibbonPoint { get { return _skipLastRibbonPoint; } set { if (value == _skipLastRibbonPoint) return; _skipLastRibbonPoint = value; UpdateGeometry(); } }
 
-    public override void OnNetworkSpawn()
+    public void Start()
     {
-        base.OnNetworkSpawn();
-
         MeshFilter filter = gameObject.GetComponent<MeshFilter>();
         _mesh = filter.mesh;
         _vertices = new List<Vector3>();
@@ -111,29 +104,6 @@ public class BrushStrokeMesh : NetworkBehaviour
         p1 = position + rotation * new Vector3(-width / 2.0f, 0.0f, 0.0f);
         p2 = position + rotation * new Vector3(width / 2.0f, 0.0f, 0.0f);
         normal = rotation * Vector3.up;
-    }
-
-    [ServerRpc]
-    private void UpdateMeshOnServerRpc(MeshToSend _mesh)
-    {
-        Debug.Log("updating the meshes on the clients " + _mesh);
-        UpdateMeshClientRpc(_mesh);
-    }
-
-    [ClientRpc]
-    private void UpdateMeshClientRpc(MeshToSend updatedMesh)
-    {
-        //Debug.Log("all clients executing this script to sync the mesh " + updatedMesh.mesh.vertices.Length);
-        //_mesh = updatedMesh.mesh;
-        if (!IsOwner) ConcludeServerRpc(OwnerClientId);
-        MeshFilter filter = gameObject.GetComponent<MeshFilter>();
-        //filter.mesh = updatedMesh.mesh; //DONT DO THIS
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void ConcludeServerRpc(ulong sourceNetworkObjectId)
-    {
-        Debug.Log("got an answer from " + sourceNetworkObjectId);
     }
 
     private void UpdateGeometry()
