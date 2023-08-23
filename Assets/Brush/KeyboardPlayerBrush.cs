@@ -63,7 +63,7 @@ public class KeyboardPlayerBrush : NetworkBehaviour
 
         brushStrokeGameObject = Instantiate(_brushStrokePrefab, Vector3.zero, Quaternion.identity);
         var senderClientId = serverRpcParams.Receive.SenderClientId;
-        var senderPlayerObject = PlayerMovement.Players[senderClientId].NetworkObject;
+        var senderPlayerObject = PlayerSettings.Players[senderClientId].NetworkObject;
 
         // deze lijn wordt op de server uitgevoerd, niet nuttig zo, indien erase nodig, kunnen we deze proberen implementeren
         //spawnedBrushStrokes.Add(brushStrokeGameObject);  

@@ -52,8 +52,8 @@ public class BrushStroke : NetworkBehaviour
     // Unity Events
     private void Update()
     {
-        _parentPos = PlayerMovement.Players[OwnerClientId].transform.position;
-        _parentRot = PlayerMovement.Players[OwnerClientId].transform.rotation;
+        _parentPos = PlayerSettings.Players[OwnerClientId].transform.position;
+        _parentRot = PlayerSettings.Players[OwnerClientId].transform.rotation;
 
         debugActive = active.Value;
 
@@ -91,7 +91,7 @@ public class BrushStroke : NetworkBehaviour
 
         // adapt the material to our instantiating player
         Material currentMat = GetComponent<MeshRenderer>().material;
-        owningPlayer = PlayerMovement.Players[OwnerClientId].GetComponent<PlayerSettings>();
+        owningPlayer = PlayerSettings.Players[OwnerClientId].GetComponent<PlayerSettings>();
         Color playerColor = owningPlayer.PlayerColor;
         currentMat.SetColor("_BaseColor", playerColor);
 

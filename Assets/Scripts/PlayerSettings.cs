@@ -25,9 +25,14 @@ public class PlayerSettings : NetworkBehaviour
     public NetworkVariable<PlayerRole> isHostPlayer = new(PlayerRole.Patient, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
     public bool playerSettingsSet = false;
+
+    public static Dictionary<ulong, PlayerSettings> Players = new Dictionary<ulong, PlayerSettings>();//todo is this necessary
+
     public override void OnNetworkSpawn()
     {
+
         PlayerColor = colors[(int)OwnerClientId % colors.Count];
+         Players[OwnerClientId] = this;
         bodyMeshRenderer.material.color = PlayerColor;
         networkPlayerName.Value = "Player:" + (OwnerClientId + 1);
         playerName.text = networkPlayerName.Value.ToString();
@@ -35,7 +40,7 @@ public class PlayerSettings : NetworkBehaviour
 
         //initial settings to decide role & who can start drawing
 
-        if (IsServer || IsHost)
+        if (IsServer || IsHost) // TODO rewrite with serverRPC
         {
             // the server can distribute the roles, we link the server to the instructor, as (s)he owns the instructor player
             if (IsOwner)

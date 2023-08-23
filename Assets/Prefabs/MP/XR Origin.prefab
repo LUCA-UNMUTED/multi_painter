@@ -230,6 +230,7 @@ GameObject:
   - component: {fileID: 5326916442868578709}
   - component: {fileID: 2119760706613402895}
   - component: {fileID: 3486430871981629959}
+  - component: {fileID: -333028516050936203}
   m_Layer: 0
   m_Name: XR Origin
   m_TagString: Untagged
@@ -543,6 +544,21 @@ MonoBehaviour:
   isHostPlayer:
     m_InternalValue: 1
   playerSettingsSet: 0
+--- !u!114 &-333028516050936203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619944250663454456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86a9ab6dad6bfe4448e3977edab27317, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _brushStrokePrefab: {fileID: 1196413553089462, guid: 6b542e7f0bce59243addc5d42324a971, type: 3}
+  _brushIsEnabled: 0
+  spawnedBrushStrokes: []
 --- !u!1 &1719098344026879850
 GameObject:
   m_ObjectHideFlags: 0
