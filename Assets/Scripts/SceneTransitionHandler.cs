@@ -5,10 +5,13 @@ using DilmerGames.Core.Singletons;
 
 public class SceneTransitionHandler : Singleton<SceneTransitionHandler>
 {
+    /// <summary>
+    /// this script allows us to switch between scenes based on buttons pushed or functions called
+    /// </summary>
     static public SceneTransitionHandler sceneTransitionHandler { get; internal set; }
 
-    [SerializeField]
-    public string DefaultMainMenu = "XRMultiplayerMain";
+    [SerializeField] public string MultiplayerMainScene = "XRMultiplayerMain";
+    [SerializeField] public string TutorialScene = "TutorialScene";
 
     [HideInInspector]
     public delegate void ClientLoadedSceneDelegateHandler(ulong clientId);
@@ -22,24 +25,29 @@ public class SceneTransitionHandler : Singleton<SceneTransitionHandler>
 
     private int m_numberOfClientLoaded;
 
-
+    [Header("debug")]
     [SerializeField] private bool testHost = false;
-
     [SerializeField] private bool testClient = false;
+    [SerializeField] private bool testTutorial = false;
+    [SerializeField] private bool doSkipTutorial = false;
     public bool InitializeAsHost { get; set; }
 
     private void Update()
     {
         // for testing only
-        if(testHost) //Input.GetKeyDown(KeyCode.H) || 
+        if (testHost) //Input.GetKeyDown(KeyCode.H) || 
         {
             testHost = false;
             LaunchMP(true);
         }
-        if(testClient) //Input.GetKeyDown(KeyCode.C) || 
+        if (testClient) //Input.GetKeyDown(KeyCode.C) || 
         {
             testClient = false;
             LaunchMP(false);
+        }
+        if (testTutorial)
+        {
+            LaunchTutorial();
         }
     }
 
@@ -63,7 +71,7 @@ public class SceneTransitionHandler : Singleton<SceneTransitionHandler>
     /// </summary>
     private void Awake()
     {
-        if(sceneTransitionHandler != this && sceneTransitionHandler != null)
+        if (sceneTransitionHandler != this && sceneTransitionHandler != null)
         {
             Debug.Log("Another scene transition handler existed, removing");
             GameObject.Destroy(sceneTransitionHandler.gameObject);
@@ -72,7 +80,7 @@ public class SceneTransitionHandler : Singleton<SceneTransitionHandler>
         SetSceneState(SceneStates.Init);
     }
 
-    
+
     /// <summary>
     /// SetSceneState
     /// Sets the current scene state to help with transitioning.
@@ -81,7 +89,7 @@ public class SceneTransitionHandler : Singleton<SceneTransitionHandler>
     public void SetSceneState(SceneStates sceneState)
     {
         m_SceneState = sceneState;
-        if(OnSceneStateChanged != null)
+        if (OnSceneStateChanged != null)
         {
             OnSceneStateChanged.Invoke(m_SceneState);
         }
@@ -101,12 +109,12 @@ public class SceneTransitionHandler : Singleton<SceneTransitionHandler>
     /// Initialize
     /// Loads the default main menu when started (this should always be a component added to the networking manager)
     /// </summary>
-    public void Initialize()
+    public void InitializeMP()
     {
-        if(m_SceneState == SceneStates.Init)
+        if (m_SceneState == SceneStates.Init)
         {
-            Debug.Log("Loading " + DefaultMainMenu);
-            SceneManager.LoadScene(DefaultMainMenu);
+            Debug.Log("Loading " + MultiplayerMainScene);
+            SceneManager.LoadScene(MultiplayerMainScene);
         }
     }
 
@@ -156,6 +164,23 @@ public class SceneTransitionHandler : Singleton<SceneTransitionHandler>
     {
         Debug.Log("Clicked at " + Time.time);
         InitializeAsHost = asHost;
-        Initialize();
+        InitializeMP();
+    }
+
+    public void LaunchTutorial()
+    {
+        if (m_SceneState == SceneStates.Init)
+        {
+            if (!doSkipTutorial)
+            {
+                Debug.Log("Loading " + TutorialScene);
+                SceneManager.LoadScene(TutorialScene, LoadSceneMode.Additive);
+            }
+            else
+            {
+                Debug.Log("skipping tutorial, loading " + MultiplayerMainScene);
+                SceneManager.LoadScene(MultiplayerMainScene);
+            }
+        }
     }
 }

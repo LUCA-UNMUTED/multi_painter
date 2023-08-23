@@ -21,12 +21,17 @@ public class Tutorial : MonoBehaviour
     [SerializeField] private Vector3 _relMoveToLocation;
     private Vector3 _startingLocation;
 
+    [Header("on to next scene")]
+    [SerializeField] private SceneTransitionHandler sceneTransitionHandler;
+
     [Header("debug")]
     [SerializeField] private bool testStart = false;
     // Start is called before the first frame update
     void Start()
     {
         _startingLocation = transform.position;
+        sceneTransitionHandler = SceneTransitionHandler.Instance;
+        StartTutorial();
     }
 
     // Update is called once per frame
@@ -51,7 +56,7 @@ public class Tutorial : MonoBehaviour
                 {
                     //Debug.Log("enabling switch");
                     _waitingForTouch = false;
-                    Hashtable ht = iTween.Hash("y", 0.2f );
+                    Hashtable ht = iTween.Hash("y", 0.2f);
                     iTween.MoveTo(switchPlayerButton, ht);
                 }
             }
@@ -82,11 +87,12 @@ public class Tutorial : MonoBehaviour
         if (tutorialIsFinishedEvent != null)
         {
             tutorialIsFinishedEvent.Invoke();
+            sceneTransitionHandler.LaunchMP(false);
         }
 
         //destroy the created lines
         BrushStroke[] brushStrokes = FindObjectsByType<BrushStroke>(FindObjectsSortMode.None);
-        foreach(BrushStroke b in brushStrokes)
+        foreach (BrushStroke b in brushStrokes)
         {
             Destroy(b.gameObject);
         }
