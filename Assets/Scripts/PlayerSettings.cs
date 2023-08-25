@@ -33,6 +33,7 @@ public class PlayerSettings : NetworkBehaviour
 
     public GameObject activeHand;
 
+
     public override void OnNetworkSpawn()
     {
 
@@ -43,7 +44,8 @@ public class PlayerSettings : NetworkBehaviour
         playerName.text = networkPlayerName.Value.ToString();
         gameObject.name = networkPlayerName.Value.ToString(); // in Unity editor more clearly
         activeHand = LeftHand; // startersSettings
-        //initial settings to decide role & who can start drawing
+
+
 
         if (IsServer || IsHost) // TODO rewrite with serverRPC
         {
@@ -52,6 +54,7 @@ public class PlayerSettings : NetworkBehaviour
             {
                 isAllowedToDraw.Value = true;
                 isHostPlayer.Value = PlayerRole.Instructor;
+               
             }
             else
             {
