@@ -4,85 +4,56 @@ using UnityEngine.XR;
 using UnityEngine.InputSystem;
 
 
-public class SingleplayerBrush : MonoBehaviour
+public class SingleplayerBrush : CommonBrush
 {
-    [Header("input")]
-    public XRIDefaultInputActions playerInput;
-    public InputAction brushActionLeft;
-    public InputAction brushActionRight;
-    public InputAction brushActionKeyboard;
-    public bool triggerPressed;
-
-    [Header("Brush")]
-    // Prefab to instantiate when we draw a new brush stroke
-    [SerializeField] private GameObject _brushStrokePrefab = null;
-    private GameObject brushStrokeGameObject;
-
     // Which hand should this brush instance track?
-    public enum Hand { LeftHand, RightHand };
+    //public enum Hand { LeftHand, RightHand };
     [Header("Tracking objects")]
-    [SerializeField] private Hand _hand = Hand.RightHand;
+    //[SerializeField] private Hand _hand = Hand.RightHand;
 
     public GameObject leftHandObject;
     public GameObject rightHandObject;
     private GameObject activeHand;
- 
-    //// Used to keep track of the current brush tip position and the actively drawing brush stroke
-    private BrushStroke_Netcode _activeBrushStroke;
 
-    private void Awake()
-    {
-        activeHand = leftHandObject;
-        playerInput = new();
-    }
-
-
-    private void OnEnable()
-    {
-        brushActionLeft = playerInput.Player.BrushLeftHand;
-        brushActionLeft.Enable();
-        brushActionLeft.performed += ToggleLeft;
-
-        brushActionRight = playerInput.Player.BrushRightHand;
-        brushActionRight.Enable();
-        brushActionRight.performed += ToggleRight;
-
-
-        brushActionKeyboard = playerInput.Player.KeyboardDraw;
-        brushActionKeyboard.Enable();
-        brushActionKeyboard.performed += ToggleLeft;
-    }
-
-    private void OnDisable()
-    {
-
-        brushActionLeft.performed -= ToggleLeft;
-        brushActionLeft.Disable();
-
-        brushActionRight.performed -= ToggleRight;
-        brushActionRight.Disable();
-
-        brushActionKeyboard.performed -= ToggleLeft;
-
-    }
-
-    public void ToggleLeft(InputAction.CallbackContext context)
+    public override void ToggleBrushKeyboard(InputAction.CallbackContext context)
     {
         triggerPressed = !triggerPressed;
-        activeHand = leftHandObject;
+        if (triggerPressed)
+        {
+            StartBrushLeft(context);
+        }
+        else
+        {
+            StopBrush(context);
+        }
+    }
+
+    public override void StartBrushLeft(InputAction.CallbackContext context)
+    {
         Debug.Log("drawing left");
+        triggerPressed = true;
+        activeHand = leftHandObject;
     }
-    public void ToggleRight(InputAction.CallbackContext context)
+    public override void StartBrushRight(InputAction.CallbackContext context)
     {
-        triggerPressed = !triggerPressed;
-        activeHand = rightHandObject;
         Debug.Log("drawing right");
+        triggerPressed = true;
+        activeHand = rightHandObject;
+    }
+
+    public override void StopBrush(InputAction.CallbackContext context)
+    {
+        Debug.Log("Stopping the brush");
+        isDrawing = false;
     }
     private void Update()
     {
         // If the trigger is pressed and we haven't created a new brush stroke to draw, create one!
         if (triggerPressed && _activeBrushStroke == null)
         {
+            // make clear we're drawing
+            isDrawing = true;
+
             brushStrokeGameObject = Instantiate(_brushStrokePrefab);
             brushStrokeGameObject.AddComponent<BrushPointerCapture_single_player>();
             brushStrokeGameObject.GetComponent<BrushPointerCapture_single_player>().activeBrush = true;
@@ -93,6 +64,8 @@ public class SingleplayerBrush : MonoBehaviour
         // If the trigger is no longer pressed, and we still have an active brush stroke, mark it as finished and clear it.
         if (!triggerPressed && _activeBrushStroke != null)
         {
+            isDrawing = false;
+
             brushStrokeGameObject.GetComponent<BrushPointerCapture_single_player>().activeBrush = false;
         }
     }

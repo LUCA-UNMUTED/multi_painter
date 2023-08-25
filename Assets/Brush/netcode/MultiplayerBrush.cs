@@ -4,68 +4,29 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MultiplayerBrush : NetworkBehaviour
+public class MultiplayerBrush : CommonBrush
 {
-    [Header("input")]
-    public XRIDefaultInputActions playerInput;
-    public InputAction brushActionLeft;
-    public InputAction brushActionRight;
-    public InputAction brushActionKeyboard;
-
-    [Header("Brush")]
-    // Prefab to instantiate when we draw a new brush stroke
-    [SerializeField] private GameObject _brushStrokePrefab = null;
-    private GameObject brushStrokeGameObject;
-    [SerializeField] private bool _brushIsEnabled = false;
-
-    [SerializeField] private List<GameObject> spawnedBrushStrokes = new();
-
     public PlayerSettings playerSettings;
-    private BrushStroke_Netcode _activeBrushStroke;
     [SerializeField] BrushPointerCapture_multi_player brushPointerCapture; // SINGLE PLAYER OR MULTIPLAYER
 
-    private void Awake()
+
+    public override void OnNetworkSpawn()
     {
+        base.OnNetworkSpawn();
         playerSettings = GetComponent<PlayerSettings>();
-        playerInput = new();
-        _brushIsEnabled = false;
-    }
-
-    private void OnEnable()
-    {
-        brushActionLeft = playerInput.Player.BrushLeftHand;
-        brushActionLeft.Enable();
-        brushActionLeft.performed += StartBrushLeft;
-        brushActionLeft.canceled += StopBrush;
-
-        brushActionRight = playerInput.Player.BrushRightHand;
-        brushActionRight.Enable();
-        brushActionRight.performed += StartBrushRight;
-        brushActionRight.canceled += StopBrush;
-
-
-        brushActionKeyboard = playerInput.Player.KeyboardDraw;
-        brushActionKeyboard.Enable();
-        brushActionKeyboard.performed += StartBrushKeyboard;
-    }
-
-    private void OnDisable()
-    {
-
-        brushActionLeft.performed -= StartBrushLeft;
-        brushActionLeft.canceled -= StopBrush;
-        brushActionLeft.Disable();
-
-        brushActionRight.performed -= StartBrushRight;
-        brushActionRight.canceled -= StopBrush;
-        brushActionRight.Disable();
-
-        brushActionKeyboard.performed -= StartBrushKeyboard;
 
     }
-    private void StartBrushKeyboard(InputAction.CallbackContext context)
+    public override void ToggleBrushKeyboard(InputAction.CallbackContext context)
     {
-        StartBrushCommon();
+        triggerPressed = !triggerPressed;
+        if (triggerPressed)
+        {
+            StartBrushCommon();
+        }
+        else
+        {
+            StopBrush(context);
+        }
     }
     private void StartBrushCommon()
     {
@@ -73,35 +34,32 @@ public class MultiplayerBrush : NetworkBehaviour
         if (!IsOwner) return;
         if (GetComponent<PlayerSettings>().isAllowedToDraw.Value)
         {
-            //switch brush mode
-            _brushIsEnabled = !_brushIsEnabled;
-            if (_brushIsEnabled) StartBrushServerRPC();
-            else EndBrushServerRpc();
+            StartBrushServerRPC();
+            isDrawing = true;
         }
         else
         {
             Debug.Log("Nope, not allowed to draw boy");
         }
     }
-    private void StartBrushRight(InputAction.CallbackContext context)
+    public override void StartBrushRight(InputAction.CallbackContext context)
     {
         playerSettings.activeHand = playerSettings.RightHand;
         StartBrushCommon();
     }
 
-    private void StartBrushLeft(InputAction.CallbackContext context)
+    public override void StartBrushLeft(InputAction.CallbackContext context)
     {
         playerSettings.activeHand = playerSettings.LeftHand;
         StartBrushCommon();
     }
 
-    private void StopBrush(InputAction.CallbackContext context)
+    public override void StopBrush(InputAction.CallbackContext context)
     {
         Debug.Log("Stopping the brush");
         if (GetComponent<PlayerSettings>().isAllowedToDraw.Value)
         {
-            _brushIsEnabled = !_brushIsEnabled;
-            //switch brush mode
+            isDrawing = false;
             EndBrushServerRpc();
         }
     }
