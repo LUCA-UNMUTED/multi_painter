@@ -16,7 +16,7 @@ public class BrushStrokeMesh : MonoBehaviour
     private bool _skipLastRibbonPoint;
     public bool skipLastRibbonPoint { get { return _skipLastRibbonPoint; } set { if (value == _skipLastRibbonPoint) return; _skipLastRibbonPoint = value; UpdateGeometry(); } }
 
-    public void Start()
+    public void Awake()
     {
         MeshFilter filter = gameObject.GetComponent<MeshFilter>();
         _mesh = filter.mesh;

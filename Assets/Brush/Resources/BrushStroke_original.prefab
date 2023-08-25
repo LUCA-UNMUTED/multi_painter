@@ -11,12 +11,10 @@ GameObject:
   - component: {fileID: 4430818574254032}
   - component: {fileID: 8513720052537720543}
   - component: {fileID: 4142351764637600685}
-  - component: {fileID: 6415934007570506330}
   - component: {fileID: 114499251600465828}
-  - component: {fileID: -3589294934599901071}
   - component: {fileID: 6481650871772363079}
   m_Layer: 0
-  m_Name: BrushStroke
+  m_Name: BrushStroke_original
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,26 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6415934007570506330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1196413553089462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 951099334
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!114 &114499251600465828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,31 +92,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1196413553089462}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07275cc05e970014287f58539763a801, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mesh: {fileID: 0}
---- !u!114 &-3589294934599901071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1196413553089462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6291cd3183491b14aa55195000831f29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mesh: {fileID: 0}
-  active: 0
-  started: 0
-  stopped: 0
-  positionOffset: {x: 0, y: 0, z: 0}
-  singleplayerColor: {r: 1, g: 0, b: 0, a: 1}
-  pointerObject: {fileID: 0}
+  _mesh: {fileID: 6481650871772363079}
 --- !u!114 &6481650871772363079
 MonoBehaviour:
   m_ObjectHideFlags: 0

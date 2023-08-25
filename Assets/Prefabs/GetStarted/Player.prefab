@@ -679,11 +679,21 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  brushActionKeyboard:
+    m_Name: Brush Action Keyboard
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: ff3ac077-987c-438a-a29e-064b0a1666cf
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   _brushStrokePrefab: {fileID: 1196413553089462, guid: 6b542e7f0bce59243addc5d42324a971, type: 3}
   _brushIsEnabled: 0
   spawnedBrushStrokes: []
-  playerSettings: {fileID: 0}
-  brushStroke: {fileID: 0}
+  playerSettings: {fileID: 3175964318160135980}
+  brushStroke: {fileID: 114499251600465828, guid: 6b542e7f0bce59243addc5d42324a971, type: 3}
+  brushPointerCapture: {fileID: 0}
 --- !u!1 &7365936179035624421
 GameObject:
   m_ObjectHideFlags: 0

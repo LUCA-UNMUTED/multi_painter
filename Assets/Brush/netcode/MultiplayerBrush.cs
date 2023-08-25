@@ -4,12 +4,13 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class KeyboardPlayerBrush : NetworkBehaviour
+public class MultiplayerBrush : NetworkBehaviour
 {
     [Header("input")]
     public PlayerControls playerInput;
     public InputAction brushActionLeft;
     public InputAction brushActionRight;
+    public InputAction brushActionKeyboard;
 
     [Header("Brush")]
     // Prefab to instantiate when we draw a new brush stroke
@@ -20,7 +21,9 @@ public class KeyboardPlayerBrush : NetworkBehaviour
     [SerializeField] private List<GameObject> spawnedBrushStrokes = new();
 
     public PlayerSettings playerSettings;
-    public BrushStroke brushStroke;
+    public BrushStroke_Netcode brushStroke;
+    [SerializeField] BrushPointerCapture_multi_player brushPointerCapture; // SINGLE PLAYER OR MULTIPLAYER
+
     private void Awake()
     {
         playerSettings = this.GetComponent<PlayerSettings>();
@@ -31,38 +34,41 @@ public class KeyboardPlayerBrush : NetworkBehaviour
     private void OnEnable()
     {
         brushActionLeft = playerInput.Player.BrushLeftHand;
-        brushActionRight = playerInput.Player.BrushRightHand;
-
         brushActionLeft.Enable();
-        brushActionRight.Enable();
-
         brushActionLeft.performed += StartBrushLeft;
-        brushActionLeft.canceled += StopBrushLeft;
+        brushActionLeft.canceled += StopBrush;
+
+        brushActionRight = playerInput.Player.BrushRightHand;
+        brushActionRight.Enable();
         brushActionRight.performed += StartBrushRight;
-        brushActionRight.canceled += StopBrushRight;
+        brushActionRight.canceled += StopBrush;
 
 
-
-
+        brushActionKeyboard = playerInput.Player.KeyboardDraw;
+        brushActionKeyboard.Enable();
+        brushActionKeyboard.performed += StartBrushKeyboard;
     }
 
     private void OnDisable()
     {
 
         brushActionLeft.performed -= StartBrushLeft;
-        brushActionLeft.canceled -= StopBrushLeft;
+        brushActionLeft.canceled -= StopBrush;
+        brushActionLeft.Disable();
+
         brushActionRight.performed -= StartBrushRight;
-        brushActionRight.canceled -= StopBrushRight;
-
+        brushActionRight.canceled -= StopBrush;
         brushActionRight.Disable();
+
+        brushActionKeyboard.performed -= StartBrushKeyboard;
+
     }
-
-
-    private void StartBrushRight(InputAction.CallbackContext context)
+    private void StartBrushKeyboard(InputAction.CallbackContext context)
     {
-
-        
-        playerSettings.activeHand = playerSettings.RightHand;
+        StartBrushCommon();
+    }
+    private void StartBrushCommon()
+    {
         Debug.Log("StartBrush");
         if (!IsOwner) return;
         if (GetComponent<PlayerSettings>().isAllowedToDraw.Value)
@@ -77,47 +83,27 @@ public class KeyboardPlayerBrush : NetworkBehaviour
             Debug.Log("Nope, not allowed to draw boy");
         }
     }
-
-    private void StopBrushRight(InputAction.CallbackContext context)
+    private void StartBrushRight(InputAction.CallbackContext context)
     {
-        if (GetComponent<PlayerSettings>().isAllowedToDraw.Value)
-        {
-           _brushIsEnabled = !_brushIsEnabled;
-             //switch brush mode
-            EndBrushServerRpc();
-        }
-
+        playerSettings.activeHand = playerSettings.RightHand;
+        StartBrushCommon();
     }
 
     private void StartBrushLeft(InputAction.CallbackContext context)
     {
-
         playerSettings.activeHand = playerSettings.LeftHand;
-
-        Debug.Log("StartBrush");
-        if (!IsOwner) return;
-        if (GetComponent<PlayerSettings>().isAllowedToDraw.Value)
-        {
-            //switch brush mode
-            _brushIsEnabled = !_brushIsEnabled;
-            if (_brushIsEnabled) StartBrushServerRPC();
-            else EndBrushServerRpc();
-        }
-        else
-        {
-            Debug.Log("Nope, not allowed to draw boy");
-        }
+        StartBrushCommon();
     }
 
-    private void StopBrushLeft(InputAction.CallbackContext context)
+    private void StopBrush(InputAction.CallbackContext context)
     {
+        Debug.Log("Stopping the brush");
         if (GetComponent<PlayerSettings>().isAllowedToDraw.Value)
         {
-             _brushIsEnabled = !_brushIsEnabled;
+            _brushIsEnabled = !_brushIsEnabled;
             //switch brush mode
             EndBrushServerRpc();
         }
-
     }
 
 
@@ -129,11 +115,14 @@ public class KeyboardPlayerBrush : NetworkBehaviour
         var senderClientId = serverRpcParams.Receive.SenderClientId;
         var senderPlayerObject = PlayerSettings.Players[senderClientId].NetworkObject;
 
+        brushStrokeGameObject.GetComponent<BrushStroke_Netcode>().pointerObject = senderPlayerObject.GetComponent<PlayerSettings>().activeHand.transform;
+        brushPointerCapture = brushStrokeGameObject.AddComponent<BrushPointerCapture_multi_player>();
         // deze lijn wordt op de server uitgevoerd, niet nuttig zo, indien erase nodig, kunnen we deze proberen implementeren
         //spawnedBrushStrokes.Add(brushStrokeGameObject);  
         brushStrokeGameObject.GetComponent<NetworkObject>().Spawn();
-        brushStrokeGameObject.GetComponent<BrushStroke>().active.Value = true;
         brushStrokeGameObject.GetComponent<NetworkObject>().ChangeOwnership(senderClientId);
+        brushPointerCapture.activeBrushMP.Value = true;
+
         UpdateBrushStrokeListClientRpc();
     }
 
@@ -150,6 +139,6 @@ public class KeyboardPlayerBrush : NetworkBehaviour
     [ServerRpc]
     private void EndBrushServerRpc()
     {
-        brushStrokeGameObject.GetComponent<BrushStroke>().active.Value = false;
+        brushPointerCapture.activeBrushMP.Value = false;
     }
 }

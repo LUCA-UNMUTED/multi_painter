@@ -80,6 +80,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""KeyboardDraw"",
+                    ""type"": ""Button"",
+                    ""id"": ""d7be91bb-0c19-4f99-acea-c06e29a6d1ca"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -338,17 +347,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8765b8bb-5234-4fe8-a1f1-ef784f3f5233"",
-                    ""path"": ""<Keyboard>/b"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""BrushLeftHand"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""2a3f1bdb-d521-4444-aab0-6f07e04e4eb6"",
                     ""path"": ""<PXR_Controller>{RightHand}/triggerPressed"",
                     ""interactions"": ""Press(behavior=2)"",
@@ -377,6 +375,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""BrushRightHand"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5ded68f7-30ca-4184-a775-e3c0c99dde4c"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""KeyboardDraw"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -970,6 +979,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Space = m_Player.FindAction("Space", throwIfNotFound: true);
         m_Player_BrushLeftHand = m_Player.FindAction("BrushLeftHand", throwIfNotFound: true);
         m_Player_BrushRightHand = m_Player.FindAction("BrushRightHand", throwIfNotFound: true);
+        m_Player_KeyboardDraw = m_Player.FindAction("KeyboardDraw", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1049,6 +1059,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Space;
     private readonly InputAction m_Player_BrushLeftHand;
     private readonly InputAction m_Player_BrushRightHand;
+    private readonly InputAction m_Player_KeyboardDraw;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -1059,6 +1070,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Space => m_Wrapper.m_Player_Space;
         public InputAction @BrushLeftHand => m_Wrapper.m_Player_BrushLeftHand;
         public InputAction @BrushRightHand => m_Wrapper.m_Player_BrushRightHand;
+        public InputAction @KeyboardDraw => m_Wrapper.m_Player_KeyboardDraw;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1086,6 +1098,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @BrushRightHand.started += instance.OnBrushRightHand;
             @BrushRightHand.performed += instance.OnBrushRightHand;
             @BrushRightHand.canceled += instance.OnBrushRightHand;
+            @KeyboardDraw.started += instance.OnKeyboardDraw;
+            @KeyboardDraw.performed += instance.OnKeyboardDraw;
+            @KeyboardDraw.canceled += instance.OnKeyboardDraw;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1108,6 +1123,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @BrushRightHand.started -= instance.OnBrushRightHand;
             @BrushRightHand.performed -= instance.OnBrushRightHand;
             @BrushRightHand.canceled -= instance.OnBrushRightHand;
+            @KeyboardDraw.started -= instance.OnKeyboardDraw;
+            @KeyboardDraw.performed -= instance.OnKeyboardDraw;
+            @KeyboardDraw.canceled -= instance.OnKeyboardDraw;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1296,6 +1314,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSpace(InputAction.CallbackContext context);
         void OnBrushLeftHand(InputAction.CallbackContext context);
         void OnBrushRightHand(InputAction.CallbackContext context);
+        void OnKeyboardDraw(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

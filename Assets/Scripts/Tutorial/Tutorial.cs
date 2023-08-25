@@ -91,8 +91,8 @@ public class Tutorial : MonoBehaviour
         }
 
         //destroy the created lines
-        BrushStroke[] brushStrokes = FindObjectsByType<BrushStroke>(FindObjectsSortMode.None);
-        foreach (BrushStroke b in brushStrokes)
+        BrushStroke_Netcode[] brushStrokes = FindObjectsByType<BrushStroke_Netcode>(FindObjectsSortMode.None);
+        foreach (BrushStroke_Netcode b in brushStrokes)
         {
             Destroy(b.gameObject);
         }

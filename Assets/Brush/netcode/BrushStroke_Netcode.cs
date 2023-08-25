@@ -2,13 +2,9 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public class BrushStroke : NetworkBehaviour
+public class BrushStroke_Netcode : MonoBehaviour
 {
-
-    [SerializeField]
-    private BrushStrokeMesh _mesh;
-
-
+    [SerializeField] private BrushStrokeMesh _mesh;
 
     // Ribbon State
     struct RibbonPoint
@@ -30,19 +26,15 @@ public class BrushStroke : NetworkBehaviour
     private Vector3 _previousRibbonPointPosition;
     private Quaternion _previousRibbonPointRotation = Quaternion.identity;
 
-    [SerializeField] private Vector3 _parentPos;
-    [SerializeField] private Quaternion _parentRot;
-
-    public NetworkVariable<bool> active = new(false);
-
-    [SerializeField] private bool debugActive;
-
+    public bool active = false;
 
     [SerializeField] private bool started = false;
     [SerializeField] private bool stopped = false;
     [SerializeField] private Vector3 positionOffset = new(0f, 0f, 0f);
 
-    [SerializeField] private PlayerSettings owningPlayer;
+    public Color singleplayerColor = Color.red;
+    public Transform pointerObject;
+
     private void Awake()
     {
         //CreateMeshServerRpc();
@@ -52,26 +44,29 @@ public class BrushStroke : NetworkBehaviour
     // Unity Events
     private void Update()
     {
-        _parentPos = PlayerSettings.Players[OwnerClientId].activeHand.transform.position;
-        _parentRot = PlayerSettings.Players[OwnerClientId].activeHand.transform.rotation;
+        // Animate the end of the ribbon towards the brush tip
+        AnimateLastRibbonPointTowardsBrushTipPosition();
 
+        // Add a ribbon segment if the end of the ribbon has moved far enough
+        AddRibbonPointIfNeeded();
 
+        if (pointerObject == null) return; // as long as we don't have the pointer object set correctly we can't commence drawing
 
+        Vector3 _pointerPos = pointerObject.position;
+        Quaternion _pointerRot = pointerObject.rotation;
 
-        debugActive = active.Value;
-
-        if (active.Value)
+        if (active)
         {
             //Debug.Log("position of drawer " + _parentPos);
             if (!started)
             {
                 // Tell the BrushStroke to begin drawing at the current brush position
 
-                BeginBrushStrokeWithBrushTipPoint(_parentPos + positionOffset, _parentRot);
+                BeginBrushStrokeWithBrushTipPoint(_pointerPos + positionOffset, _pointerRot);
             }
             // If the trigger is pressed, and we have a brush stroke, move the brush stroke to the new brush tip position
 
-            MoveBrushTipToPoint(_parentPos + positionOffset, _parentRot);
+            MoveBrushTipToPoint(_pointerPos + positionOffset, _pointerRot);
             // Animate the end of the ribbon towards the brush tip
             AnimateLastRibbonPointTowardsBrushTipPosition();
 
@@ -82,7 +77,7 @@ public class BrushStroke : NetworkBehaviour
         {
             if (!stopped && started)
             {
-                EndBrushStrokeWithBrushTipPoint(_parentPos + positionOffset, _parentRot);
+                EndBrushStrokeWithBrushTipPoint(_pointerPos + positionOffset, _pointerRot);
                 stopped = true;
             }
         }
@@ -94,9 +89,7 @@ public class BrushStroke : NetworkBehaviour
 
         // adapt the material to our instantiating player
         Material currentMat = GetComponent<MeshRenderer>().material;
-        owningPlayer = PlayerSettings.Players[OwnerClientId].GetComponent<PlayerSettings>();
-        Color playerColor = owningPlayer.PlayerColor;
-        currentMat.SetColor("_BaseColor", playerColor);
+        currentMat.SetColor("_BaseColor", singleplayerColor);
 
         // Update the model
         _brushTipPosition = position;

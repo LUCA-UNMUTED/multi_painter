@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "KeyboardDraw",
+                    "type": "Button",
+                    "id": "d7be91bb-0c19-4f99-acea-c06e29a6d1ca",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -316,17 +325,6 @@
                 },
                 {
                     "name": "",
-                    "id": "8765b8bb-5234-4fe8-a1f1-ef784f3f5233",
-                    "path": "<Keyboard>/b",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "BrushLeftHand",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "2a3f1bdb-d521-4444-aab0-6f07e04e4eb6",
                     "path": "<PXR_Controller>{RightHand}/triggerPressed",
                     "interactions": "Press(behavior=2)",
@@ -355,6 +353,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "BrushRightHand",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5ded68f7-30ca-4184-a775-e3c0c99dde4c",
+                    "path": "<Keyboard>/b",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "KeyboardDraw",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
