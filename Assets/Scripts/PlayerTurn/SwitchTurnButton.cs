@@ -11,7 +11,7 @@ public class SwitchTurnButton : NetworkBehaviour
     [SerializeField] private Color neutral;
     private MeshRenderer _mesh;
 
-    [SerializeField] private UnityEvent touchEvent;
+
 
     // Start is called before the first frame update
     void Start()
@@ -20,17 +20,15 @@ public class SwitchTurnButton : NetworkBehaviour
         _mesh.material.SetColor("_BaseColor", neutral);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("trigger! " + other);
-        if (other.CompareTag("GameController"))
-        {
-            bool isActivePlayer = other.gameObject.GetComponentInParent<PlayerSettings>().isAllowedToDraw.Value;
-            PlayerRole isHostPlayer = other.gameObject.GetComponentInParent<PlayerSettings>().isHostPlayer.Value;
+    
 
-            AlterActiveServerRpc(isActivePlayer, isHostPlayer);
-            if (touchEvent != null) touchEvent.Invoke();
-        }
+    public void Switch()
+    {
+        Collider other = GetComponent<ButtonTouch>()._collider;
+        bool isActivePlayer = other.gameObject.GetComponentInParent<PlayerSettings>().isAllowedToDraw.Value;
+        PlayerRole isHostPlayer = other.gameObject.GetComponentInParent<PlayerSettings>().isHostPlayer.Value;
+
+        AlterActiveServerRpc(isActivePlayer, isHostPlayer);
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -40,7 +38,7 @@ public class SwitchTurnButton : NetworkBehaviour
         Color color = Color.white;
         // if the player is active, we can alter the active player
         // EXCEPT is we're the host
-        if (isActivePlayer || (isHostPlayer==PlayerRole.Instructor))
+        if (isActivePlayer || (isHostPlayer == PlayerRole.Instructor))
         {
             //isActive.Value = !isActive.Value;
             foreach (PlayerSettings _player in PlayerSettings.Players.Values)

@@ -58,6 +58,7 @@ public class Tutorial : MonoBehaviour
                     _waitingForTouch = false;
                     Hashtable ht = iTween.Hash("y", 0.2f);
                     iTween.MoveTo(switchPlayerButton, ht);
+                    switchPlayerButton.GetComponentInChildren<ButtonTouch>().isEnabled = true;
                 }
             }
         }

@@ -43,7 +43,7 @@ public class TouchPoint : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //first check if it's a controller, then if it's the active drawing one
-        if (other.CompareTag("GameController") && other.GetComponent<ActiveDrawing>().isDrawing)
+        if (other.CompareTag("GameController") && other.GetComponentInParent<CommonBrush>().isDrawing)
         {
             SetPointTouched();
         }

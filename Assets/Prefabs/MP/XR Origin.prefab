@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   screenFade: 1
-  eyeTracking: 0
+  eyeTracking: 1
   trackingMode: 0
   faceTracking: 0
   lipsyncTracking: 0
@@ -85,8 +85,8 @@ MonoBehaviour:
   bodyTracking: 0
   foveationLevel: -1
   adaptiveResolution: 0
-  eyeFoveationLevel: -1
-  foveatedRenderingMode: 0
+  eyeFoveationLevel: 2
+  foveatedRenderingMode: 1
   openMRC: 1
   foregroundLayerMask:
     serializedVersion: 2
@@ -336,7 +336,6 @@ MonoBehaviour:
   LeftHand: {fileID: 1857868807005118633}
   RightHand: {fileID: 2527164686536858593}
   activeHand: {fileID: 0}
-  clockObject: {fileID: 0}
 --- !u!114 &-333028516050936203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,8 +376,11 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   _brushStrokePrefab: {fileID: 1196413553089462, guid: 6b542e7f0bce59243addc5d42324a971, type: 3}
-  _brushIsEnabled: 0
+  brushStrokeGameObject: {fileID: 0}
+  triggerPressed: 0
   spawnedBrushStrokes: []
+  _activeBrushStroke: {fileID: 0}
+  isDrawing: 0
   playerSettings: {fileID: 3486430871981629959}
   brushPointerCapture: {fileID: 0}
 --- !u!1 &1719098344026879850
