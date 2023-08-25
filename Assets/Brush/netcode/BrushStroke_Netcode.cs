@@ -42,17 +42,13 @@ public class BrushStroke_Netcode : MonoBehaviour
     private void Awake()
     {
         //CreateMeshServerRpc();
-        _mesh = GetComponent<BrushStrokeMesh>();
+        _mesh = GetComponentInChildren<BrushStrokeMesh>();
     }
 
     // Unity Events
     private void Update()
     {
-        // Animate the end of the ribbon towards the brush tip
-        AnimateLastRibbonPointTowardsBrushTipPosition();
-
-        // Add a ribbon segment if the end of the ribbon has moved far enough
-        AddRibbonPointIfNeeded();
+        
 
         if (pointerObject == null) return; // as long as we don't have the pointer object set correctly we can't commence drawing
 
@@ -65,7 +61,7 @@ public class BrushStroke_Netcode : MonoBehaviour
             if (!started)
             {
                 // Tell the BrushStroke to begin drawing at the current brush position
-
+                Debug.Log("starting position " + _pointerPos + positionOffset);
                 BeginBrushStrokeWithBrushTipPoint(_pointerPos + positionOffset, _pointerRot);
             }
             // If the trigger is pressed, and we have a brush stroke, move the brush stroke to the new brush tip position
@@ -92,7 +88,7 @@ public class BrushStroke_Netcode : MonoBehaviour
     {
 
         // adapt the material to our instantiating player
-        Material currentMat = GetComponent<MeshRenderer>().material;
+        Material currentMat = GetComponentInChildren<MeshRenderer>().material;
         currentMat.SetColor("_BaseColor", singleplayerColor);
 
         // Update the model

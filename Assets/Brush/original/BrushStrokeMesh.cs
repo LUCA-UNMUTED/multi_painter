@@ -10,7 +10,7 @@ public class BrushStrokeMesh : MonoBehaviour
     [SerializeField] private Mesh _mesh;
 
 
-    private List<Vector3> _vertices;
+    [SerializeField] private List<Vector3> _vertices;
     private List<Vector3> _normals;
 
     private bool _skipLastRibbonPoint;

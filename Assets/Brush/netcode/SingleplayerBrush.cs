@@ -44,8 +44,9 @@ public class SingleplayerBrush : CommonBrush
     public override void StopBrush(InputAction.CallbackContext context)
     {
         Debug.Log("Stopping the brush");
-        isDrawing = false;
+        triggerPressed = false;
     }
+
     private void Update()
     {
         // If the trigger is pressed and we haven't created a new brush stroke to draw, create one!
@@ -56,16 +57,16 @@ public class SingleplayerBrush : CommonBrush
 
             brushStrokeGameObject = Instantiate(_brushStrokePrefab);
             brushStrokeGameObject.AddComponent<BrushPointerCapture_single_player>();
-            brushStrokeGameObject.GetComponent<BrushPointerCapture_single_player>().activeBrush = true;
             //Grab the BrushStroke component from it
             _activeBrushStroke = brushStrokeGameObject.GetComponent<BrushStroke_Netcode>();
             _activeBrushStroke.pointerObject = activeHand.transform;
+            brushStrokeGameObject.GetComponent<BrushPointerCapture_single_player>().activeBrush = true;
         }
         // If the trigger is no longer pressed, and we still have an active brush stroke, mark it as finished and clear it.
         if (!triggerPressed && _activeBrushStroke != null)
         {
             isDrawing = false;
-
+            _activeBrushStroke = null;
             brushStrokeGameObject.GetComponent<BrushPointerCapture_single_player>().activeBrush = false;
         }
     }
