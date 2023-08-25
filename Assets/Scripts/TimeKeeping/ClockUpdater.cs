@@ -20,6 +20,8 @@ public class ClockUpdater : NetworkBehaviour, IGazeFocusable
     public PlayerSettings playerSettings;
     public GameObject clockObject;
 
+    private bool updateTime = false;
+
     // Start is called before the first frame update
     public override void OnNetworkSpawn()
     {
@@ -40,7 +42,10 @@ public class ClockUpdater : NetworkBehaviour, IGazeFocusable
     // Update is called once per frame
     void Update()
     {
-
+        if (updateTime)
+        {
+            SetTime();
+        }
         if (testClock)
         {
             testClock = false;
@@ -60,6 +65,6 @@ public class ClockUpdater : NetworkBehaviour, IGazeFocusable
     }
     public void GazeFocusChanged(bool hasFocus)
     {
-        SetTime();
+        updateTime = hasFocus;
     }
 }

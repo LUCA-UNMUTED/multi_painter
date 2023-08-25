@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 2119760706613402895}
   - component: {fileID: 3486430871981629959}
   - component: {fileID: -333028516050936203}
+  - component: {fileID: 2799912086034349360}
   m_Layer: 0
   m_Name: XR Origin
   m_TagString: Untagged
@@ -61,7 +62,7 @@ MonoBehaviour:
   m_Camera: {fileID: 3003947497002611927}
   m_OriginBaseGameObject: {fileID: 1619944250663454456}
   m_CameraFloorOffsetObject: {fileID: 1719098344026879850}
-  m_RequestedTrackingOriginMode: 0
+  m_RequestedTrackingOriginMode: 2
   m_CameraYOffset: 1.36
 --- !u!114 &5953740001720227635
 MonoBehaviour:
@@ -383,6 +384,18 @@ MonoBehaviour:
   isDrawing: 0
   playerSettings: {fileID: 3486430871981629959}
   brushPointerCapture: {fileID: 0}
+--- !u!114 &2799912086034349360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619944250663454456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cb336e28f205d540b336e62de05645f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1719098344026879850
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,7 +443,7 @@ GameObject:
   - component: {fileID: 4103504632626405686}
   - component: {fileID: 4791365850966882293}
   - component: {fileID: 6645249848173628217}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LeftHand Controller
   m_TagString: GameController
   m_Icon: {fileID: 0}
@@ -446,7 +459,7 @@ Transform:
   m_GameObject: {fileID: 1857868807005118633}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.12, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1130,7 +1143,7 @@ GameObject:
   - component: {fileID: 350015671014061425}
   - component: {fileID: 430514657367932549}
   - component: {fileID: 3723128004487542503}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RightHand Controller
   m_TagString: GameController
   m_Icon: {fileID: 0}
@@ -1146,7 +1159,7 @@ Transform:
   m_GameObject: {fileID: 2527164686536858593}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.41, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
