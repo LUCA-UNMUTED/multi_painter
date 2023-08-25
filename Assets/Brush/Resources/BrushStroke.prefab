@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8513720052537720543}
   - component: {fileID: 4142351764637600685}
   - component: {fileID: 6415934007570506330}
-  - component: {fileID: 114499251600465828}
   - component: {fileID: -3589294934599901071}
   - component: {fileID: 6481650871772363079}
   m_Layer: 0
@@ -107,19 +106,6 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &114499251600465828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1196413553089462}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07275cc05e970014287f58539763a801, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mesh: {fileID: 0}
 --- !u!114 &-3589294934599901071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,5 +137,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95a97ac0f8566e846b7089b6fc649052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _brushStrokeWidth: 3
+  _brushStrokeWidth: 0.1
   _mesh: {fileID: 0}

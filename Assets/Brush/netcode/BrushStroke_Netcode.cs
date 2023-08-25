@@ -2,6 +2,10 @@
 using Unity.Netcode;
 using UnityEngine;
 
+/// <summary>
+/// The netcode variant (used by single as well as multiplayer setup) of the normcore drawing example moves the responsibilty of drawing towards the stroke itselves
+/// Instead of the player pushing his position and rotation, we capture the transform and track it.
+/// </summary>
 public class BrushStroke_Netcode : MonoBehaviour
 {
     [SerializeField] private BrushStrokeMesh _mesh;

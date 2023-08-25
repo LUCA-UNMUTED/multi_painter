@@ -2464,7 +2464,6 @@ GameObject:
   - component: {fileID: 1566302463}
   - component: {fileID: 1566302462}
   - component: {fileID: 1566302468}
-  - component: {fileID: 1566302467}
   - component: {fileID: 1566302466}
   m_Layer: 0
   m_Name: XR Origin (XR Rig)
@@ -2579,22 +2578,6 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &1566302467
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1566302461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb72680e30e7e6942b9c2e7fa3589b45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activeHand: {fileID: 0}
-  leftHand: {fileID: 988846911}
-  rightHand: {fileID: 2035574500}
-  active: 0
 --- !u!114 &1566302468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2607,14 +2590,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a667f2d5877ad4889b6bcd17807f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brushActionLeft:
+    m_Name: Brush Action Left
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: a27fdab7-c458-447f-bc2a-ba91b5d72abe
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  brushActionRight:
+    m_Name: Brush Action Right
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: fd827af0-fff6-4bfd-8f78-f397c89aac1d
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  brushActionKeyboard:
+    m_Name: Brush Action Keyboard
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 77de8810-2b63-4734-ae93-65f70b10b4b6
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  triggerPressed: 0
   _brushStrokePrefab: {fileID: 1196413553089462, guid: 6b542e7f0bce59243addc5d42324a971, type: 3}
   _hand: 1
-  triggerPressed: 0
-  toggleRefLeft: {fileID: 5981258136872823231, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  toggleRefRight: {fileID: -41923048921996780, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   leftHandObject: {fileID: 988846911}
   rightHandObject: {fileID: 2035574500}
-  brushPointerCapture: {fileID: 1566302467}
 --- !u!1 &1568015800
 GameObject:
   m_ObjectHideFlags: 0

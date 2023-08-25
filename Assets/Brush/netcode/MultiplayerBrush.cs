@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class MultiplayerBrush : NetworkBehaviour
 {
     [Header("input")]
-    public PlayerControls playerInput;
+    public XRIDefaultInputActions playerInput;
     public InputAction brushActionLeft;
     public InputAction brushActionRight;
     public InputAction brushActionKeyboard;
@@ -21,12 +21,12 @@ public class MultiplayerBrush : NetworkBehaviour
     [SerializeField] private List<GameObject> spawnedBrushStrokes = new();
 
     public PlayerSettings playerSettings;
-    public BrushStroke_Netcode brushStroke;
+    private BrushStroke_Netcode _activeBrushStroke;
     [SerializeField] BrushPointerCapture_multi_player brushPointerCapture; // SINGLE PLAYER OR MULTIPLAYER
 
     private void Awake()
     {
-        playerSettings = this.GetComponent<PlayerSettings>();
+        playerSettings = GetComponent<PlayerSettings>();
         playerInput = new();
         _brushIsEnabled = false;
     }
@@ -110,12 +110,15 @@ public class MultiplayerBrush : NetworkBehaviour
     [ServerRpc]
     private void StartBrushServerRPC(ServerRpcParams serverRpcParams = default)
     {
-
+        //instantiate the stroke
         brushStrokeGameObject = Instantiate(_brushStrokePrefab, Vector3.zero, Quaternion.identity);
+        //get some data from the owner
         var senderClientId = serverRpcParams.Receive.SenderClientId;
         var senderPlayerObject = PlayerSettings.Players[senderClientId].NetworkObject;
-
-        brushStrokeGameObject.GetComponent<BrushStroke_Netcode>().pointerObject = senderPlayerObject.GetComponent<PlayerSettings>().activeHand.transform;
+        // put the tracking hand in the stroke
+        _activeBrushStroke = brushStrokeGameObject.GetComponent<BrushStroke_Netcode>();
+        _activeBrushStroke.pointerObject = senderPlayerObject.GetComponent<PlayerSettings>().activeHand.transform;
+        // add a 
         brushPointerCapture = brushStrokeGameObject.AddComponent<BrushPointerCapture_multi_player>();
         // deze lijn wordt op de server uitgevoerd, niet nuttig zo, indien erase nodig, kunnen we deze proberen implementeren
         //spawnedBrushStrokes.Add(brushStrokeGameObject);  
