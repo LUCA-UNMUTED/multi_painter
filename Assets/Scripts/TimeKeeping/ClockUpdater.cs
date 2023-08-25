@@ -4,22 +4,37 @@ using UnityEngine;
 using TMPro;
 using Tobii.G2OM;
 using System;
+using Unity.Netcode;
 
 
 /// <summary>
 /// ClockUpdater updates a textmeshpro with the current time
 /// 
 /// </summary>
-public class ClockUpdater : MonoBehaviour, IGazeFocusable
+public class ClockUpdater : NetworkBehaviour, IGazeFocusable
 {
     [SerializeField] private TextMeshProUGUI clock;
     private float timePassed = 0f;
-
     [SerializeField] private bool testClock = false;
+
+    public PlayerSettings playerSettings;
+    public GameObject clockObject;
+
     // Start is called before the first frame update
-    void Start()
+    public override void OnNetworkSpawn()
     {
 
+
+        playerSettings = this.GetComponentInParent<PlayerSettings>();
+
+        if (playerSettings != null)
+        {
+            if (playerSettings.isHostPlayer.Value == PlayerRole.Patient)
+            {
+                clockObject.SetActive(false);
+            }
+
+        }
     }
 
     // Update is called once per frame
