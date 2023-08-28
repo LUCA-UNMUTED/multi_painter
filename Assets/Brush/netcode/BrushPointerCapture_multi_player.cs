@@ -54,7 +54,7 @@ public class BrushPointerCapture_multi_player : BrushPointerCapture
     }
     private void SignalBrushStroke(bool previous, bool current)
     {
-        if (!IsOwner) return;
+        //if (!IsOwner) return;
         //Debug.Log("updating the brush to " + current + " "+brushStroke);
         brushStroke.active = current;
     }
