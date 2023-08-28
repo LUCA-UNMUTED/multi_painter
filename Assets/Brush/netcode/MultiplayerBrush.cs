@@ -81,6 +81,8 @@ public class MultiplayerBrush : CommonBrush
         var senderClientId = serverRpcParams.Receive.SenderClientId;
         var senderPlayerObject = PlayerSettings.Players[senderClientId].NetworkObject;
 
+        brushPointerCapture = brushStrokeGameObject.GetComponent<BrushPointerCapture_multi_player>();
+        brushPointerCapture.activeBrushMP.Value = true;
         // put the tracking hand in the stroke
         _activeBrushStroke = brushStrokeGameObject.GetComponent<BrushStroke_Netcode>();
         _activeBrushStroke.pointerObject = senderPlayerObject.GetComponent<PlayerSettings>().activeHand.transform;
@@ -90,8 +92,6 @@ public class MultiplayerBrush : CommonBrush
 
         brushStrokeGameObject.GetComponent<NetworkObject>().ChangeOwnership(senderClientId); //TODO wil ik wel ownership veranderen?
 
-        brushPointerCapture = brushStrokeGameObject.GetComponent<BrushPointerCapture_multi_player>();
-        brushPointerCapture.activeBrushMP.Value = true;
 
         UpdateBrushStrokeListClientRpc();
     }
