@@ -31,7 +31,7 @@ public class MultiplayerBrush : CommonBrush
     }
     private void StartBrushCommon()
     {
-        Debug.Log("StartBrush");
+        //Debug.Log("StartBrush");
         if (!IsOwner) return;
         if (GetComponent<PlayerSettings>().isAllowedToDraw.Value)
         {
@@ -47,7 +47,7 @@ public class MultiplayerBrush : CommonBrush
 
     public override void StartBrushRight(InputAction.CallbackContext context)
     {
-        Debug.Log("drawing right");
+        //Debug.Log("drawing right");
 
         playerSettings.activeHand = playerSettings.RightHand;
         StartBrushCommon();
@@ -55,7 +55,7 @@ public class MultiplayerBrush : CommonBrush
 
     public override void StartBrushLeft(InputAction.CallbackContext context)
     {
-        Debug.Log("drawing left");
+        //Debug.Log("drawing left");
         playerSettings.activeHand = playerSettings.LeftHand;
         StartBrushCommon();
     }
@@ -63,7 +63,7 @@ public class MultiplayerBrush : CommonBrush
     public override void StopBrush(InputAction.CallbackContext context)
     {
         if (!IsOwner) return;
-        Debug.Log("Stopping the brush");
+        //Debug.Log("Stopping the brush");
         if (GetComponent<PlayerSettings>().isAllowedToDraw.Value)
         {
             isDrawing = false;
@@ -85,13 +85,14 @@ public class MultiplayerBrush : CommonBrush
 
         brushStrokeGameObject.GetComponent<NetworkObject>().Spawn();
         brushStrokeGameObject.GetComponent<NetworkObject>().ChangeOwnership(senderClientId); //TODO wil ik wel ownership veranderen?
-        // we mogen tekenen
-        brushPointerCapture.activeBrushMP.Value = true;
+        
         // wie is aan het tekenen?
         brushPointerCapture.activeHandOwnerId.Value = senderClientId;
         // met welk hand tekenen we?
         var activeHand = senderPlayerObject.GetComponent<PlayerSettings>().activeHand.CompareTag("leftHand") ? Hand.Left : Hand.Right;
         brushPointerCapture.activeHandMP.Value = activeHand;
+        // we mogen tekenen
+        brushPointerCapture.activeBrushMP.Value = true;
 
         UpdateBrushStrokeListClientRpc();
     }

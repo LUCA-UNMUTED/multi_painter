@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4680381894057988305}
   - component: {fileID: 748143392907155002}
   - component: {fileID: 6316736176956437929}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: armature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 8332313080783323797}
   - component: {fileID: 5110002831793447306}
   - component: {fileID: 512919154134602204}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 7464785307683738985}
   - component: {fileID: 205870260453861319}
   - component: {fileID: 7412999939501319555}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -373,7 +373,7 @@ GameObject:
   - component: {fileID: 421617348882658024}
   - component: {fileID: 5499048694278819581}
   - component: {fileID: 3681217104304612939}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -446,7 +446,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4393536823965885949}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: grabPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -482,7 +482,7 @@ GameObject:
   - component: {fileID: 6200225891322418243}
   - component: {fileID: 6370623435759850133}
   - component: {fileID: 36810986356142649}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameClock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -807,6 +807,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 62da01f90ba49e34fbb5c77733905de3, type: 3}
       propertyPath: m_Name
       value: klok
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 62da01f90ba49e34fbb5c77733905de3, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

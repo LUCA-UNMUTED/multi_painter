@@ -34,7 +34,6 @@ public class BrushStroke_Netcode : MonoBehaviour
 
     [SerializeField] private bool started = false;
     [SerializeField] private bool stopped = false;
-    [SerializeField] private Vector3 positionOffset = new(0f, 0f, 0f);
 
     public Color _color = Color.red;
     public Transform pointerObject;
@@ -62,12 +61,12 @@ public class BrushStroke_Netcode : MonoBehaviour
             {
                 // Tell the BrushStroke to begin drawing at the current brush position
                 //Debug.Log("starting position " + _pointerPos + positionOffset);
-                BeginBrushStrokeWithBrushTipPoint(_pointerPos + positionOffset, _pointerRot);
+                BeginBrushStrokeWithBrushTipPoint(_pointerPos, _pointerRot);
                 //Debug.Log("started " + started);
             }
             // If the trigger is pressed, and we have a brush stroke, move the brush stroke to the new brush tip position
 
-            MoveBrushTipToPoint(_pointerPos + positionOffset, _pointerRot);
+            MoveBrushTipToPoint(_pointerPos, _pointerRot);
             // Animate the end of the ribbon towards the brush tip
             AnimateLastRibbonPointTowardsBrushTipPosition();
 
@@ -80,9 +79,9 @@ public class BrushStroke_Netcode : MonoBehaviour
         {
             if (!stopped & started) // 
             {
-                EndBrushStrokeWithBrushTipPoint(_pointerPos + positionOffset, _pointerRot);
+                EndBrushStrokeWithBrushTipPoint(_pointerPos, _pointerRot);
                 stopped = true;
-                Debug.Log("Stopped the brushstroke!");
+                //Debug.Log("Stopped the brushstroke!");
             }
             //else
             //{

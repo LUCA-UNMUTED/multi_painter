@@ -17,11 +17,14 @@ public class LaunchEyeTracking : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerSettings.playerSettingsSet & !eyeTrackingStarted) {
+        if (!IsOwner) return;
+        if (playerSettings.playerSettingsSet & !eyeTrackingStarted)
+        {
             // launch the XR settings for this player
             var settings = new TobiiXR_Settings();
             TobiiXR.Start(settings);
             eyeTrackingStarted = true;
+            Debug.Log("eyetracking started");
         }
     }
 }
