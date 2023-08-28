@@ -48,21 +48,20 @@ public class BrushStroke_Netcode : MonoBehaviour
     // Unity Events
     private void Update()
     {
-        
-
         if (pointerObject == null) return; // as long as we don't have the pointer object set correctly we can't commence drawing
 
         Vector3 _pointerPos = pointerObject.position;
         Quaternion _pointerRot = pointerObject.rotation;
-
+        if (stopped) return;
         if (active)
         {
             //Debug.Log("position of drawer " + _parentPos);
             if (!started)
             {
                 // Tell the BrushStroke to begin drawing at the current brush position
-                Debug.Log("starting position " + _pointerPos + positionOffset);
+                //Debug.Log("starting position " + _pointerPos + positionOffset);
                 BeginBrushStrokeWithBrushTipPoint(_pointerPos + positionOffset, _pointerRot);
+                //Debug.Log("started " + started);
             }
             // If the trigger is pressed, and we have a brush stroke, move the brush stroke to the new brush tip position
 
@@ -72,14 +71,21 @@ public class BrushStroke_Netcode : MonoBehaviour
 
             // Add a ribbon segment if the end of the ribbon has moved far enough
             AddRibbonPointIfNeeded();
+            //Debug.Log("started " + started);
+
         }
         else
         {
-            if (!stopped && started)
+            if (!stopped & started) // 
             {
                 EndBrushStrokeWithBrushTipPoint(_pointerPos + positionOffset, _pointerRot);
                 stopped = true;
+                Debug.Log("Stopped the brushstroke!");
             }
+            //else
+            //{
+            //    Debug.Log("stopped: " + stopped + " started " + started);
+            //}
         }
     }
 

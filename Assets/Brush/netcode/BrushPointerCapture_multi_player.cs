@@ -35,12 +35,13 @@ public class BrushPointerCapture_multi_player : BrushPointerCapture
     // Update is called once per frame
     void Update()
     {
-        parentPos = pointerObject.transform.position; //TODO
-        parentRot = pointerObject.transform.rotation; //TODO    }
+        parentPos = pointerObject.transform.position; 
+        parentRot = pointerObject.transform.rotation; 
     }
     private void SignalBrushStroke(bool previous, bool current)
     {
-        Debug.Log("updating the brush to " + current + " "+brushStroke);
+        if (!IsOwner) return;
+        //Debug.Log("updating the brush to " + current + " "+brushStroke);
         brushStroke.active = current;
     }
 }

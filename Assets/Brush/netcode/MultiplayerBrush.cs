@@ -4,6 +4,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 public class MultiplayerBrush : CommonBrush
 {
     public PlayerSettings playerSettings;
@@ -34,6 +35,7 @@ public class MultiplayerBrush : CommonBrush
         if (!IsOwner) return;
         if (GetComponent<PlayerSettings>().isAllowedToDraw.Value)
         {
+            if (brushStrokeGameObject != null) return; //make sure we can't draw simultaneously 
             StartBrushServerRPC();
             isDrawing = true;
         }
@@ -42,20 +44,25 @@ public class MultiplayerBrush : CommonBrush
             Debug.Log("Nope, not allowed to draw boy");
         }
     }
+
     public override void StartBrushRight(InputAction.CallbackContext context)
     {
+        Debug.Log("drawing right");
+
         playerSettings.activeHand = playerSettings.RightHand;
         StartBrushCommon();
     }
 
     public override void StartBrushLeft(InputAction.CallbackContext context)
     {
+        Debug.Log("drawing left");
         playerSettings.activeHand = playerSettings.LeftHand;
         StartBrushCommon();
     }
 
     public override void StopBrush(InputAction.CallbackContext context)
     {
+        if (!IsOwner) return;
         Debug.Log("Stopping the brush");
         if (GetComponent<PlayerSettings>().isAllowedToDraw.Value)
         {
@@ -73,19 +80,22 @@ public class MultiplayerBrush : CommonBrush
         //get some data from the owner
         var senderClientId = serverRpcParams.Receive.SenderClientId;
         var senderPlayerObject = PlayerSettings.Players[senderClientId].NetworkObject;
+
         // put the tracking hand in the stroke
         _activeBrushStroke = brushStrokeGameObject.GetComponent<BrushStroke_Netcode>();
         _activeBrushStroke.pointerObject = senderPlayerObject.GetComponent<PlayerSettings>().activeHand.transform;
-        // add a 
-        brushPointerCapture = brushStrokeGameObject.AddComponent<BrushPointerCapture_multi_player>();
-        // deze lijn wordt op de server uitgevoerd, niet nuttig zo, indien erase nodig, kunnen we deze proberen implementeren
-        //spawnedBrushStrokes.Add(brushStrokeGameObject);  
+
         brushStrokeGameObject.GetComponent<NetworkObject>().Spawn();
-        brushStrokeGameObject.GetComponent<NetworkObject>().ChangeOwnership(senderClientId);
+        
+
+        brushStrokeGameObject.GetComponent<NetworkObject>().ChangeOwnership(senderClientId); //TODO wil ik wel ownership veranderen?
+
+        brushPointerCapture = brushStrokeGameObject.GetComponent<BrushPointerCapture_multi_player>();
         brushPointerCapture.activeBrushMP.Value = true;
 
         UpdateBrushStrokeListClientRpc();
     }
+
 
     [ClientRpc]
     void UpdateBrushStrokeListClientRpc()
@@ -101,5 +111,7 @@ public class MultiplayerBrush : CommonBrush
     private void EndBrushServerRpc()
     {
         brushPointerCapture.activeBrushMP.Value = false;
+        _activeBrushStroke = null;
+        brushStrokeGameObject = null;
     }
 }

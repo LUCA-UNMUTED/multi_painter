@@ -56,7 +56,7 @@ public class SingleplayerBrush : CommonBrush
             isDrawing = true;
 
             brushStrokeGameObject = Instantiate(_brushStrokePrefab);
-            brushStrokeGameObject.AddComponent<BrushPointerCapture_single_player>();
+            //brushStrokeGameObject.AddComponent<BrushPointerCapture_single_player>();
             //Grab the BrushStroke component from it
             _activeBrushStroke = brushStrokeGameObject.GetComponent<BrushStroke_Netcode>();
             _activeBrushStroke.pointerObject = activeHand.transform;

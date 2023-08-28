@@ -4,7 +4,7 @@ using UnityEngine.XR;
 using UnityEngine.InputSystem;
 using Unity.Netcode;
 
-public class BrushNetcode : NetworkBehaviour
+public class BrushNetcode : MonoBehaviour
 {
     // Prefab to instantiate when we draw a new brush stroke
     [SerializeField] private GameObject _brushStrokePrefab = null;
@@ -19,7 +19,7 @@ public class BrushNetcode : NetworkBehaviour
     //// Used to keep track of the current brush tip position and the actively drawing brush stroke
     [SerializeField] private GameObject gameObjectToFollow;
 
-    private BrushStroke _activeBrushStroke;
+    private BrushStroke_Netcode _activeBrushStroke;
 
     public void EnableBrush()
     {
@@ -50,7 +50,7 @@ public class BrushNetcode : NetworkBehaviour
             brushStrokeGameObject.GetComponent<NetworkObject>().Spawn();
 
             //Grab the BrushStroke component from it
-            _activeBrushStroke = brushStrokeGameObject.GetComponent<BrushStroke>();
+            _activeBrushStroke = brushStrokeGameObject.GetComponent<BrushStroke_Netcode>();
 
             // Tell the BrushStroke to begin drawing at the current brush position
             _activeBrushStroke.BeginBrushStrokeWithBrushTipPoint(gameObjectToFollow.transform.position + positionOffset, gameObjectToFollow.transform.rotation);

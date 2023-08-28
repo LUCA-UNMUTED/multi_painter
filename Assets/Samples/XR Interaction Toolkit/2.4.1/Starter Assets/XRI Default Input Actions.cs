@@ -2745,17 +2745,6 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
                 },
                 {
                     ""name"": """",
-                    ""id"": ""6cf11db8-c140-4910-9ed0-d32c2a0470e7"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""BrushRightHand"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""f027f463-5c10-4d82-9bbc-c357de92f362"",
                     ""path"": ""<Keyboard>/b"",
                     ""interactions"": ""Press"",

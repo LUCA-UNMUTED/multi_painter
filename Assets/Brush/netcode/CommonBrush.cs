@@ -33,14 +33,13 @@ public class CommonBrush : NetworkBehaviour
     {
         brushActionLeft = playerInput.Player.BrushLeftHand;
         brushActionLeft.Enable();
-        brushActionLeft.performed += StartBrushLeft;
+        brushActionLeft.started += StartBrushLeft;
         brushActionLeft.canceled += StopBrush;
 
         brushActionRight = playerInput.Player.BrushRightHand;
         brushActionRight.Enable();
-        brushActionRight.performed += StartBrushRight;
+        brushActionRight.started += StartBrushRight;
         brushActionRight.canceled += StopBrush;
-
 
         brushActionKeyboard = playerInput.Player.KeyboardDraw;
         brushActionKeyboard.Enable();
@@ -50,11 +49,11 @@ public class CommonBrush : NetworkBehaviour
     private void OnDisable()
     {
 
-        brushActionLeft.performed -= StartBrushLeft;
+        brushActionLeft.started -= StartBrushLeft;
         brushActionLeft.canceled -= StopBrush;
         brushActionLeft.Disable();
 
-        brushActionRight.performed -= StartBrushRight;
+        brushActionRight.started -= StartBrushRight;
         brushActionRight.canceled -= StopBrush;
         brushActionRight.Disable();
 
