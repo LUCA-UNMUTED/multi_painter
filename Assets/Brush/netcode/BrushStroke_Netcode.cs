@@ -48,6 +48,7 @@ public class BrushStroke_Netcode : MonoBehaviour
     // Unity Events
     private void Update()
     {
+        pointerObject = GetComponent<BrushPointerCapture_multi_player>().pointerObject;
         if (pointerObject == null) return; // as long as we don't have the pointer object set correctly we can't commence drawing
 
         Vector3 _pointerPos = pointerObject.position;

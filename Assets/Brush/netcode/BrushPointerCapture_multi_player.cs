@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
+
+public struct HandPositionStruct : INetworkSerializeByMemcpy
+{
+    public Transform handTransform;
+}
 public class BrushPointerCapture_multi_player : BrushPointerCapture
 {
     public NetworkVariable<bool> activeBrushMP = new(false);
+    public HandPositionStruct handPosition = new();
 
     public Vector3 parentPos;
     public Quaternion parentRot;
@@ -35,6 +41,8 @@ public class BrushPointerCapture_multi_player : BrushPointerCapture
     // Update is called once per frame
     void Update()
     {
+        pointerObject = handPosition.handTransform;
+        if (pointerObject == null) return;
         parentPos = pointerObject.transform.position; 
         parentRot = pointerObject.transform.rotation; 
     }
