@@ -443,6 +443,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: activeHostButton
       objectReference: {fileID: 0}
+    - target: {fileID: 2275337117478685720, guid: 3b98caf0ba6d1da43ac39baeb9deac10, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3548160699246908921, guid: 3b98caf0ba6d1da43ac39baeb9deac10, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1838488306
@@ -547,7 +551,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 2f4fc683b4434204db0c378a06484ccb, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 2f4fc683b4434204db0c378a06484ccb, type: 3}
       propertyPath: m_Materials.Array.data[0]

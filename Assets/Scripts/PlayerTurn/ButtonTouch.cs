@@ -16,7 +16,7 @@ public class ButtonTouch : NetworkBehaviour
         if (!IsOwner) return;
         if (!isEnabled) return;
         Debug.Log("trigger! " + other);
-        if (other.CompareTag("GameController"))
+        if (other.CompareTag("leftHand") || other.CompareTag("rightHand"))
         {
             _collider = other;
             if (touchEvent != null) touchEvent.Invoke();
