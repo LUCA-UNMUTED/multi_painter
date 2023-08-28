@@ -11,6 +11,7 @@ public class SwitchTurnButton : NetworkBehaviour
     [SerializeField] private Color neutral;
     private MeshRenderer _mesh;
 
+    [SerializeField] private bool testSwitch = false;
 
 
     // Start is called before the first frame update
@@ -20,7 +21,14 @@ public class SwitchTurnButton : NetworkBehaviour
         _mesh.material.SetColor("_BaseColor", neutral);
     }
 
-    
+    private void Update()
+    {
+        if (testSwitch)
+        {
+            testSwitch = false;
+            Switch();
+        }
+    }
 
     public void Switch()
     {
