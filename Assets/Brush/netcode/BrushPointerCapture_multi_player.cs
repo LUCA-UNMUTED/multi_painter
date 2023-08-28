@@ -3,12 +3,6 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-
-public struct HandPositionStruct : INetworkSerializeByMemcpy
-{
-    public Transform handTransform;
-}
-
 public enum Hand: byte
 {
     Left, Right
@@ -17,7 +11,6 @@ public enum Hand: byte
 public class BrushPointerCapture_multi_player : BrushPointerCapture
 {
     public NetworkVariable<bool> activeBrushMP = new(false);
-    //public HandPositionStruct handPosition = new();
     public NetworkVariable<Hand> activeHandMP = new(Hand.Left); // which hand is drawing
     public NetworkVariable<ulong> activeHandOwnerId = new(0); // which player is the owner of the hand
     
@@ -45,7 +38,6 @@ public class BrushPointerCapture_multi_player : BrushPointerCapture
     void Update()
     {
         var activePlayer = PlayerSettings.Players[activeHandOwnerId.Value].gameObject;
-        //pointerObject = activePlayer.gameObject.
         pointerObject = activeHandMP.Value == Hand.Left ? activePlayer.GetComponent<PlayerSettings>().LeftHand.transform : activePlayer.GetComponent<PlayerSettings>().RightHand.transform;
 
         if (pointerObject == null) return;
@@ -54,8 +46,6 @@ public class BrushPointerCapture_multi_player : BrushPointerCapture
     }
     private void SignalBrushStroke(bool previous, bool current)
     {
-        //if (!IsOwner) return;
-        //Debug.Log("updating the brush to " + current + " "+brushStroke);
         brushStroke.active = current;
     }
 }

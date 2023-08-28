@@ -82,17 +82,16 @@ public class MultiplayerBrush : CommonBrush
         var senderPlayerObject = PlayerSettings.Players[senderClientId].NetworkObject;
 
         brushPointerCapture = brushStrokeGameObject.GetComponent<BrushPointerCapture_multi_player>();
-        // put the tracking hand in the stroke
-        //_activeBrushStroke = brushStrokeGameObject.GetComponent<BrushStroke_Netcode>();
-        //_activeBrushStroke.pointerObject = senderPlayerObject.GetComponent<PlayerSettings>().activeHand.transform;
 
         brushStrokeGameObject.GetComponent<NetworkObject>().Spawn();
         brushStrokeGameObject.GetComponent<NetworkObject>().ChangeOwnership(senderClientId); //TODO wil ik wel ownership veranderen?
+        // we mogen tekenen
         brushPointerCapture.activeBrushMP.Value = true;
+        // wie is aan het tekenen?
         brushPointerCapture.activeHandOwnerId.Value = senderClientId;
+        // met welk hand tekenen we?
         var activeHand = senderPlayerObject.GetComponent<PlayerSettings>().activeHand.CompareTag("leftHand") ? Hand.Left : Hand.Right;
         brushPointerCapture.activeHandMP.Value = activeHand;
-        //brushPointerCapture.handPosition.handTransform = senderPlayerObject.GetComponent<PlayerSettings>().activeHand.transform;
 
         UpdateBrushStrokeListClientRpc();
     }
