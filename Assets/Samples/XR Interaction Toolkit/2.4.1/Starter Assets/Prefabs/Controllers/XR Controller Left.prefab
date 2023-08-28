@@ -888,6 +888,14 @@ PrefabInstance:
       propertyPath: clockObject
       value: 
       objectReference: {fileID: 5324961150986904109}
+    - target: {fileID: 6370623435759850133, guid: 63196817afb56134b8d3a32713b3b959, type: 3}
+      propertyPath: m_Size.x
+      value: 2.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 6370623435759850133, guid: 63196817afb56134b8d3a32713b3b959, type: 3}
+      propertyPath: m_Size.z
+      value: 3.46
+      objectReference: {fileID: 0}
     - target: {fileID: 7505202762081342408, guid: 63196817afb56134b8d3a32713b3b959, type: 3}
       propertyPath: m_IsKinematic
       value: 1
