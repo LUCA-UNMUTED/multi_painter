@@ -36,7 +36,7 @@ public class BrushStroke_Netcode : MonoBehaviour
     [SerializeField] private bool stopped = false;
     [SerializeField] private Vector3 positionOffset = new(0f, 0f, 0f);
 
-    public Color singleplayerColor = Color.red;
+    public Color _color = Color.red;
     public Transform pointerObject;
 
     private void Awake()
@@ -49,6 +49,7 @@ public class BrushStroke_Netcode : MonoBehaviour
     private void Update()
     {
         pointerObject = GetComponent<BrushPointerCapture>().pointerObject;
+        _color = GetComponent<BrushPointerCapture>()._color;
         if (pointerObject == null) return; // as long as we don't have the pointer object set correctly we can't commence drawing
 
         Vector3 _pointerPos = pointerObject.position;
@@ -96,7 +97,7 @@ public class BrushStroke_Netcode : MonoBehaviour
 
         // adapt the material to our instantiating player
         Material currentMat = GetComponentInChildren<MeshRenderer>().material;
-        currentMat.SetColor("_BaseColor", singleplayerColor);
+        currentMat.SetColor("_BaseColor", _color);
 
         // Update the model
         _brushTipPosition = position;

@@ -9,6 +9,7 @@ public abstract class BrushPointerCapture : NetworkBehaviour
     public Transform pointerObject;
     public Vector3 parentPos;
     public Quaternion parentRot;
+    public Color _color;
 
     public BrushStroke_Netcode brushStroke;
 
