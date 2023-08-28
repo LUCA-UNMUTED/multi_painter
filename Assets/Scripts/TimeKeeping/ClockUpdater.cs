@@ -56,6 +56,10 @@ public class ClockUpdater : NetworkBehaviour, IGazeFocusable
 
     void SetTime()
     {
+        if(playerSettings == null)
+        {
+            playerSettings = this.GetComponentInParent<PlayerSettings>();
+        }
         timePassed = Time.realtimeSinceStartup;
         TimeSpan timeSpan = TimeSpan.FromSeconds(timePassed);
         int minutes = timeSpan.Minutes;
