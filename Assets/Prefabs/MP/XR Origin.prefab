@@ -376,7 +376,7 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
-  _brushStrokePrefab: {fileID: 1196413553089462, guid: 6b542e7f0bce59243addc5d42324a971, type: 3}
+  _brushStrokePrefab: {fileID: 1196413553089462, guid: b79323a8bf19f3144bfc1ab711893aee, type: 3}
   brushStrokeGameObject: {fileID: 0}
   triggerPressed: 0
   spawnedBrushStrokes: []
