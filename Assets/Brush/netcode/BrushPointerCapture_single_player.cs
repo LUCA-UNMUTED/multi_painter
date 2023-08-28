@@ -6,11 +6,7 @@ public class BrushPointerCapture_single_player : BrushPointerCapture
 {
     public bool activeBrush = false;
 
-    public Vector3 parentPos;
-    public Quaternion parentRot;
-    public Transform pointerObject;
 
-    private BrushStroke_Netcode brushStroke;
     public override void CapturePosition()
     {
         throw new System.NotImplementedException();

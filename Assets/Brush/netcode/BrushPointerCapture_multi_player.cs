@@ -8,16 +8,19 @@ public struct HandPositionStruct : INetworkSerializeByMemcpy
 {
     public Transform handTransform;
 }
+
+public enum Hand: byte
+{
+    Left, Right
+}
+
 public class BrushPointerCapture_multi_player : BrushPointerCapture
 {
     public NetworkVariable<bool> activeBrushMP = new(false);
-    public HandPositionStruct handPosition = new();
-
-    public Vector3 parentPos;
-    public Quaternion parentRot;
-    public Transform pointerObject;
-
-    private BrushStroke_Netcode brushStroke;
+    //public HandPositionStruct handPosition = new();
+    public NetworkVariable<Hand> activeHandMP = new(Hand.Left); // which hand is drawing
+    public NetworkVariable<ulong> activeHandOwnerId = new(0); // which player is the owner of the hand
+    
     public override void CapturePosition()
     {
         throw new System.NotImplementedException();
@@ -41,7 +44,10 @@ public class BrushPointerCapture_multi_player : BrushPointerCapture
     // Update is called once per frame
     void Update()
     {
-        pointerObject = handPosition.handTransform;
+        var activePlayer = PlayerSettings.Players[activeHandOwnerId.Value].gameObject;
+        //pointerObject = activePlayer.gameObject.
+        pointerObject = activeHandMP.Value == Hand.Left ? activePlayer.GetComponent<PlayerSettings>().LeftHand.transform : activePlayer.GetComponent<PlayerSettings>().RightHand.transform;
+
         if (pointerObject == null) return;
         parentPos = pointerObject.transform.position; 
         parentRot = pointerObject.transform.rotation; 

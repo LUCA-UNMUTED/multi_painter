@@ -9,7 +9,7 @@ public class MultiplayerBrush : CommonBrush
 {
     public PlayerSettings playerSettings;
     [SerializeField] BrushPointerCapture_multi_player brushPointerCapture; // SINGLE PLAYER OR MULTIPLAYER
-
+    
 
     public override void OnNetworkSpawn()
     {
@@ -89,7 +89,10 @@ public class MultiplayerBrush : CommonBrush
         brushStrokeGameObject.GetComponent<NetworkObject>().Spawn();
         brushStrokeGameObject.GetComponent<NetworkObject>().ChangeOwnership(senderClientId); //TODO wil ik wel ownership veranderen?
         brushPointerCapture.activeBrushMP.Value = true;
-        brushPointerCapture.handPosition.handTransform = senderPlayerObject.GetComponent<PlayerSettings>().activeHand.transform;
+        brushPointerCapture.activeHandOwnerId.Value = senderClientId;
+        var activeHand = senderPlayerObject.GetComponent<PlayerSettings>().activeHand.CompareTag("leftHand") ? Hand.Left : Hand.Right;
+        brushPointerCapture.activeHandMP.Value = activeHand;
+        //brushPointerCapture.handPosition.handTransform = senderPlayerObject.GetComponent<PlayerSettings>().activeHand.transform;
 
         UpdateBrushStrokeListClientRpc();
     }
