@@ -537,7 +537,7 @@ MonoBehaviour:
   m_MaxConnectAttempts: 60
   m_DisconnectTimeoutMS: 30000
   ConnectionData:
-    Address: 192.168.50.125
+    Address: 192.168.50.144
     Port: 7777
     ServerListenAddress: 0.0.0.0
   DebugSimulator:
@@ -2422,7 +2422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3762068562
+  GlobalObjectIdHash: 1443550306
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -3594,7 +3594,7 @@ MonoBehaviour:
   testHost: 0
   testClient: 0
   testTutorial: 0
-  doSkipTutorial: 0
+  doSkipTutorial: 1
   m_SceneState: 0
 --- !u!4 &2112844566
 Transform:
@@ -3623,7 +3623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3034279133
+  GlobalObjectIdHash: 1117277126
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
