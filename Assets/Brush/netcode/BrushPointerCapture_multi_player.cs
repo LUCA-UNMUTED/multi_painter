@@ -56,17 +56,10 @@ public class BrushPointerCapture_multi_player : BrushPointerCapture
     private void SignalBrushStroke(bool previous, bool current)
     {
         brushStroke.active = current;
-        //var activePlayer = PlayerSettings.Players[networkVariables.activeHandOwnerId.Value].gameObject;
-        //pointerObject = networkVariables.activeHandMP.Value == Hand.Left ? activePlayer.GetComponent<PlayerSettings>().LeftHand.transform : activePlayer.GetComponent<PlayerSettings>().RightHand.transform;
-        //_color = activePlayer.GetComponent<PlayerSettings>().PlayerColor;
-        //Debug.Log("active player id " + networkVariables.activeHandOwnerId.Value + " bool going to " + current);
     }
 
     private void UpdatePlayerObject(ulong previousOwner, ulong newOwner)
     {
         Debug.Log("updated the player id from " + previousOwner + " to " + newOwner);
-        //var activePlayer = PlayerSettings.Players[newOwner].gameObject;
-        //pointerObject = activeHandMP.Value == Hand.Left ? activePlayer.GetComponent<PlayerSettings>().LeftHand.transform : activePlayer.GetComponent<PlayerSettings>().RightHand.transform;
-        //_color = activePlayer.GetComponent<PlayerSettings>().PlayerColor;
     }
 }
