@@ -27,7 +27,7 @@ public class NetworkVariables : NetworkBehaviour
 
     public NetworkVariable<bool> activeBrushMP = new(false);
     public NetworkVariable<Hand> activeHandMP = new(Hand.Left); // which hand is drawing
-    public NetworkVariable<ulong> activeHandOwnerId = new(2); // which player is the owner of the hand
+    public NetworkVariable<ulong> activeHandOwnerId = new(0); // which player is the owner of the hand
 
     // Start is called before the first frame update
     void Start()

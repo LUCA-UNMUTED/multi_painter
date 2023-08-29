@@ -276,7 +276,7 @@ MonoBehaviour:
   activeHandMP:
     m_InternalValue: 0
   activeHandOwnerId:
-    m_InternalValue: 2
+    m_InternalValue: 0
 --- !u!4 &358701860
 Transform:
   m_ObjectHideFlags: 0

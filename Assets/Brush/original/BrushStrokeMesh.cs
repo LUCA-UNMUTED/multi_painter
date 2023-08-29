@@ -81,6 +81,7 @@ public class BrushStrokeMesh : MonoBehaviour
 
     public void ClearRibbon()
     {
+        Debug.Log("clearing the ribbon");
         // Clear vertices & normals
         _vertices.Clear();
         _normals.Clear();
@@ -164,5 +165,7 @@ public class BrushStrokeMesh : MonoBehaviour
         _mesh.normals = _normals.ToArray();
         _mesh.triangles = triangles;
         _mesh.RecalculateBounds();
+
+        //Debug.Break();
     }
 }

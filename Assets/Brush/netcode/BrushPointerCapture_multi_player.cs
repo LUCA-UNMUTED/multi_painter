@@ -19,6 +19,7 @@ public class BrushPointerCapture_multi_player : BrushPointerCapture
     // Start is called before the first frame update
     void Start()
     {
+        //Debug.Break();
         pointerObject = GetComponent<BrushStroke_Netcode>().pointerObject;
         if (networkVariables == null)
             networkVariables = NetworkVariables.Instance;
@@ -38,18 +39,27 @@ public class BrushPointerCapture_multi_player : BrushPointerCapture
     void Update()
     {
         if (GetComponent<BrushStroke_Netcode>().stopped) return;
-        var activePlayer = PlayerSettings.Players[networkVariables.activeHandOwnerId.Value].gameObject;
-        pointerObject = networkVariables.activeHandMP.Value == Hand.Left ? activePlayer.GetComponent<PlayerSettings>().LeftHand.transform : activePlayer.GetComponent<PlayerSettings>().RightHand.transform;
-        _color = activePlayer.GetComponent<PlayerSettings>().PlayerColor;
 
-        if (pointerObject == null) return;
-        parentPos = pointerObject.transform.position;
-        parentRot = pointerObject.transform.rotation;
+
+        if (pointerObject == null && networkVariables.activeBrushMP.Value)
+        {
+            var activePlayer = PlayerSettings.Players[networkVariables.activeHandOwnerId.Value].gameObject;
+            pointerObject = networkVariables.activeHandMP.Value == Hand.Left ? activePlayer.GetComponent<PlayerSettings>().LeftHand.transform : activePlayer.GetComponent<PlayerSettings>().RightHand.transform;
+            _color = activePlayer.GetComponent<PlayerSettings>().PlayerColor;
+        }
+        if (pointerObject != null)
+        {
+            parentPos = pointerObject.transform.position;
+            parentRot = pointerObject.transform.rotation;
+        }
     }
     private void SignalBrushStroke(bool previous, bool current)
     {
         brushStroke.active = current;
-        Debug.Log("active player id " + networkVariables.activeHandOwnerId.Value + " bool going to " + current);
+        //var activePlayer = PlayerSettings.Players[networkVariables.activeHandOwnerId.Value].gameObject;
+        //pointerObject = networkVariables.activeHandMP.Value == Hand.Left ? activePlayer.GetComponent<PlayerSettings>().LeftHand.transform : activePlayer.GetComponent<PlayerSettings>().RightHand.transform;
+        //_color = activePlayer.GetComponent<PlayerSettings>().PlayerColor;
+        //Debug.Log("active player id " + networkVariables.activeHandOwnerId.Value + " bool going to " + current);
     }
 
     private void UpdatePlayerObject(ulong previousOwner, ulong newOwner)

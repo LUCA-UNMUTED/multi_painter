@@ -51,7 +51,7 @@ public class BrushStroke_Netcode : MonoBehaviour
         _color = GetComponent<BrushPointerCapture>()._color;
         if (pointerObject == null)
         {
-            Debug.Log(Time.time + " return"); 
+            //Debug.Log(Time.time + " return"); 
             return; // as long as we don't have the pointer object set correctly we can't commence drawing
         }
         Vector3 _pointerPos = pointerObject.position;
@@ -64,7 +64,7 @@ public class BrushStroke_Netcode : MonoBehaviour
             {
 
                 // Tell the BrushStroke to begin drawing at the current brush position
-                Debug.Log("starting position " + _pointerPos + " color "+_color);
+                Debug.Log("starting the mesh, position " + _pointerPos + " color "+_color);
                 BeginBrushStrokeWithBrushTipPoint(_pointerPos, _pointerRot);
                 //Debug.Log("started " + started);
             }
