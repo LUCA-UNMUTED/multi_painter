@@ -17,9 +17,13 @@ public class GrabbableCreator : NetworkBehaviour
 
     [SerializeField] private bool testSpawn = false;
 
-    void Start()
+    public override void OnNetworkSpawn()
     {
-        Generate();
+        if (IsServer || IsHost)
+        {
+            base.OnNetworkSpawn();
+            Generate();
+        }
     }
 
     private void Update()
@@ -40,10 +44,10 @@ public class GrabbableCreator : NetworkBehaviour
                 GameObject go = Instantiate(prefabs[Random.Range(0, prefabs.Length)], Vector3.zero, Quaternion.identity);
                 go.transform.position = new Vector3(Random.Range(placementArea.x, placementArea.y), 5,
                     Random.Range(placementArea.x, placementArea.y));
-
                 float randomSize = Random.Range(prefabSizes.x, prefabSizes.y);
                 go.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
                 go.GetComponent<NetworkObject>().Spawn();
+                go.GetComponent<NetworkObject>().TrySetParent(gameObject.transform);
                 go.GetComponent<Rigidbody>().isKinematic = true;
             }
         }
