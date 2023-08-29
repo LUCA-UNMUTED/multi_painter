@@ -59,6 +59,7 @@ public class BrushStroke_Netcode : MonoBehaviour
             //Debug.Log("position of drawer " + _parentPos);
             if (!started)
             {
+
                 // Tell the BrushStroke to begin drawing at the current brush position
                 //Debug.Log("starting position " + _pointerPos + positionOffset);
                 BeginBrushStrokeWithBrushTipPoint(_pointerPos, _pointerRot);
@@ -93,6 +94,7 @@ public class BrushStroke_Netcode : MonoBehaviour
     // Interface
     public void BeginBrushStrokeWithBrushTipPoint(Vector3 position, Quaternion rotation)
     {
+        _mesh.ClearRibbon(); // make sure we clear the ribbon once we know our starting location
 
         // adapt the material to our instantiating player
         Material currentMat = GetComponentInChildren<MeshRenderer>().material;

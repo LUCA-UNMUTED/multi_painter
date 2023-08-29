@@ -61,8 +61,8 @@ public class MultiplayerBrush : CommonBrush
     {
         if (!IsOwner) return;
         Debug.Log("drawing left");
-        playerSettings.activeHand.Value = Hand.Right;
-        StartBrushCommon(Hand.Right);
+        playerSettings.activeHand.Value = Hand.Left;
+        StartBrushCommon(Hand.Left);
     }
 
     public override void StopBrush(InputAction.CallbackContext context)
