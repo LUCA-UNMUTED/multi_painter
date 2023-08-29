@@ -33,7 +33,7 @@ public class BrushStroke_Netcode : MonoBehaviour
     public bool active = false;
 
     [SerializeField] private bool started = false;
-    [SerializeField] private bool stopped = false;
+    public bool stopped = false;
 
     public Color _color = Color.red;
     public Transform pointerObject;
@@ -49,8 +49,11 @@ public class BrushStroke_Netcode : MonoBehaviour
     {
         pointerObject = GetComponent<BrushPointerCapture>().pointerObject;
         _color = GetComponent<BrushPointerCapture>()._color;
-        if (pointerObject == null) return; // as long as we don't have the pointer object set correctly we can't commence drawing
-
+        if (pointerObject == null)
+        {
+            Debug.Log(Time.time + " return"); 
+            return; // as long as we don't have the pointer object set correctly we can't commence drawing
+        }
         Vector3 _pointerPos = pointerObject.position;
         Quaternion _pointerRot = pointerObject.rotation;
         if (stopped) return;
@@ -61,7 +64,7 @@ public class BrushStroke_Netcode : MonoBehaviour
             {
 
                 // Tell the BrushStroke to begin drawing at the current brush position
-                //Debug.Log("starting position " + _pointerPos + positionOffset);
+                Debug.Log("starting position " + _pointerPos + " color "+_color);
                 BeginBrushStrokeWithBrushTipPoint(_pointerPos, _pointerRot);
                 //Debug.Log("started " + started);
             }

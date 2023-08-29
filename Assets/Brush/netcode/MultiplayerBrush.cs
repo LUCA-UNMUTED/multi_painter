@@ -9,13 +9,13 @@ public class MultiplayerBrush : CommonBrush
 {
     public PlayerSettings playerSettings;
     [SerializeField] BrushPointerCapture_multi_player brushPointerCapture; // SINGLE PLAYER OR MULTIPLAYER
-
+    [SerializeField] private NetworkVariables networkVariables;
 
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
         playerSettings = GetComponent<PlayerSettings>();
-
+        networkVariables = NetworkVariables.Instance;
     }
     public override void ToggleBrushKeyboard(InputAction.CallbackContext context)
     {
@@ -40,6 +40,8 @@ public class MultiplayerBrush : CommonBrush
         {
             if (brushStrokeGameObject != null) return; //make sure we can't draw simultaneously 
             ServerRpcParams serverRpcParams = new();
+            Transform pos = GetComponent<PlayerSettings>().activeHand.Value == Hand.Left ? GetComponent<PlayerSettings>().LeftHand.transform : GetComponent<PlayerSettings>().RightHand.transform;
+            Debug.Log("starting pos brush is " + pos);
             StartBrushServerRPC(_hand, serverRpcParams);
             isDrawing = true;
         }
@@ -62,6 +64,7 @@ public class MultiplayerBrush : CommonBrush
         if (!IsOwner) return;
         Debug.Log("drawing left");
         playerSettings.activeHand.Value = Hand.Left;
+
         StartBrushCommon(Hand.Left);
     }
 
@@ -80,10 +83,15 @@ public class MultiplayerBrush : CommonBrush
     [ServerRpc]
     private void StartBrushServerRPC(Hand _hand, ServerRpcParams serverRpcParams = default)
     {
+        // first prepare for drawing
+        var senderClientId = serverRpcParams.Receive.SenderClientId;
+        networkVariables.activeHandOwnerId.Value = senderClientId; // set the client ID to the owner of this script
+        networkVariables.activeHandMP.Value = _hand;
+
+        //then instantiate the brush
         //instantiate the stroke
         brushStrokeGameObject = Instantiate(_brushStrokePrefab, Vector3.zero, Quaternion.identity);
         //get some data from the owner
-        var senderClientId = serverRpcParams.Receive.SenderClientId;
         Debug.Log("drawing with " + _hand + " client id "+ senderClientId);// senderPlayerObject.GetComponent<PlayerSettings>().activeHand.Value);
 
         var senderPlayerObject = PlayerSettings.Players[senderClientId].gameObject;
@@ -93,15 +101,18 @@ public class MultiplayerBrush : CommonBrush
         brushStrokeGameObject.GetComponent<NetworkObject>().Spawn();
         brushStrokeGameObject.GetComponent<NetworkObject>().ChangeOwnership(senderClientId); //TODO wil ik wel ownership veranderen?
 
-        // wie is aan het tekenen?
-        brushPointerCapture.activeHandOwnerId.Value = senderClientId;
-        // met welk hand tekenen we?
-       
-        brushPointerCapture.activeHandMP.Value = _hand;// senderPlayerObject.GetComponent<PlayerSettings>().activeHand.Value;
-        // we mogen tekenen
-        brushPointerCapture.activeBrushMP.Value = true;
+        networkVariables.activeBrushMP.Value = true;
 
-        UpdateBrushStrokeListClientRpc();
+
+        //// wie is aan het tekenen?
+        //brushPointerCapture.activeHandOwnerId.Value = senderClientId;
+        //// met welk hand tekenen we?
+
+        //brushPointerCapture.activeHandMP.Value = _hand;// senderPlayerObject.GetComponent<PlayerSettings>().activeHand.Value;
+        //// we mogen tekenen
+        //brushPointerCapture.activeBrushMP.Value = true;
+
+        //UpdateBrushStrokeListClientRpc();
     }
 
 
@@ -118,7 +129,9 @@ public class MultiplayerBrush : CommonBrush
     [ServerRpc]
     private void EndBrushServerRpc()
     {
-        brushPointerCapture.activeBrushMP.Value = false;
+        //brushPointerCapture.activeBrushMP.Value = false;
+        networkVariables.activeBrushMP.Value = false;
+
         _activeBrushStroke = null;
         brushStrokeGameObject = null;
     }
