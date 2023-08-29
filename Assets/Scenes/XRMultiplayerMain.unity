@@ -123,6 +123,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &14588784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 14588785}
+  m_Layer: 0
+  m_Name: GrabbableContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &14588785
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 14588784}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.458231, y: 0.34635866, z: 0.40703964}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &15621872
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +179,7 @@ Transform:
   m_GameObject: {fileID: 15621872}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.44892266, z: -0, w: 0.8935706}
-  m_LocalPosition: {x: -6.850156, y: 4.24, z: 4.26}
+  m_LocalPosition: {x: -6.850156, y: 5.84, z: 4.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -167,6 +198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 356590208}
   - component: {fileID: 356590207}
+  - component: {fileID: 356590209}
   m_Layer: 0
   m_Name: NetworkStartup
   m_TagString: Untagged
@@ -201,6 +233,14 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &356590209
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356590206}
+  m_Enabled: 1
 --- !u!1001 &406408975
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -717,7 +757,7 @@ GameObject:
   - component: {fileID: 1653590062}
   - component: {fileID: 1653590061}
   m_Layer: 0
-  m_Name: XR Interaction Manager (1)
+  m_Name: XR Interaction Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1351,15 +1391,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3090982184708390452, guid: 461b88c4c6cf9364d817481537e5900e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3090982184708390452, guid: 461b88c4c6cf9364d817481537e5900e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3090982184708390452, guid: 461b88c4c6cf9364d817481537e5900e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3090982184708390452, guid: 461b88c4c6cf9364d817481537e5900e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1373,9 +1413,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3566815580689771738, guid: 461b88c4c6cf9364d817481537e5900e, type: 3}
+      propertyPath: grabbableContainer
+      value: 
+      objectReference: {fileID: 14588784}
     - target: {fileID: 4217567414170539023, guid: 461b88c4c6cf9364d817481537e5900e, type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2476043662
+      value: 3388350671
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1653,7 +1697,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8023729715246749757}
   m_Layer: 0
-  m_Name: scene1_static_park (1)
+  m_Name: scene1_static_park
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1831,7 +1875,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 705507995}
   - {fileID: 356590208}
-  - {fileID: 2878318692972238644}
   - {fileID: 1507252757}
   - {fileID: 15621873}
   - {fileID: 1811425533}
@@ -1840,3 +1883,5 @@ SceneRoots:
   - {fileID: 1081225436}
   - {fileID: 8023729715246749757}
   - {fileID: 2126660400}
+  - {fileID: 2878318692972238644}
+  - {fileID: 14588785}
