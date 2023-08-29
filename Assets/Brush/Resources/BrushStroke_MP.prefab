@@ -50,7 +50,7 @@ MonoBehaviour:
   GlobalObjectIdHash: 951099334
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
+  ActiveSceneSynchronization: 1
   SceneMigrationSynchronization: 1
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
@@ -71,8 +71,7 @@ MonoBehaviour:
   active: 0
   started: 0
   stopped: 0
-  positionOffset: {x: 0, y: 0, z: 0}
-  singleplayerColor: {r: 1, g: 0, b: 0, a: 1}
+  _color: {r: 1, g: 0, b: 0, a: 1}
   pointerObject: {fileID: 0}
 --- !u!114 &8319696458542462079
 MonoBehaviour:
@@ -86,11 +85,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3e2d52d09d17b94ea3c36e7c66aa775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeBrushMP:
-    m_InternalValue: 0
+  pointerObject: {fileID: 0}
   parentPos: {x: 0, y: 0, z: 0}
   parentRot: {x: 0, y: 0, z: 0, w: 0}
-  pointerObject: {fileID: 0}
+  _color: {r: 0, g: 0, b: 0, a: 0}
+  brushStroke: {fileID: 0}
+  activeBrushMP:
+    m_InternalValue: 0
+  activeHandMP:
+    m_InternalValue: 0
+  activeHandOwnerId:
+    m_InternalValue: 0
 --- !u!1 &3878359401886194411
 GameObject:
   m_ObjectHideFlags: 0

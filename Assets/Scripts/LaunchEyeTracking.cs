@@ -22,6 +22,7 @@ public class LaunchEyeTracking : NetworkBehaviour
         {
             // launch the XR settings for this player
             var settings = new TobiiXR_Settings();
+            settings.LayerMask = LayerMask.GetMask("eyetracking");
             TobiiXR.Start(settings);
             eyeTrackingStarted = true;
             Debug.Log("eyetracking started");

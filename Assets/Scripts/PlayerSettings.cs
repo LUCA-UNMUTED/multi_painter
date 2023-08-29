@@ -10,7 +10,10 @@ public enum PlayerRole : byte
     Instructor,
     Patient
 }
-
+public enum Hand : byte
+{
+    Left = 0, Right = 1
+}
 public class PlayerSettings : NetworkBehaviour
 {
     [SerializeField] private MeshRenderer bodyMeshRenderer;
@@ -23,7 +26,7 @@ public class PlayerSettings : NetworkBehaviour
 
     public NetworkVariable<bool> isAllowedToDraw = new(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     public NetworkVariable<PlayerRole> isHostPlayer = new(PlayerRole.Patient, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
-
+    public NetworkVariable<Hand> activeHand = new(Hand.Right, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public bool playerSettingsSet = false;
 
     public static Dictionary<ulong, PlayerSettings> Players = new Dictionary<ulong, PlayerSettings>();//todo is this necessary
@@ -31,8 +34,9 @@ public class PlayerSettings : NetworkBehaviour
     public GameObject LeftHand;
     public GameObject RightHand;
 
-    public GameObject activeHand;
+    //public Hand activeHand;
 
+    [SerializeField] private bool testSwitchHands = false;
 
     public override void OnNetworkSpawn()
     {
@@ -43,9 +47,6 @@ public class PlayerSettings : NetworkBehaviour
         networkPlayerName.Value = "Player:" + (OwnerClientId + 1);
         playerName.text = networkPlayerName.Value.ToString();
         gameObject.name = networkPlayerName.Value.ToString(); // in Unity editor more clearly
-        activeHand = LeftHand; // startersSettings
-
-
 
         if (IsServer || IsHost) // TODO rewrite with serverRPC
         {
@@ -54,12 +55,14 @@ public class PlayerSettings : NetworkBehaviour
             {
                 isAllowedToDraw.Value = true;
                 isHostPlayer.Value = PlayerRole.Instructor;
-               
+                //activeHand.Value = Hand.Left; // startersSettings
+
             }
             else
             {
                 isAllowedToDraw.Value = false;
                 isHostPlayer.Value = PlayerRole.Patient;
+                //activeHand.Value = Hand.Left; // startersSettings
             }
             playerSettingsSet = true;
         }
@@ -68,6 +71,18 @@ public class PlayerSettings : NetworkBehaviour
     private void Update()
     {
         if (!IsOwner) return;
+        if (testSwitchHands)
+        {
+            testSwitchHands = false;
+            if (activeHand.Value == Hand.Left)
+            {
+                activeHand.Value = Hand.Right;
+            }
+            if (activeHand.Value == Hand.Right)
+            {
+                activeHand.Value = Hand.Left;
+            }
+        }
         if (isAllowedToDraw.Value)
         {
             SetEyes(Color.green);
@@ -84,6 +99,18 @@ public class PlayerSettings : NetworkBehaviour
         foreach (MeshRenderer eye in eyesMeshRenderer)
         {
             eye.material.SetColor("_BaseColor", color);
+        }
+    }
+    [ServerRpc] 
+    private void SwitchHandsServerRpc()
+    {
+        if(activeHand.Value == Hand.Left)
+        {
+            activeHand.Value = Hand.Right;
+        }
+        if(activeHand.Value == Hand.Right)
+        {
+            activeHand.Value = Hand.Left;
         }
     }
 }

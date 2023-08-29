@@ -9,7 +9,7 @@ public class MultiplayerBrush : CommonBrush
 {
     public PlayerSettings playerSettings;
     [SerializeField] BrushPointerCapture_multi_player brushPointerCapture; // SINGLE PLAYER OR MULTIPLAYER
-    
+
 
     public override void OnNetworkSpawn()
     {
@@ -19,24 +19,28 @@ public class MultiplayerBrush : CommonBrush
     }
     public override void ToggleBrushKeyboard(InputAction.CallbackContext context)
     {
+        if (!IsOwner) return;
         triggerPressed = !triggerPressed;
         if (triggerPressed)
         {
-            StartBrushCommon();
+            Hand _hand = (Hand)Random.Range(0, 2);
+            Debug.Log("keyboard hand " + _hand);
+            playerSettings.activeHand.Value = _hand;
+            StartBrushCommon(_hand);
         }
         else
         {
             StopBrush(context);
         }
     }
-    private void StartBrushCommon()
+    private void StartBrushCommon(Hand _hand)
     {
         //Debug.Log("StartBrush");
-        if (!IsOwner) return;
         if (GetComponent<PlayerSettings>().isAllowedToDraw.Value)
         {
             if (brushStrokeGameObject != null) return; //make sure we can't draw simultaneously 
-            StartBrushServerRPC();
+            ServerRpcParams serverRpcParams = new();
+            StartBrushServerRPC(_hand, serverRpcParams);
             isDrawing = true;
         }
         else
@@ -47,17 +51,18 @@ public class MultiplayerBrush : CommonBrush
 
     public override void StartBrushRight(InputAction.CallbackContext context)
     {
-        //Debug.Log("drawing right");
-
-        playerSettings.activeHand = playerSettings.RightHand;
-        StartBrushCommon();
+        if (!IsOwner) return;
+        Debug.Log("drawing right");
+        playerSettings.activeHand.Value = Hand.Right;
+        StartBrushCommon(Hand.Right);
     }
 
     public override void StartBrushLeft(InputAction.CallbackContext context)
     {
-        //Debug.Log("drawing left");
-        playerSettings.activeHand = playerSettings.LeftHand;
-        StartBrushCommon();
+        if (!IsOwner) return;
+        Debug.Log("drawing left");
+        playerSettings.activeHand.Value = Hand.Right;
+        StartBrushCommon(Hand.Right);
     }
 
     public override void StopBrush(InputAction.CallbackContext context)
@@ -73,24 +78,26 @@ public class MultiplayerBrush : CommonBrush
 
 
     [ServerRpc]
-    private void StartBrushServerRPC(ServerRpcParams serverRpcParams = default)
+    private void StartBrushServerRPC(Hand _hand, ServerRpcParams serverRpcParams = default)
     {
         //instantiate the stroke
         brushStrokeGameObject = Instantiate(_brushStrokePrefab, Vector3.zero, Quaternion.identity);
         //get some data from the owner
         var senderClientId = serverRpcParams.Receive.SenderClientId;
-        var senderPlayerObject = PlayerSettings.Players[senderClientId].NetworkObject;
+        Debug.Log("drawing with " + _hand + " client id "+ senderClientId);// senderPlayerObject.GetComponent<PlayerSettings>().activeHand.Value);
+
+        var senderPlayerObject = PlayerSettings.Players[senderClientId].gameObject;
 
         brushPointerCapture = brushStrokeGameObject.GetComponent<BrushPointerCapture_multi_player>();
 
         brushStrokeGameObject.GetComponent<NetworkObject>().Spawn();
         brushStrokeGameObject.GetComponent<NetworkObject>().ChangeOwnership(senderClientId); //TODO wil ik wel ownership veranderen?
-        
+
         // wie is aan het tekenen?
         brushPointerCapture.activeHandOwnerId.Value = senderClientId;
         // met welk hand tekenen we?
-        var activeHand = senderPlayerObject.GetComponent<PlayerSettings>().activeHand.CompareTag("leftHand") ? Hand.Left : Hand.Right;
-        brushPointerCapture.activeHandMP.Value = activeHand;
+       
+        brushPointerCapture.activeHandMP.Value = _hand;// senderPlayerObject.GetComponent<PlayerSettings>().activeHand.Value;
         // we mogen tekenen
         brushPointerCapture.activeBrushMP.Value = true;
 
