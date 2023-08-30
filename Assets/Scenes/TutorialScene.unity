@@ -135,6 +135,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tutorial
       objectReference: {fileID: 0}
+    - target: {fileID: 6262549514309494624, guid: db9a8d072d72f074483776b4b64af09f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.015673
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262549514309494624, guid: db9a8d072d72f074483776b4b64af09f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.015673
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262549514309494624, guid: db9a8d072d72f074483776b4b64af09f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.015673
+      objectReference: {fileID: 0}
     - target: {fileID: 8930957453028021710, guid: db9a8d072d72f074483776b4b64af09f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
