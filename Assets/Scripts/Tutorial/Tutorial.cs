@@ -26,7 +26,8 @@ public class Tutorial : MonoBehaviour
 
     [Header("debug")]
     [SerializeField] private bool testStart = false;
-    // Start is called before the first frame update
+    
+
     void Start()
     {
         _startingLocation = transform.position;
@@ -73,6 +74,10 @@ public class Tutorial : MonoBehaviour
         //Hashtable ht = iTween.Hash("position", _relMoveToLocation, "islocal", true, "time", 1.0f, "easetype", "easeInOutExpo", "oncomplete", "EnableNextTouchPoint");
         //// I prefer using moveto instead of moveby, to avoid double jumping if called twice.
         //iTween.MoveTo(gameObject, ht);
+
+
+        //canvas disabelen
+        // knoppen uitzetten
         EnableNextTouchPoint();
     }
 
