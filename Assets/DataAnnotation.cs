@@ -5,6 +5,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(AudioSource))]
 public class DataAnnotation : NetworkBehaviour
 {
     [Header("input")]
@@ -17,6 +18,10 @@ public class DataAnnotation : NetworkBehaviour
 
     [Header("data annotation")]
     private DataAnnotationEvent dataAnnotation;
+
+    [Header("feedback")]
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private ParticleSystem particle;
 
     private void Awake()
     {
@@ -54,6 +59,8 @@ public class DataAnnotation : NetworkBehaviour
         Debug.Log("M");
         if (IsOwner && IsHost)
         {
+            _audioSource.Play();
+            particle.Play();
             ws.SendWSMessage(dataAnnotation.SaveToString());
             lsl.SendMarker(Marker.start_change);
         }

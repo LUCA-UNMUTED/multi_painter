@@ -27,7 +27,7 @@ public class MovementTracking : NetworkBehaviour
     void FixedUpdate()
     {
         if (!IsOwner) return;
-
+        if (!readyToTransmitData) return;
         movementEvent.headPos = head.transform.position;
         movementEvent.leftHandPos = leftHand.transform.position;
         movementEvent.rightHandPos = rightHand.transform.position;
