@@ -50,7 +50,7 @@ public class MovementTracking : NetworkBehaviour
 public class MovementEvent
 {
     public float _time;
-    public string websocketMessage = "movement";
+    public string msg = "movement";
     public string ownerName;
     public Vector3 leftHandPos;
     public Vector3 rightHandPos;

@@ -2443,6 +2443,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "AnnotateData",
+                    "type": "Button",
+                    "id": "65c6334e-a792-408f-96c0-c307aba53b67",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -2729,6 +2738,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "KeyboardDraw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d261477d-26ca-40b6-8f10-1a7d6052ccd0",
+                    "path": "<Keyboard>/m",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AnnotateData",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5855632f-6cab-4ea3-9bbb-02e7f77c78f8",
+                    "path": "<PXR_Controller>{RightHand}/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "AnnotateData",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
