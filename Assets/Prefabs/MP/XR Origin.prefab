@@ -331,6 +331,7 @@ GameObject:
   - component: {fileID: 3486430871981629959}
   - component: {fileID: -333028516050936203}
   - component: {fileID: 2799912086034349360}
+  - component: {fileID: 4633267679305356413}
   m_Layer: 0
   m_Name: XR Origin
   m_TagString: Untagged
@@ -632,7 +633,8 @@ MonoBehaviour:
   eyesMeshRenderer:
   - {fileID: 1454600774899979185}
   - {fileID: 1454600774752007980}
-  playerName: {fileID: 8722538279827889978}
+  playerName: 
+  playerNameTextMesh: {fileID: 8722538279827889978}
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
   colors:
   - {r: 1, g: 0.088679194, b: 0.088679194, a: 0}
@@ -642,10 +644,12 @@ MonoBehaviour:
     m_InternalValue: 0
   isHostPlayer:
     m_InternalValue: 1
+  activeHand:
+    m_InternalValue: 1
   playerSettingsSet: 0
   LeftHand: {fileID: 1857868807005118633}
   RightHand: {fileID: 2527164686536858593}
-  activeHand: {fileID: 0}
+  testSwitchHands: 0
 --- !u!114 &-333028516050936203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -693,6 +697,7 @@ MonoBehaviour:
   isDrawing: 0
   playerSettings: {fileID: 3486430871981629959}
   brushPointerCapture: {fileID: 0}
+  networkVariables: {fileID: 0}
 --- !u!114 &2799912086034349360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -705,6 +710,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cb336e28f205d540b336e62de05645f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4633267679305356413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619944250663454456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ceae3c242dc6c7419d762f2c04e6366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftHand: {fileID: 1857868807005118633}
+  rightHand: {fileID: 2527164686536858593}
+  head: {fileID: 1719098344026879850}
 --- !u!1 &1719098344026879850
 GameObject:
   m_ObjectHideFlags: 0
@@ -2793,7 +2813,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8062284658693280735}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &7686008023774939933
 MonoBehaviour:
   m_ObjectHideFlags: 0
