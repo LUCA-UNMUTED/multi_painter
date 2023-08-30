@@ -30,11 +30,9 @@ public class WsClient : MonoBehaviour
     private float timeoutTimer = 0.0f;
     [SerializeField] private string ip = "localhost";
     [SerializeField] private string port = "8080";
-    //[SerializeField] private Ws_to_debug wsToDebug;
-    public PlayerVals playerVals;
+
 
     [System.Serializable] public class WsEvent : UnityEvent<string> { }
-    //public WsEvent wsMsgReceived;
     public UnityEvent wsMsgReceived;
     public class WSHelloworld
     {
@@ -156,26 +154,13 @@ public class WsClient : MonoBehaviour
 
 
 }
-[Serializable]
-public class PlayerVals
-{
-    public string name;
-    public int height;
-    public string gender;
-    public int contingency;
-    public int trial_block;
-    public bool valuesSet = false;
-    public string SaveToString()
-    {
-        return JsonUtility.ToJson(this);
-    }
-}
+
 
 [Serializable]
 public class WebsocketMessage
 {
     public string type;
     public string data;
-    public PlayerVals playerValues;
+    //public PlayerVals playerValues;
     //TODO
 }

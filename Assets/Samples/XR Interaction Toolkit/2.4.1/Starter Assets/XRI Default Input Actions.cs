@@ -2465,6 +2465,15 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AnnotateData"",
+                    ""type"": ""Button"",
+                    ""id"": ""65c6334e-a792-408f-96c0-c307aba53b67"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -2753,6 +2762,28 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
                     ""action"": ""KeyboardDraw"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d261477d-26ca-40b6-8f10-1a7d6052ccd0"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AnnotateData"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5855632f-6cab-4ea3-9bbb-02e7f77c78f8"",
+                    ""path"": ""<PXR_Controller>{RightHand}/primaryButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Generic XR Controller"",
+                    ""action"": ""AnnotateData"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -2926,6 +2957,7 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
         m_Player_BrushLeftHand = m_Player.FindAction("BrushLeftHand", throwIfNotFound: true);
         m_Player_BrushRightHand = m_Player.FindAction("BrushRightHand", throwIfNotFound: true);
         m_Player_KeyboardDraw = m_Player.FindAction("KeyboardDraw", throwIfNotFound: true);
+        m_Player_AnnotateData = m_Player.FindAction("AnnotateData", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -4028,6 +4060,7 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
     private readonly InputAction m_Player_BrushLeftHand;
     private readonly InputAction m_Player_BrushRightHand;
     private readonly InputAction m_Player_KeyboardDraw;
+    private readonly InputAction m_Player_AnnotateData;
     public struct PlayerActions
     {
         private @XRIDefaultInputActions m_Wrapper;
@@ -4039,6 +4072,7 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
         public InputAction @BrushLeftHand => m_Wrapper.m_Player_BrushLeftHand;
         public InputAction @BrushRightHand => m_Wrapper.m_Player_BrushRightHand;
         public InputAction @KeyboardDraw => m_Wrapper.m_Player_KeyboardDraw;
+        public InputAction @AnnotateData => m_Wrapper.m_Player_AnnotateData;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -4069,6 +4103,9 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
             @KeyboardDraw.started += instance.OnKeyboardDraw;
             @KeyboardDraw.performed += instance.OnKeyboardDraw;
             @KeyboardDraw.canceled += instance.OnKeyboardDraw;
+            @AnnotateData.started += instance.OnAnnotateData;
+            @AnnotateData.performed += instance.OnAnnotateData;
+            @AnnotateData.canceled += instance.OnAnnotateData;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -4094,6 +4131,9 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
             @KeyboardDraw.started -= instance.OnKeyboardDraw;
             @KeyboardDraw.performed -= instance.OnKeyboardDraw;
             @KeyboardDraw.canceled -= instance.OnKeyboardDraw;
+            @AnnotateData.started -= instance.OnAnnotateData;
+            @AnnotateData.performed -= instance.OnAnnotateData;
+            @AnnotateData.canceled -= instance.OnAnnotateData;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -4257,5 +4297,6 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
         void OnBrushLeftHand(InputAction.CallbackContext context);
         void OnBrushRightHand(InputAction.CallbackContext context);
         void OnKeyboardDraw(InputAction.CallbackContext context);
+        void OnAnnotateData(InputAction.CallbackContext context);
     }
 }

@@ -18,7 +18,8 @@ public class PlayerSettings : NetworkBehaviour
 {
     [SerializeField] private MeshRenderer bodyMeshRenderer;
     [SerializeField] private List<MeshRenderer> eyesMeshRenderer;
-    [SerializeField] private TextMeshProUGUI playerName;
+    public string playerName;
+    [SerializeField] private TextMeshProUGUI playerNameTextMesh;
     private NetworkVariable<FixedString128Bytes> networkPlayerName = new("Player: 0", NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
     public Color PlayerColor;
@@ -45,7 +46,8 @@ public class PlayerSettings : NetworkBehaviour
         Players[OwnerClientId] = this;
         bodyMeshRenderer.material.color = PlayerColor;
         networkPlayerName.Value = "Player:" + (OwnerClientId + 1);
-        playerName.text = networkPlayerName.Value.ToString();
+        playerNameTextMesh.text = networkPlayerName.Value.ToString();
+        playerName = networkPlayerName.Value.ToString();
         gameObject.name = networkPlayerName.Value.ToString(); // in Unity editor more clearly
 
         if (IsServer || IsHost) // TODO rewrite with serverRPC
