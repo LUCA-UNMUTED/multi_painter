@@ -1,3 +1,6 @@
+
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.Netcode;
@@ -32,6 +35,11 @@ public class SceneTransitionHandler : Singleton<SceneTransitionHandler>
     [SerializeField] private bool doSkipTutorial = false;
     public bool InitializeAsHost { get; set; }
 
+    [Header("Button to disable to avoid double click")]
+    public GameObject clientbuttonDisable;//geen kans op 2x klikken;
+    public GameObject CanvasToHide;
+
+    public Vector3 canvasMoveLocation;
     private void Update()
     {
         // for testing only
@@ -173,8 +181,17 @@ public class SceneTransitionHandler : Singleton<SceneTransitionHandler>
         {
             if (!doSkipTutorial)
             {
+
                 Debug.Log("Loading " + TutorialScene);
                 SceneManager.LoadScene(TutorialScene, LoadSceneMode.Additive);
+                clientbuttonDisable.SetActive(false);
+                CanvasToHide = GameObject.FindGameObjectWithTag("StartMenu");
+
+                canvasMoveLocation = CanvasToHide.transform.position + new Vector3(0, 100, 0);
+                StartCoroutine(LerpPosition(canvasMoveLocation, 5));
+
+
+                //disable button
             }
             else
             {
@@ -182,5 +199,17 @@ public class SceneTransitionHandler : Singleton<SceneTransitionHandler>
                 SceneManager.LoadScene(MultiplayerMainScene);
             }
         }
+    }
+    IEnumerator LerpPosition(Vector3 targetPosition, float duration)
+    {
+        float time = 0;
+        Vector3 startPosition = CanvasToHide.transform.position;
+        while (time < duration)
+        {
+            CanvasToHide.transform.position = Vector3.Lerp(startPosition, targetPosition, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        CanvasToHide.transform.position = targetPosition;
     }
 }

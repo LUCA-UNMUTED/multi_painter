@@ -9,6 +9,7 @@ TagManager:
   - rightHand
   - Cube
   - Clock
+  - StartMenu
   layers:
   - Default
   - TransparentFX

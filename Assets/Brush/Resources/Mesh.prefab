@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95a97ac0f8566e846b7089b6fc649052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _brushStrokeWidth: 0.1
+  _brushStrokeWidth: 0.07
   _mesh: {fileID: 0}
   _vertices: []
 --- !u!114 &8518502869763747984
