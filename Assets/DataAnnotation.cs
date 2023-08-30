@@ -60,6 +60,12 @@ public class DataAnnotation : NetworkBehaviour
         if (IsOwner && IsHost)
         {
             _audioSource.Play();
+
+            var sh = particle.shape;
+            sh.enabled = true;
+            sh.shapeType = ParticleSystemShapeType.MeshRenderer;
+            sh.meshRenderer = GetComponent<PlayerSettings>().RightHand.GetComponent<MeshRenderer>(); 
+
             particle.Play();
             ws.SendWSMessage(dataAnnotation.SaveToString());
             lsl.SendMarker(Marker.start_change);
