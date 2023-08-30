@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 7553443220622820092}
   - component: {fileID: 2497401904133488005}
   - component: {fileID: 4369682631140558841}
-  - component: {fileID: 8427359231505980188}
+  - component: {fileID: 7531522972155771126}
   m_Layer: 0
   m_Name: Top
   m_TagString: Untagged
@@ -239,7 +239,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -274,7 +274,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8427359231505980188
+--- !u!114 &7531522972155771126
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -283,7 +283,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3048742918105575065}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6b3ff64015f94d4b86c27f4d834a291, type: 3}
+  m_Script: {fileID: 11500000, guid: bf304e83b59f00b4fb230afcb2b5afd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 0}
